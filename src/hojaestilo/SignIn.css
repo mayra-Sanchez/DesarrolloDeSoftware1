@@ -1,0 +1,17 @@
+.Sign-logo {
+    width: 20vmin;
+    height: 30vmin;
+    pointer-events: none;
+  }
+  
+  
+  body{
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Hind Siliguri';
+    font-style: normal;
+    font-weight: 300;
+    line-height: 24px;
+  }
+  
