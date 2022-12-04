@@ -25,6 +25,9 @@ const Home = () => {
         <Link to="/Admin" className="btn btn-outline-dark btn-lg">
           Admin
         </Link>
+        <Link to="/Gerente" className="btn btn-outline-dark btn-lg">
+          Gerente
+        </Link>
       </div>
     </div>
   );
