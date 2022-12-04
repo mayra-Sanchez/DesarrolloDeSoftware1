@@ -1,0 +1,47 @@
+
+.contenedor-admin{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    height: 70vmin;
+    width: 50vmin;
+    border-radius: 4vmin;
+    /*background-color: aliceblue;*/
+    margin-top: 5vmin;
+    
+  }
+
+.Admin-header{
+    align-self: flex-start;
+    background-color: black;
+    height: 10vmin;
+}
+  
+  .app-logo {
+    width: 10vmin;
+    height: 8vmin;
+  }
+
+
+.contenedor-admin h1{
+    height: 50vmin;
+    width: 30vmin;
+    flex-wrap: wrap;
+  }
+  
+.contenedor-admin h2{
+    align-self: flex-start;
+    height: 5vmin;
+    width: 40vmin;
+    margin-top: 3vmin;
+    flex-wrap: wrap;
+  }
+  
+  .admin-logo{
+    width: 20vmin;
+    height: 30vmin;
+    flex-wrap: wrap;
+  }
+
+
