@@ -28,6 +28,9 @@ const Home = () => {
         <Link to="/Gerente" className="btn btn-outline-dark btn-lg">
           Gerente
         </Link>
+        <Link to="/Operador" className="btn btn-outline-dark btn-lg">
+          Operador
+        </Link>
       </div>
     </div>
   );
