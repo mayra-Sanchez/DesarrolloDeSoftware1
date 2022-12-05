@@ -31,6 +31,9 @@ const Home = () => {
         <Link to="/Operador" className="btn btn-outline-dark btn-lg">
           Operador
         </Link>
+        <Link to="/Cliente" className="btn btn-outline-dark btn-lg">
+          Cliente
+        </Link>
       </div>
     </div>
   );

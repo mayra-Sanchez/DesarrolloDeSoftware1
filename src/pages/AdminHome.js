@@ -22,7 +22,7 @@ const AdminHome = () => {
           Gestionar usuarios
         </Link>
         <Link
-          to="/Admin/Condiguracion-sistema"
+          to="/Admin/Configuracion-sistema"
           className="btn btn-outline-dark btn-lg btn-primary btn-block mb-3"
         >
           Configurar el sistema
