@@ -1,0 +1,32 @@
+.contenedor-botones{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    max-height: 70vmin;
+    max-width: 50vmin;
+    margin: 0 auto;
+    margin-top: 20vmin;
+    border-radius: 2vmin;
+}
+
+.Admin-header{
+    background-color: black;
+    height: 10vmin;
+}
+
+.boton{
+    height: 20vmin;
+}
+
+.boton1{
+    height: 10vmin;
+}
+
+.boton2{
+    height: 10vmin;
+}
+
+.boton3{
+    height: 10vmin;
+}
