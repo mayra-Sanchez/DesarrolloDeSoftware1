@@ -12,7 +12,7 @@ export function ContenedorGerente(props){
                 to="/Gerente/Buscador-de-clientes"
                 className="btn btn-outline-dark btn-lg  mb-3"
             >
-                uscador de clientes
+                Buscador de clientes
             </Link>
 
             <Link to="/Gerente/Consultar-reportes" className="btn btn-outline-dark btn-lg  mb-3">
