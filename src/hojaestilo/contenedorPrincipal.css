@@ -6,8 +6,10 @@
     max-height: 70vmin;
     max-width: 50vmin;
     border-radius: 4vmin;
+    background-color: #fff;
+    box-shadow: 0 3px 13px 1px rgb(75, 99, 119);
     margin: 0 auto;
-    margin-top: 5vmin; 
+    margin-top: 20vmin; 
 }
 
 .admin-logo{
@@ -15,19 +17,12 @@
     height: 25vmin;
 }
 
-.texto1-admin{
+.texto1_Admin{
     width: 30vmin;
-    font-family: fantasy;
-    font-size: large;
-    font-size: 30px;
-    text-shadow: 7px 4px 5px rgb(157, 157, 212);
-    text-align:center;
 }
 
-.texto2-admin{
-    text-align:center;
+.texto2_Admin{
+    justify-content: center;
     width: 40vmin;
-    font-size: 30px;
-    font-family: oblique Impact;
 }
 

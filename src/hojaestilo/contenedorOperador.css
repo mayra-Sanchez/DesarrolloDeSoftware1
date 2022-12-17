@@ -14,7 +14,7 @@
     height: 25vmin;
 }
 
-.texto1{
+.texto1_Operador{
     width: 30vmin;
     font-family: fantasy;
     font-size: large;
@@ -22,9 +22,10 @@
     vertical-align: middle;
     text-shadow: 7px 4px 5px rgb(157, 157, 212);
     text-align:center;
+    background-color: blueviolet;
 }
 
-.texto2{
+.texto2_Operador{
     text-align:center;
     width: 40vmin;
     font-size: 30px;

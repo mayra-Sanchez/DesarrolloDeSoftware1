@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 export function ContenedorOperador(props){
     return(
         <div class="mx-auto" className="contenedor-operador">
-            <p className="texto1">{props.texto1}</p>
+            <p className="texto1">{props.texto1_Operador}</p>
             <img className="operador-logo" src={require(`../Images/${props.imagen}.png`)} alt="Foto {props.nombre}"/>
-            <p className="texto2">{props.texto2}</p>
+            <p className="texto2">{props.texto2_Operador}</p>
             <Link
                 to="/Operador/Consultar-informacion-del-cliente"
                 className="btn btn-outline-dark btn-lg  mb-3"

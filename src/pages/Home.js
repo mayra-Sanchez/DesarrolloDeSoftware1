@@ -1,6 +1,6 @@
 import "../hojaestilo/Home.css";
 import { Link } from "react-router-dom";
-import logo from "../components/qlog.svg";
+import logo from "../Images/logo-inicial.png";
 import ContentRec from "../components/contentRec";
 import React from "react";
 
@@ -15,25 +15,13 @@ const Home = () => {
           <ContentRec
             title="Bienvenido a la plataforma digital de SIGEIN,
             en la cual dependiendo de tu rol, podrás realizar diversas acciones "
-            bgcolor="rgba(229, 230, 194, 1)"
+            bgcolor="#FFFFFF"
           />
         </div>
         <br />
         <div>
-          <Link to="/SignIn" className="btn btn-outline-dark btn-lg">
+          <Link to="/SignIn" className="btn btn-light btn-lg">
             Iniciar sesión
-          </Link>
-          <Link to="/Admin" className="btn btn-outline-dark btn-lg">
-            Admin
-          </Link>
-          <Link to="/Gerente" className="btn btn-outline-dark btn-lg">
-            Gerente
-          </Link>
-          <Link to="/Operador" className="btn btn-outline-dark btn-lg">
-            Operador
-          </Link>
-          <Link to="/Cliente" className="btn btn-outline-dark btn-lg">
-            Cliente
           </Link>
         </div>
       </div>

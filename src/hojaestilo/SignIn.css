@@ -1,7 +1,8 @@
 .Sign-logo {
-  width: 20vmin;
-  height: 30vmin;
+  width: 60vmin;
+  height: 20vmin;
   pointer-events: none;
+  margin-top: 10vmin;
 }
  
 .SignIn{
@@ -14,10 +15,26 @@
   font-weight: 300;
   line-height: 24px;
 }
+
+.html,.Contenedor-principal{
+  height: 100vh;
+}
+
+.Contenedor-principal{
+  background-image: url("../Images/fondoInicial.svg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  font-family: 'Hind Siliguri';
+  background-color: #FFF;
+  color: #000;
+}
  
 .login {
   padding: 3%;
   margin: auto;
+  border-radius: 2vmin;
 }
 
 .form {

@@ -6,13 +6,27 @@ import { ContenedorPrincipal } from "../components/ContenedorPrincipal";
 const AdminHome = () => {
   return (
     <div className="Admin">
-      <header className="Admin-header">
-        <img src={logo} className="app-logo" alt="logo" />
-      </header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand">
+          <img
+            src={logo}
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt="logo"
+          />
+          SIGEIN
+        </a>
+        <ul class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="#">
+            Cerrar sesion
+          </a>
+        </ul>
+      </nav>
       <ContenedorPrincipal
-        texto1="Bienvenido administrador"
+        texto1_Admin="Bienvenido administrador"
         imagen="admin"
-        texto2="¿Qué deseas hacer?"
+        texto2_Admin="¿Qué deseas hacer?"
       />
     </div>
   );
