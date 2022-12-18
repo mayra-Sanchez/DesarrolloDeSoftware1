@@ -7,13 +7,27 @@ import React from "react";
 const ClienteHome = () => {
   return (
     <div className="Cliente">
-      <header className="Cliente-header">
-        <img src={logo} className="app-logo" alt="logo" />
-      </header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand">
+          <img
+            src={logo}
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt="logo"
+          />
+          SIGEIN
+        </a>
+        <ul class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="#">
+            Cerrar sesion
+          </a>
+        </ul>
+      </nav>
       <ContenedorCliente
-        texto1="Bienvenido/a"
+        texto1_Cliente="Bienvenido/a"
         imagen="cliente"
-        texto2="¿Qué deseas hacer?"
+        texto2_Cliente="¿Qué deseas hacer?"
       />
     </div>
   );

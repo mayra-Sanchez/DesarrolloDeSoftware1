@@ -6,13 +6,27 @@ import { ContenedorGerente } from "../components/ContenedorGerente";
 const GerenteHome = () => {
   return (
     <div className="Gerente">
-      <header className="Gerente-header">
-        <img src={logo} className="app-logo" alt="logo" />
-      </header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand">
+          <img
+            src={logo}
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt="logo"
+          />
+          SIGEIN
+        </a>
+        <ul class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="#">
+            Cerrar sesion
+          </a>
+        </ul>
+      </nav>
       <ContenedorGerente
-        texto1="Bienvenido gerente"
+        texto1_Gerente="Bienvenido gerente"
         imagen="Gerente"
-        texto2="¿Qué deseas hacer?"
+        texto2_Gerente="¿Qué deseas hacer?"
       />
     </div>
   );

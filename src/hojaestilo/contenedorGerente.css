@@ -14,7 +14,7 @@
     height: 25vmin;
 }
 
-.texto1{
+.texto1_Gerente{
     width: 30vmin;
     font-family: fantasy;
     font-size: large;
@@ -24,7 +24,7 @@
     text-align:center;
 }
 
-.texto2{
+.texto2_Gerente{
     text-align:center;
     width: 40vmin;
     font-size: 30px;

@@ -6,13 +6,27 @@ import { ContenedorOperador } from "../components/ContenedorOperador";
 const OperadorHome = () => {
   return (
     <div className="Operador">
-      <header className="Operador-header">
-        <img src={logo} className="app-logo" alt="logo" />
-      </header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand">
+          <img
+            src={logo}
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt="logo"
+          />
+          SIGEIN
+        </a>
+        <ul class="navbar-nav ml-auto">
+          <a class="nav-item nav-link" href="#">
+            Cerrar sesion
+          </a>
+        </ul>
+      </nav>
       <ContenedorOperador
-        texto1="Bienvenido operador"
+        texto1_Operador="Bienvenido operador"
         imagen="Operador"
-        texto2="¿Qué deseas hacer?"
+        texto2_Operador="¿Qué deseas hacer?"
       />
     </div>
   );

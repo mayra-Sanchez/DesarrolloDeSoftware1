@@ -1,6 +1,6 @@
 import "../hojaestilo/SignIn.css";
 import logo from "../Images/logo-inicial.png";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 

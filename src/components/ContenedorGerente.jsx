@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 export function ContenedorGerente(props){
     return(
         <div class="mx-auto" className="contenedor-gerente">
-            <p className="texto1">{props.texto1}</p>
+            <p className="texto1_Gerente">{props.texto1_Gerente}</p>
             <img className="gerente-logo" src={require(`../Images/${props.imagen}.png`)} alt="Foto {props.nombre}"/>
-            <p className="texto2">{props.texto2}</p>
+            <p className="texto2_Gerente">{props.texto2_Gerente}</p>
             <Link
                 to="/Gerente/Buscador-de-clientes"
                 className="btn btn-outline-dark btn-lg  mb-3"
