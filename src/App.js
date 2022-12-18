@@ -1,12 +1,12 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import SignIn from "./pages/SignIn";
-import Admin from "./pages/AdminHome";
-import Gerente from "./pages/GerenteHome";
-import Operador from "./pages/OperadorHome";
-import Cliente from "./pages/ClienteHome";
-import GestionUsuarios from "./pages/GestionarUsuarios";
+import Home from "./Home/pages/Home";
+import SignIn from "./SignIn/pages/SignIn";
+import Admin from "./admin/pages/AdminHome";
+import Gerente from "./gerente/pages/GerenteHome";
+import Operador from "./operador/pages/OperadorHome";
+import Cliente from "./cliente/pages/ClienteHome";
+import GestionUsuarios from "./admin/pages/GestionarUsuarios";
 
 function App() {
   return (

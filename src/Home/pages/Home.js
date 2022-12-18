@@ -1,4 +1,4 @@
-import "../hojaestilo/Home.css";
+import "../hojasestilo/Home.css";
 import { Link } from "react-router-dom";
 import logo from "../Images/logo-inicial.png";
 import ContentRec from "../components/contentRec";

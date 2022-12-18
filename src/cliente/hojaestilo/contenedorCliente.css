@@ -1,4 +1,4 @@
-.contenedor-gerente{
+.contenedor-cliente{
     display: flex;
     align-items: center;
     flex-flow: column;
@@ -9,14 +9,16 @@
     margin-top: 5vmin; 
 }
 
-.gerente-logo{
-    width: 20vmin;
-    height: 25vmin;
+.cliente-logo{
+    width: 15vmin;
+    height: 15vmin;
+    border-radius: 8px;
+    image-rendering: auto;
 }
 
-.texto1_Gerente{
-    width: 30vmin;
-    font-family: fantasy;
+.texto1_Cliente{
+    width: 80vmin;
+    font-family: Times New Roman;
     font-size: large;
     font-size: 60px;
     vertical-align: middle;
@@ -24,7 +26,7 @@
     text-align:center;
 }
 
-.texto2_Gerente{
+.texto2_Cliente{
     text-align:center;
     width: 40vmin;
     font-size: 30px;

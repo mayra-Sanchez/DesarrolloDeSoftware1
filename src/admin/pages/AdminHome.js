@@ -6,11 +6,11 @@ import { ContenedorPrincipal } from "../components/ContenedorPrincipal";
 const AdminHome = () => {
   return (
     <div className="Admin">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
         <a class="navbar-brand">
           <img
             src={logo}
-            width="30"
+            width="50"
             height="30"
             class="d-inline-block align-top"
             alt="logo"

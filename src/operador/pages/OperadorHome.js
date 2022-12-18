@@ -6,11 +6,11 @@ import { ContenedorOperador } from "../components/ContenedorOperador";
 const OperadorHome = () => {
   return (
     <div className="Operador">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
         <a class="navbar-brand">
           <img
             src={logo}
-            width="30"
+            width="50"
             height="30"
             class="d-inline-block align-top"
             alt="logo"
@@ -25,7 +25,7 @@ const OperadorHome = () => {
       </nav>
       <ContenedorOperador
         texto1_Operador="Bienvenido operador"
-        imagen="Operador"
+        imagen="operador"
         texto2_Operador="¿Qué deseas hacer?"
       />
     </div>

@@ -10,19 +10,20 @@
 }
 
 .operador-logo{
-    width: 20vmin;
-    height: 25vmin;
+    width: 15vmin;
+    height: 15vmin;
+    border-radius: 8px;
+    image-rendering: auto;
 }
 
 .texto1_Operador{
-    width: 30vmin;
-    font-family: fantasy;
+    width: 80vmin;
+    font-family: Times New Roman;
     font-size: large;
     font-size: 60px;
     vertical-align: middle;
     text-shadow: 7px 4px 5px rgb(157, 157, 212);
     text-align:center;
-    background-color: blueviolet;
 }
 
 .texto2_Operador{

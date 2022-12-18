@@ -1,0 +1,34 @@
+.contenedor-gerente{
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    max-height: 70vmin;
+    max-width: 50vmin;
+    border-radius: 4vmin;
+    margin: 0 auto;
+    margin-top: 5vmin; 
+}
+
+.gerente-logo{
+    width: 15vmin;
+    height: 15vmin;
+    border-radius: 8px;
+    image-rendering: auto;
+}
+
+.texto1_Gerente{
+    width: 80vmin;
+    font-family: Times New Roman;
+    font-size: large;
+    font-size: 60px;
+    vertical-align: middle;
+    text-shadow: 7px 4px 5px rgb(157, 157, 212);
+    text-align:center;
+}
+
+.texto2_Gerente{
+    text-align:center;
+    width: 40vmin;
+    font-size: 30px;
+    font-family: oblique Impact;
+}

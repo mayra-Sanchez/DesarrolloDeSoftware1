@@ -1,4 +1,4 @@
-import "../hojaestilo/SignIn.css";
+import "../hojasestilo/SignIn.css";
 import logo from "../Images/logo-inicial.png";
 //import { Link } from "react-router-dom";
 import { Formik } from "formik";
