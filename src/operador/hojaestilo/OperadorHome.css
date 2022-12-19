@@ -1,47 +1,15 @@
-.contenedor-operador{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-flow: column;
-    height: 70vmin;
-    width: 50vmin;
-    border-radius: 4vmin;
-    /*background-color: aliceblue;*/
-    margin-top: 5vmin;
-    margin: 0 auto;
-    
-}
-
-.Operador-header{
-    align-self: flex-start;
-    background-color: black;
-    height: 10vmin;
+.html,.contenedor-inicialOperador{
+    height: 100vh;
 }
   
-.app-logo {
-    width: 10vmin;
-    height: 8vmin;
+.contenedor-inicialOperador {
+    background-image: url("../Images/fondoAzul.svg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    font-family: 'Hind Siliguri';
+    background-color: rgba(255, 255, 255, 0);
+    text-align: center;
+    color: #000;
 }
-
-
-.contenedor-operador h1{
-    height: 50vmin;
-    width: 30vmin;
-    flex-wrap: wrap;
-}
-  
-.contenedor-operador h2{
-    align-self: flex-start;
-    height: 5vmin;
-    width: 40vmin;
-    margin-top: 3vmin;
-    flex-wrap: wrap;
-}
-  
-.operador-logo{
-    width: 20vmin;
-    height: 30vmin;
-    flex-wrap: wrap;
-}
-
-

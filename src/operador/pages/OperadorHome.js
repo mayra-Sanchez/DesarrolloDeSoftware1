@@ -5,8 +5,9 @@ import { ContenedorOperador } from "../components/ContenedorOperador";
 
 const OperadorHome = () => {
   return (
-    <div className="Operador">
-      <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+    <div class = "contenedor-inicialOperador">
+      <div className="Operador">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand">
           <img
             src={logo}
@@ -28,6 +29,7 @@ const OperadorHome = () => {
         imagen="operador"
         texto2_Operador="¿Qué deseas hacer?"
       />
+    </div>
     </div>
   );
 };

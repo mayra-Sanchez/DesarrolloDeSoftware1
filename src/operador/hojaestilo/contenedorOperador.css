@@ -1,34 +1,36 @@
 .contenedor-operador{
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-flow: column;
-    max-height: 70vmin;
-    max-width: 50vmin;
+    height: 70vmin;
+    width: 50vmin;
     border-radius: 4vmin;
-    margin: 0 auto;
-    margin-top: 5vmin; 
+    background-color: aliceblue;
+    margin: auto;
+    margin-top: 5%;
+    box-shadow: 0 3px 13px 1px rgb(51, 52, 53);
 }
 
 .operador-logo{
     width: 15vmin;
     height: 15vmin;
     border-radius: 8px;
+    flex-wrap: wrap;
+    margin-top: 7vmin;
     image-rendering: auto;
 }
 
 .texto1_Operador{
-    width: 80vmin;
-    font-family: Times New Roman;
-    font-size: large;
-    font-size: 60px;
-    vertical-align: middle;
-    text-shadow: 7px 4px 5px rgb(157, 157, 212);
-    text-align:center;
+    width: 30vmin;
+    flex-wrap: wrap;
+    font-size: 25px;
 }
 
 .texto2_Operador{
-    text-align:center;
+    align-self: center;
+    font-size: 20px;
     width: 40vmin;
-    font-size: 30px;
-    font-family: oblique Impact;
+    margin-top: 7vmin;
+    flex-wrap: wrap;
 }

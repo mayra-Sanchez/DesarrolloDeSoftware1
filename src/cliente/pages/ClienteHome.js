@@ -6,7 +6,8 @@ import React from "react";
 
 const ClienteHome = () => {
   return (
-    <div className="Cliente">
+    <div class = "contenedor-inicialCliente">
+      <div className="Cliente">
       <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
         <a class="navbar-brand">
           <img
@@ -29,6 +30,7 @@ const ClienteHome = () => {
         imagen="cliente"
         texto2_Cliente="¿Qué deseas hacer?"
       />
+    </div>
     </div>
   );
 };
