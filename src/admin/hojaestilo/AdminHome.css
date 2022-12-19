@@ -1,10 +1,17 @@
-
-
-
-.Admin-header{
-    background-color: black;
-    height: 10vmin;
+.Admin{
+    background-image: url("../Images/fondo-admin.png");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    font-family: 'Hind Siliguri';
+    text-align: center;
+    color: #000;
 }
+
+.html,.Admin{
+    height: 100vh;
+  }
   
 
 

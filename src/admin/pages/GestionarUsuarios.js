@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const AdminHome = () => {
   return (
-    <div className="Admin">
+    <div className="Admin-Gestion">
       <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
         <a class="navbar-brand">
           <img

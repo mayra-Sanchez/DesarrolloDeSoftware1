@@ -6,6 +6,7 @@
 }
  
 .SignIn{
+  
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -38,6 +39,7 @@
 }
 
 .form {
+  margin-top: 5vmin;
   align-self: center;
   background: #FFFFFF;
   border-radius: 5%;
