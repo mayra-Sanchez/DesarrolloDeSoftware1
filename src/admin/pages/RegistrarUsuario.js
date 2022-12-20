@@ -33,7 +33,7 @@ const RegistrarUsuario = () => {
                   type="id"
                   class="form-control"
                   id="inputId4"
-                  placeholder="id"
+                  placeholder="Id"
                 />
               </div>
               <div class="form-group col-md-4">

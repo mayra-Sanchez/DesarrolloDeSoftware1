@@ -1,27 +1,31 @@
 .contenedor-admin{
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    flex-flow: column;height: 70vmin;
-    width: 50vmin;
+    flex-flow: column;
+    min-height: 80vmin;
+    max-width: 50vmin;
     border-radius: 4vmin;
     margin: 0 auto;
-    margin-top: 10vmin; 
+    margin-top: 5vmin; 
     background-color: aliceblue;
     box-shadow: 0 3px 13px 1px rgb(51, 52, 53);
 }
 
 
 .admin-logo{
-    width: 15vmin;
-    height: 15vmin;
+    display: flex;
+    max-width: 15vmin;
+    max-height: 15vmin;
     border-radius: 8px;
     flex-wrap: wrap;
     margin-top: 7vmin;
 }
 
 .texto1_Admin{
-    width: 30vmin;
+    display: flex;
+    max-width: 30vmin;
     flex-wrap: wrap;
     font-size: 20px;
 }
@@ -29,9 +33,11 @@
 .texto2_Admin{
     align-self: center;
     font-size: 20px;
-    width: 40vmin;
+    max-width: 30vmin;
     margin-top: 7vmin;
     flex-wrap: wrap;
     /*font-family: oblique Impact;*/
 }
+
+
 

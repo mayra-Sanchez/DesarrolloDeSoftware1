@@ -26,7 +26,7 @@ export function ContenedorPrincipal(props) {
       </Link>
       <Link
         to="/Admin/Gestion-usuarios/Consultar-informacion"
-        className="btn btn-outline-dark btn-lg "
+        className="btn btn-outline-dark btn-lg mb-3 "
       >
         Consultar informacion
       </Link>
