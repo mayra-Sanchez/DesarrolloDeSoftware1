@@ -6,7 +6,6 @@ import Admin from "./admin/pages/AdminHome";
 import Gerente from "./gerente/pages/GerenteHome";
 import Operador from "./operador/pages/OperadorHome";
 import Cliente from "./cliente/pages/ClienteHome";
-import GestionUsuarios from "./admin/pages/GestionarUsuarios";
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
         <Route path="Gerente" element={<Gerente />} />
         <Route path="Operador" element={<Operador />} />
         <Route path="Cliente" element={<Cliente />} />
-        <Route path="Admin/Gestion-usuarios" element={<GestionUsuarios />} />
       </Routes>
     </BrowserRouter>
   );

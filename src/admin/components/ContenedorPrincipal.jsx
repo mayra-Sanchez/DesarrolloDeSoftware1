@@ -14,19 +14,19 @@ export function ContenedorPrincipal(props) {
       <p className="texto2_Admin">{props.texto2_Admin}</p>
       <Link
         to="/Admin/Registrar-usuarios"
-        className="btn btn-dark btn-lg  mb-3"
+        className="btn btn-outline-dark btn-lg  mb-3"
       >
         Registrar usuarios
       </Link>
       <Link
         to="/Admin/Autenticar-usuarios"
-        className="btn btn-dark btn-lg mb-3"
+        className="btn btn-outline-dark btn-lg mb-3"
       >
         Autenticar usuarios
       </Link>
       <Link
         to="/Admin/Gestion-usuarios/Consultar-informacion"
-        className="btn btn-dark btn-lg "
+        className="btn btn-outline-dark btn-lg "
       >
         Consultar informacion
       </Link>
