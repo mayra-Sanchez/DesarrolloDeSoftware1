@@ -21,7 +21,7 @@ class CustomUserManager(BaseUserManager):
         return user
     
 
-    def create_superuser(self, email, password, first_name="admin", last_name="admin", phone_number="1234567899", **extra_fields):
+    def create_superuser(self, email, password, first_name, last_name, phone_number, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         
@@ -30,8 +30,8 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(unique=True, blank=False)
-    password = models.CharField(max_length=200, validators=[validators.MinLengthValidator(8)], blank=False)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=200, validators=[validators.MinLengthValidator(8)])
     first_name = models.CharField(max_length=30, blank=False)
     last_name = models.CharField(max_length=30, blank=False)
     phone_number = models.CharField(max_length=10, validators=[validators.MinLengthValidator(10)], blank=False)
