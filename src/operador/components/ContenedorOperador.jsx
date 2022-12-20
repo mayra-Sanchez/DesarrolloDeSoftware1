@@ -9,7 +9,7 @@ export function ContenedorOperador(props){
             <img className="operador-logo" src={require(`../Images/${props.imagen}.png`)} alt="Foto {props.nombre}"/>
             <p className="texto2_Operador">{props.texto2_Operador}</p>
             <Link
-                to="/Operador/Consultar-informacion-del-cliente"
+                to="/Operador/Consultar-Cliente"
                 className="btn btn-outline-dark btn-lg  mb-3"
             >
                 Consultar informacion del cliente
