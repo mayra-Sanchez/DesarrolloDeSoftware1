@@ -7,36 +7,37 @@ import * as Yup from "yup";
 
 // Creating schema
 const schema = Yup.object().shape({
-    idCliente: Yup.string()
-      .required("Una identificación válida es requerida")
-  });
+  idCliente: Yup.string()
+    .required("Una identificación válida es requerida")
+});
 
 const ConsultaCliente = () => {
-    return (
-      <div className="OpConsultaCliente">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand">
-            <img
-              src={logo}
-              width="50"
-              height="30"
-              class="d-inline-block align-top"
-              alt="logo"
-            />
-            SIGEIN
-          </a>
-          <ul class="navbar-nav ml-auto">
-            <Link to="/SignIn" className="btn btn-light btn-lg">
-              Cerrar sesión
-            </Link>
-          </ul>
-        </nav>
+  return (
+    <div className="OpConsultaCliente">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">
+          <img
+            src={logo}
+            width="50"
+            height="30"
+            class="d-inline-block align-top"
+            alt="logo"
+          />
+          SIGEIN
+        </a>
+        <ul class="navbar-nav ml-auto">
+          <Link to="/SignIn" className="btn btn-light btn-lg">
+            Cerrar sesión
+          </Link>
+        </ul>
+      </nav>
+      <div class="contenedor-Operador-consulta">
         <div className='ConsultaCliente'>
-        <>
+          <>
             {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
             <Formik
               validationSchema={schema}
-              initialValues={{ idCliente: ""}}
+              initialValues={{ idCliente: "" }}
               onSubmit={(values) => {
                 // Alert the input values of the form that we filled
                 alert(JSON.stringify(values));
@@ -79,8 +80,8 @@ const ConsultaCliente = () => {
           </>
         </div>
       </div>
-    );
-  };
-  
-  export default ConsultaCliente;
-  
+    </div>
+  );
+};
+
+export default ConsultaCliente;

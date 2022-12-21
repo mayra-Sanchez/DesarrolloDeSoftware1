@@ -8,6 +8,7 @@ import Gerente from "./gerente/pages/GerenteHome";
 import Operador from "./operador/pages/OperadorHome";
 import Cliente from "./cliente/pages/ClienteHome";
 import RegistrarUsuario from "./admin/pages/RegistrarUsuario";
+import ConsultaCliente from "./operador/pages/ConsultaCliente";
 import { LoginContext } from "./contex/Logincontext";
 
 function App() {
@@ -26,9 +27,8 @@ function App() {
           <Route path="Operador" element={<Operador />} />
           <Route path="Cliente" element={<Cliente />} />
           <Route
-            path="Admin/Registrar-Usuarios"
-            element={<RegistrarUsuario />}
-          />
+            path="Admin/Registrar-Usuarios" element={<RegistrarUsuario />}/>
+          <Route path="Operador/Consultar-Cliente" element={<ConsultaCliente />} />
         </Routes>
       )}
     </BrowserRouter>

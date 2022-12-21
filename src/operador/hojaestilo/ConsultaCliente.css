@@ -7,10 +7,26 @@
     font-style: normal;
     font-weight: 300;
     line-height: 24px;
-  }
+}
+
+.html,.contenedor-Operador-consulta{
+    height: 92.5vh;
+}
+  
+.contenedor-Operador-consulta {
+    background-image: url("../Images/fondoAzul.svg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    font-family: 'Hind Siliguri';
+    background-color: rgba(255, 255, 255, 0);
+    text-align: center;
+    color: #000;
+}
 
 .form {
-    margin-top: 5vmin;
+    margin-top: 46.25%;
     align-self: center;
     background: #FFFFFF;
     border-radius: 5%;
@@ -32,7 +48,7 @@
 }
   
 .form input:focus {
-    background: #dbdbdb;
+    background: #ffffff;
 }
   
 .form button {
