@@ -39,7 +39,7 @@ class RegisterUserView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAdminUser]
 
     def perform_create(self, serializer):
         serializer.save(username= serializer.validated_data.get('email'))
