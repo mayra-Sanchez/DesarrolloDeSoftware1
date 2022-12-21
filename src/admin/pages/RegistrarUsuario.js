@@ -28,43 +28,34 @@ const RegistrarUsuario = () => {
           <form>
             <div class="form-row">
               <div class="form-group col-md-4">
-                <label for="inputId4">Id</label>
+                <label for="inputNombre4">Nombre</label>
                 <input
-                  type="id"
+                  type="Nombre"
                   class="form-control"
-                  id="inputId4"
-                  placeholder="Id"
+                  id="inputNombre4"
+                  placeholder="Juanito"
                 />
               </div>
               <div class="form-group col-md-4">
-                <label for="inputCelulard4">Celular</label>
+                <label for="inputApellido4">Apellido</label>
                 <input
-                  type="celular"
+                  type="Apellido"
+                  class="form-control"
+                  id="inputApellido4"
+                  placeholder="Cardenas"
+                />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="inputCelular4">Celular</label>
+                <input
+                  type="Celular"
                   class="form-control"
                   id="inputCelular4"
                   placeholder="Celular"
                 />
               </div>
-              <div class="form-group col-md-4">
-                <label for="inputPassword4">Contraseña</label>
-                <input
-                  type="Contraseña"
-                  class="form-control"
-                  id="inputPassword4"
-                  placeholder="Contraseña"
-                />
-              </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="inputCity">Nombre</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputCity"
-                  placeholder="Juanito Cardenas"
-                />
-              </div>
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Email</label>
                 <input
@@ -75,12 +66,23 @@ const RegistrarUsuario = () => {
                   "
                 />
               </div>
+              <div class="form-group col-md-6">
+                <label for="inputCity">Contraseña</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputCity"
+                  placeholder="Contraseña"
+                />
+              </div>
             </div>
             <div class="form-group">
-              <label for="inputState">Tipo de persona</label>
+              <label for="inputState">Rol</label>
               <select id="inputState" class="form-control">
-                <option>Natural</option>
-                <option>Jurídica</option>
+                <option>Administrador</option>
+                <option>Operador</option>
+                <option>Gerente</option>
+                <option>Cliente</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary">
