@@ -15,7 +15,7 @@ class CustomUserManager(BaseUserManager):
 
         email = self.normalize_email(email)
         user = self.model(email=email, first_name=first_name, last_name=last_name, phone_number=phone_number, role=role, **extra_fields)
-        user.set_password(password)
+        user.set_password(password)        
         user.save()
        
         return user
@@ -25,6 +25,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('role', "admin")
+        extra_fields.setdefault('username', email)
         
         return self.create_user(email, password, first_name, last_name, phone_number, **extra_fields)
 
@@ -46,7 +47,7 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=10, validators=[validators.MinLengthValidator(10)], blank=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    role = models.CharField(max_length=12, choices=ROLE_CHOICES, blank=False, null=True, default=None)
+    role = models.CharField(max_length=12, choices=ROLE_CHOICES, blank=False, null=True, default=None)    
     
     objects = CustomUserManager()
     
