@@ -1,0 +1,22 @@
+.RegistrarUsuario{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;height: 70vmin;
+    width: 50vmin;
+    border-radius: 4vmin;
+    margin: 0 auto;
+    margin-top: 10vmin; 
+}
+
+.Registro{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;height: 70vmin;
+    width: 50vmin;
+    border-radius: 4vmin;
+    margin: 0 auto;
+    margin-top: 10vmin; 
+    background-color: violet;
+}
