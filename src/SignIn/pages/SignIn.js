@@ -1,8 +1,12 @@
 import "../hojasestilo/SignIn.css";
+import React, { useState, useContext } from "react";
 import logo from "../Images/logo-inicial.png";
 //import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
+import { loginUser } from "../../services/users";
+import { LoginContext } from "../../contex/Logincontext";
 
 // Creating schema
 const schema = Yup.object().shape({
@@ -15,6 +19,20 @@ const schema = Yup.object().shape({
 });
 
 const SignIn = () => {
+  const { setIsLogged } = useContext(LoginContext);
+  const [loading, setLoading] = useState(false);
+
+  const onError = (error) => {
+    Swal.fire({
+      icon: "error",
+      title: "Opps algo salió mal",
+      text: "Usuario o contraseña incorrectos, intenta de nuevo",
+      confirmButtonText: "Continuar",
+      allowOutsideClick: false,
+      showCancelButton: false,
+    });
+  };
+
   return (
     <div className="Contenedor-principal">
       <div className="SignIn">
@@ -22,31 +40,37 @@ const SignIn = () => {
           <img src={logo} className="Sign-logo" alt="logo" />
         </header>
         <div>
+          {/* The Modal */}
+          <div class="modal" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                {/*} Modal Header */}
+                <div class="modal-header">
+                  <h4 class="modal-title">Ayuda</h4>
+                  <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                  </button>
+                </div>
 
-  {/* The Modal */}
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        {/*} Modal Header */}
-        <div class="modal-header">
-          <h4 class="modal-title">Ayuda</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        {/*Modal body */}
-        <div class="modal-body">
-          Para conocer su usuario, contraseña o solicitar credenciales de ingreso, diríjase al administrador de su dependencia.
-        </div>
-        
-        {/*Modal footer*/} 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
+                {/*Modal body */}
+                <div class="modal-body">
+                  Para conocer su usuario, contraseña o solicitar credenciales
+                  de ingreso, diríjase al administrador de su dependencia.
+                </div>
+
+                {/*Modal footer*/}
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-dismiss="modal"
+                  >
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <br />
           <>
@@ -56,15 +80,36 @@ const SignIn = () => {
               initialValues={{ email: "", password: "" }}
               onSubmit={(values) => {
                 // Alert the input values of the form that we filled
-                alert(JSON.stringify(values));
+
+                setLoading(true);
+
+                loginUser(values)
+                  .then((response) => {
+                    setLoading(false);
+                    localStorage.setItem("userData", JSON.stringify(response));
+                    Swal.fire({
+                      icon: "success",
+                      title: "Bienvenido",
+                      text: "Te has logueado correctamente",
+                      confirmButtonText: "Continuar",
+                      allowOutsideClick: false,
+                      showCancelButton: false,
+                    }).then(() => {
+                      setIsLogged(true);
+                    });
+                  })
+                  .catch((err) => {
+                    onError(err);
+                    setLoading(false);
+                  });
               }}
             >
               {({
                 values,
                 errors,
                 touched,
-                handleChange,
                 handleBlur,
+                handleChange,
                 handleSubmit,
               }) => (
                 <div className="login">
@@ -102,7 +147,9 @@ const SignIn = () => {
                         {errors.password && touched.password && errors.password}
                       </p>
                       {/* Click on submit button to submit the form */}
-                      <button type="submit">Ingresar</button>
+                      <button onClick={handleSubmit} type="submit">
+                        Ingresar
+                      </button>
                     </form>
                   </div>
                 </div>
@@ -110,10 +157,15 @@ const SignIn = () => {
             </Formik>
           </>
         </div>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-    ?
-  </button>
-      </div>   
+        <button
+          type="button"
+          class="btn btn-info"
+          data-toggle="modal"
+          data-target="#myModal"
+        >
+          ?
+        </button>
+      </div>
     </div>
   );
 };
