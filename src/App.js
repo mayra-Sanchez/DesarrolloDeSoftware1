@@ -16,11 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       {isLogged ? (
-        <Routes></Routes>
-      ) : (
         <Routes>
-          <Route index element={<Home />} />
-          <Route path="SignIn" element={<SignIn />} />
           <Route path="Admin" element={<Admin />} />
           <Route path="Gerente" element={<Gerente />} />
           <Route path="Operador" element={<Operador />} />
@@ -29,6 +25,11 @@ function App() {
             path="Admin/Registrar-Usuarios"
             element={<RegistrarUsuario />}
           />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="SignIn" element={<SignIn />} />
         </Routes>
       )}
     </BrowserRouter>
