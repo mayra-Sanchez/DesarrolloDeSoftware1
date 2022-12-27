@@ -1,4 +1,4 @@
-const URL = "http://localhost:3000";
+const URL = "http://localhost:8000";
 
 const endpoints = {
   clients: {
@@ -6,8 +6,8 @@ const endpoints = {
   },
 
   users: {
-    registerUser: `${URL}/users/register`,
-    loginUser: `${URL}/users/login`,
+    registerUser: `${URL}/users/register-user/`,
+    loginUser: `${URL}/users/login/`,
   },
 
   roles: {},
