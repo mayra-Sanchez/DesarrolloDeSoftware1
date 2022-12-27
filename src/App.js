@@ -32,11 +32,6 @@ function App() {
             path="Admin/Registrar-Usuarios" element={<RegistrarUsuario />}/>
           <Route path="Operador/Consultar-Cliente" element={<ConsultaCliente />} />
         </Routes>
-      ) : (
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="SignIn" element={<SignIn />} />
-        </Routes>
       )}
     </BrowserRouter>
   );
