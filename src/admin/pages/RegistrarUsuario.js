@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 
 const RegistrarUsuario = () => {
   let navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
