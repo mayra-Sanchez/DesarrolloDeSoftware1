@@ -1,0 +1,36 @@
+.contenedor-gerente{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column;
+    height: 70vmin;
+    width: 50vmin;
+    border-radius: 4vmin;
+    background-color: aliceblue;
+    margin: auto;
+    margin-top: 5%;
+    box-shadow: 0 3px 13px 1px rgb(51, 52, 53);
+}
+
+.gerente-logo{
+    width: 15vmin;
+    height: 15vmin;
+    border-radius: 8px;
+    flex-wrap: wrap;
+    margin-top: 7vmin;
+    image-rendering: auto;
+}
+
+.texto1_Gerente{
+    width: 30vmin;
+    flex-wrap: wrap;
+    font-size: 25px;
+}
+
+.texto2_Gerente{
+    align-self: center;
+    font-size: 20px;
+    width: 40vmin;
+    margin-top: 7vmin;
+    flex-wrap: wrap;
+}

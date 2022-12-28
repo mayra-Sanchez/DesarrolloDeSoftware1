@@ -1,0 +1,11 @@
+
+.Registro{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   height: auto;
+    width: auto;
+    border-radius: 4vmin;
+    margin: 0 auto;
+    margin-top: 10vmin;
+}
