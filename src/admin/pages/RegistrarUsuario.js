@@ -1,13 +1,74 @@
-import "../hojaestilo/AutenticarUsuario.css";
+import React, { useState } from "react";
+import "../hojaestilo/RegistrarUsuario.css";
 import logo from "../Images/logo-2.png";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { addUser } from "../../services/users";
+import Swal from "sweetalert2";
 
 const RegistrarUsuario = () => {
+  let navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    nombre: "",
+    apellido: "",
+    celular: "",
+    email: "",
+    contraseña: "",
+    rol: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      ...formData,
+    };
+
+    addUser(data)
+      .then((response) => {
+        Swal.fire({
+          icon: "success",
+          title: "Operación exitosa",
+          text: "Te has registrado correctamente",
+          confirmButtonText: "Continuar",
+          allowOutsideClick: false,
+          showCancelButton: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/Admin");
+          }
+        });
+      })
+      .catch((err) => {
+        if (err.response.status === 412) {
+          onError(err.response.data);
+          console.log(err.response.data);
+        } else {
+          console.log("error");
+          onError("Error al crear el usuario, intenta de nuevo.");
+        }
+
+        console.log(err);
+      });
+  };
+
+  const onError = (error) => {
+    Swal.fire({
+      icon: "error",
+      title: "Opps algo salió mal",
+      text: "Ocurrió un error al crear el usuario, intenta de nuevo",
+      confirmButtonText: "Continuar",
+      allowOutsideClick: false,
+      showCancelButton: false,
+    });
+  };
+
   return (
     <div className="RegistrarUsuario">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand">
+        <div class="navbar-brand">
           <img
             src={logo}
             width="50"
@@ -16,69 +77,84 @@ const RegistrarUsuario = () => {
             alt="logo"
           />
           SIGEIN
-        </a>
+        </div>
         <ul class="navbar-nav ml-auto">
           <Link to="/SignIn" className="btn btn-light btn-lg">
             Cerrar sesión
           </Link>
         </ul>
       </nav>
-      <header id="header">
+      <div>
         <div class="container mt-5">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div class="form-row">
               <div class="form-group col-md-4">
-                <label for="inputNombre4">Nombre</label>
+                <label>Nombre</label>
                 <input
-                  type="Nombre"
+                  name="nombre"
+                  type="text"
                   class="form-control"
-                  id="inputNombre4"
                   placeholder="Juanito"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div class="form-group col-md-4">
-                <label for="inputApellido4">Apellido</label>
+                <label>Apellido</label>
                 <input
-                  type="Apellido"
+                  name="apellido"
+                  type="text"
                   class="form-control"
-                  id="inputApellido4"
                   placeholder="Cardenas"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div class="form-group col-md-4">
-                <label for="inputCelular4">Celular</label>
+                <label>Celular</label>
                 <input
-                  type="Celular"
+                  type="text"
+                  name="celular"
                   class="form-control"
-                  id="inputCelular4"
                   placeholder="Celular"
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="inputEmail4">Email</label>
+                <label>Email</label>
                 <input
                   type="email"
+                  name="email"
                   class="form-control"
-                  id="inputEmail4"
                   placeholder="juanito@gmail.com
                   "
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div class="form-group col-md-6">
-                <label for="inputCity">Contraseña</label>
+                <label>Contraseña</label>
                 <input
-                  type="text"
+                  type="password"
+                  name="contraseña"
                   class="form-control"
-                  id="inputCity"
                   placeholder="Contraseña"
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
             <div class="form-group">
-              <label for="inputState">Rol</label>
-              <select id="inputState" class="form-control">
+              <label>Rol</label>
+              <select
+                name="rol"
+                class="form-control"
+                onChange={handleChange}
+                required
+              >
                 <option>Administrador</option>
                 <option>Operador</option>
                 <option>Gerente</option>
@@ -90,7 +166,7 @@ const RegistrarUsuario = () => {
             </button>
           </form>
         </div>
-      </header>
+      </div>
     </div>
   );
 };
