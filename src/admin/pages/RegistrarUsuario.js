@@ -84,7 +84,7 @@ const RegistrarUsuario = () => {
           </Link>
         </ul>
       </nav>
-      <div>
+      <div className="Registro">
         <div class="container mt-5">
           <form onSubmit={handleSubmit}>
             <div class="form-row">
