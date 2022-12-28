@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { loginUser } from "../../services/users";
 import { LoginContext } from "../../contex/Logincontext";
+import jwtDecode from "jwt-decode";
 
 // Creating schema
 const schema = Yup.object().shape({
@@ -71,7 +72,6 @@ const SignIn = () => {
               </div>
             </div>
           </div>
-
           <br />
           <>
             {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
@@ -87,6 +87,12 @@ const SignIn = () => {
                   .then((response) => {
                     setLoading(false);
                     localStorage.setItem("userData", JSON.stringify(response));
+                    const data = localStorage.getItem("userData");
+                    console.log(data);
+                    console.log(typeof data);
+                    console.log(data.access);
+                    const decoded = jwtDecode(data.access);
+                    console.log(decoded);
                     Swal.fire({
                       icon: "success",
                       title: "Bienvenido",

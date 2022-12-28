@@ -30,10 +30,6 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />
-          <Route
-            path="Admin/Registrar-Usuarios"
-            element={<RegistrarUsuario />}
-          />
         </Routes>
       )}
     </BrowserRouter>

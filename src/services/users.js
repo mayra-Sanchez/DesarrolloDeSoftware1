@@ -2,10 +2,10 @@ import Axios from "axios";
 import endpoints from "./index";
 
 const addUser = async (body) => {
+  const token = localStorage.getItem("userData");
   const config = {
     headers: {
-      accept: "*/*",
-      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
   };
 
