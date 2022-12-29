@@ -9,6 +9,7 @@ import Operador from "./operador/pages/OperadorHome";
 import Cliente from "./cliente/pages/ClienteHome";
 import RegistrarUsuario from "./admin/pages/RegistrarUsuario";
 import ConsultaCliente from "./operador/pages/ConsultaCliente";
+import AutenticarUsuario from "./admin/pages/AutenticarUsuario";
 import { LoginContext } from "./contex/Logincontext";
 
 function App() {
@@ -18,6 +19,11 @@ function App() {
     <BrowserRouter>
       {isLogged ? (
         <Routes>
+        </Routes>
+      ) : (
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="SignIn" element={<SignIn />} />
           <Route path="Admin" element={<Admin />} />
           <Route path="Gerente" element={<Gerente />} />
           <Route path="Operador" element={<Operador />} />
@@ -30,11 +36,10 @@ function App() {
             path="Operador/Consultar-Cliente" 
             element={<ConsultaCliente />} 
           />
-        </Routes>
-      ) : (
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="SignIn" element={<SignIn />} />
+          <Route 
+            path="Admin/Autenticar-Usuario" 
+            element={<AutenticarUsuario />} 
+          />
         </Routes>
       )}
     </BrowserRouter>

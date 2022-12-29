@@ -19,7 +19,7 @@ export function ContenedorPrincipal(props) {
         Registrar usuarios
       </Link>
       <Link
-        to="/Admin/Autenticar-usuarios"
+        to="/Admin/Autenticar-usuario"
         className="btn btn-outline-dark btn-lg mb-3"
       >
         Autenticar usuarios

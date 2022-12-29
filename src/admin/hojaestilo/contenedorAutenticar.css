@@ -1,0 +1,32 @@
+.contenedor-autenticar{
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 3px 13px 1px rgb(51, 52, 53);
+    margin-top: 5vmin;
+    margin: 0 auto;
+    min-height: 80vmin;
+    max-width: 100vmin;
+    margin-top: 5vmin; 
+    border-radius: 4vmin;
+    flex-flow: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.texto1_Autenticar{
+    display: flex;
+    margin-top: 5vmin;
+    max-width: 50vmin;
+    flex-wrap: wrap;
+    font-size: 25px;
+    font-family: "Time new roman";
+}
+
+.contenedor-secundario{
+    height: 50vmin;
+    width: 90vmin;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 3px 13px 1px rgb(51, 52, 53);
+    margin-top: 5vmin; 
+}

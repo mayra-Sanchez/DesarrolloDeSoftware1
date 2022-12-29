@@ -1,7 +1,7 @@
-import "../hojaestilo/AutenticarUsuario.css";
 import logo from "../Images/logo-2.png";
 import React from "react";
 import { Link } from "react-router-dom";
+import { ContenedorAutenticar } from "../components/ContenedorAutenticar";
 
 const AutenticarUsuario = () => {
   return (
@@ -23,6 +23,9 @@ const AutenticarUsuario = () => {
           </Link>
         </ul>
       </nav>
+      <ContenedorAutenticar
+        texto1_Autenticar="Actualizar información"
+      />
     </div>
   );
 };
