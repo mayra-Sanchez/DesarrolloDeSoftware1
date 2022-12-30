@@ -89,22 +89,9 @@ const SignIn = () => {
                   .then((response) => {
                     setLoading(false);
                     localStorage.setItem("userData", JSON.stringify(response));
-                    const data = localStorage.getItem("userData");
-                    console.log(data);
-                    console.log(typeof data);
-                    console.log(data.access);
+                    let data = localStorage.getItem("userData");
+                    data = JSON.parse(data)
                     const decoded = jwtDecode(data.access);
-                    console.log(decoded);
-
-                    /*if (decoded.Rol.equals("admin")) {
-                      navigate("/Admin");
-                    } else if (decoded.Rol.equals("operador")) {
-                      navigate("/Operador");
-                    } else if (decoded.Rol.equals("gerente")) {
-                      navigate("/Gerente");
-                    } else {
-                      navigate("/Cliente");
-                    }*/
 
                     Swal.fire({
                       icon: "success",
@@ -115,11 +102,11 @@ const SignIn = () => {
                       showCancelButton: false,
                     }).then(() => {
                       setIsLogged(true);
-                      if (decoded.Rol.equals("admin")) {
+                      if (decoded.role[0] == ("admin")) {
                         navigate("/Admin");
-                      } else if (decoded.Rol.equals("operador")) {
+                      } else if (decoded.role[0] == ("operator")) {
                         navigate("/Operador");
-                      } else if (decoded.Rol.equals("gerente")) {
+                      } else if (decoded.role[0] == ("manager")) {
                         navigate("/Gerente");
                       } else {
                         navigate("/Cliente");

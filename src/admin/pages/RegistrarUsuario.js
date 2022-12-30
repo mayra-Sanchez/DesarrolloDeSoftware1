@@ -9,12 +9,12 @@ const RegistrarUsuario = () => {
   let navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    nombre: "",
-    apellido: "",
-    celular: "",
+    first_name: "",
+    last_name: "",
+    phone_number: "",
     email: "",
-    contraseña: "",
-    rol: "",
+    password: "",
+    role: "",
   });
 
   const handleChange = (e) => {
@@ -26,34 +26,52 @@ const RegistrarUsuario = () => {
     const data = {
       ...formData,
     };
+    Swal.fire({
+      title: "Atención, estás seguro de realizar esta acción",
+      text: "Vas a registrarte como un nuevo usuario",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      showLoaderOnConfirm: true,
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Confirmar`,
+      allowOutsideClick: false,
+      cancelButtonText: "Cancelar",
+      preConfirm: () => {
+        return new Promise((resolve, reject) => {
+          addUser(data)
+            .then((response) => {
+              Swal.fire({
+                icon: "success",
+                title: "Operación exitosa",
+                text: "Te has registrado correctamente",
+                confirmButtonText: "Continuar",
+                allowOutsideClick: false,
+                showCancelButton: false,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate("/Admin");
+                }
+              });
+            })
+            .catch((err) => {
+              if (err.response.status === 412) {
+                onError(err.response.data);
+                console.log(err.response.data);
+              } else {
+                console.log("error");
+                onError("Error al crear el cargo, intenta de nuevo.");
+              }
 
-    addUser(data)
-      .then((response) => {
-        Swal.fire({
-          icon: "success",
-          title: "Operación exitosa",
-          text: "Te has registrado correctamente",
-          confirmButtonText: "Continuar",
-          allowOutsideClick: false,
-          showCancelButton: false,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/Admin");
-          }
+              console.log(err);
+            });
         });
-      })
-      .catch((err) => {
-        if (err.response.status === 412) {
-          onError(err.response.data);
-          console.log(err.response.data);
-        } else {
-          console.log("error");
-          onError("Error al crear el usuario, intenta de nuevo.");
-        }
+      },
+    });
 
-        console.log(err);
-      });
-  };
+  }
+
+  
 
   const onError = (error) => {
     Swal.fire({
@@ -92,7 +110,7 @@ const RegistrarUsuario = () => {
               <div class="form-group col-md-4">
                 <label>Nombre</label>
                 <input
-                  name="nombre"
+                  name="first_name"
                   type="text"
                   class="form-control"
                   placeholder="Juanito"
@@ -103,7 +121,7 @@ const RegistrarUsuario = () => {
               <div class="form-group col-md-4">
                 <label>Apellido</label>
                 <input
-                  name="apellido"
+                  name="last_name"
                   type="text"
                   class="form-control"
                   placeholder="Cardenas"
@@ -115,7 +133,7 @@ const RegistrarUsuario = () => {
                 <label>Celular</label>
                 <input
                   type="text"
-                  name="celular"
+                  name="phone_number"
                   class="form-control"
                   placeholder="Celular"
                   onChange={handleChange}
@@ -130,8 +148,7 @@ const RegistrarUsuario = () => {
                   type="email"
                   name="email"
                   class="form-control"
-                  placeholder="juanito@gmail.com
-                  "
+                  placeholder="juanito@gmail.com"
                   onChange={handleChange}
                   required
                 />
@@ -140,7 +157,7 @@ const RegistrarUsuario = () => {
                 <label>Contraseña</label>
                 <input
                   type="password"
-                  name="contraseña"
+                  name="password"
                   class="form-control"
                   placeholder="Contraseña"
                   onChange={handleChange}
@@ -151,15 +168,15 @@ const RegistrarUsuario = () => {
             <div class="form-group">
               <label>Rol</label>
               <select
-                name="rol"
+                name="role"
                 class="form-control"
                 onChange={handleChange}
                 required
               >
-                <option>Administrador</option>
-                <option>Operador</option>
-                <option>Gerente</option>
-                <option>Cliente</option>
+                <option value="admin">Administrador</option>
+                <option value="operator">Operador</option>
+                <option value="manager">Gerente</option>
+                <option value="client">Cliente</option>
               </select>
             </div>
             <button type="submit" class="btn btn-primary">

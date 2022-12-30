@@ -19,11 +19,6 @@ function App() {
     <BrowserRouter>
       {isLogged ? (
         <Routes>
-        </Routes>
-      ) : (
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="SignIn" element={<SignIn />} />
           <Route path="Admin" element={<Admin />} />
           <Route path="Gerente" element={<Gerente />} />
           <Route path="Operador" element={<Operador />} />
@@ -32,14 +27,20 @@ function App() {
             path="Admin/Registrar-Usuarios"
             element={<RegistrarUsuario />}
           />
-          <Route 
-            path="Operador/Consultar-Cliente" 
-            element={<ConsultaCliente />} 
+          <Route
+            path="Operador/Consultar-Cliente"
+            element={<ConsultaCliente />}
           />
-          <Route 
-            path="Admin/Autenticar-Usuario" 
-            element={<AutenticarUsuario />} 
+          <Route
+            path="Admin/Autenticar-Usuario"
+            element={<AutenticarUsuario />}
           />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="SignIn" element={<SignIn />} />
+
         </Routes>
       )}
     </BrowserRouter>

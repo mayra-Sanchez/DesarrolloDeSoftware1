@@ -2,7 +2,9 @@ import Axios from "axios";
 import endpoints from "./index";
 
 const addUser = async (body) => {
-  const token = localStorage.getItem("userData");
+  let aux = localStorage.getItem("userData");
+  aux = JSON.parse(aux);
+  const token = aux.access;
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
