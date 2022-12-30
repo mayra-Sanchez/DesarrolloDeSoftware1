@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { loginUser } from "../../services/users";
 import { LoginContext } from "../../contex/Logincontext";
 import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 // Creating schema
 const schema = Yup.object().shape({
@@ -20,6 +21,7 @@ const schema = Yup.object().shape({
 });
 
 const SignIn = () => {
+  let navigate = useNavigate();
   const { setIsLogged } = useContext(LoginContext);
   const [loading, setLoading] = useState(false);
 
@@ -93,6 +95,17 @@ const SignIn = () => {
                     console.log(data.access);
                     const decoded = jwtDecode(data.access);
                     console.log(decoded);
+
+                    /*if (decoded.Rol.equals("admin")) {
+                      navigate("/Admin");
+                    } else if (decoded.Rol.equals("operador")) {
+                      navigate("/Operador");
+                    } else if (decoded.Rol.equals("gerente")) {
+                      navigate("/Gerente");
+                    } else {
+                      navigate("/Cliente");
+                    }*/
+
                     Swal.fire({
                       icon: "success",
                       title: "Bienvenido",
@@ -102,6 +115,15 @@ const SignIn = () => {
                       showCancelButton: false,
                     }).then(() => {
                       setIsLogged(true);
+                      if (decoded.Rol.equals("admin")) {
+                        navigate("/Admin");
+                      } else if (decoded.Rol.equals("operador")) {
+                        navigate("/Operador");
+                      } else if (decoded.Rol.equals("gerente")) {
+                        navigate("/Gerente");
+                      } else {
+                        navigate("/Cliente");
+                      }
                     });
                   })
                   .catch((err) => {
