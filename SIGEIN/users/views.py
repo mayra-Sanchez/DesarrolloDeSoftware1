@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from rest_framework import generics, permissions
 from .serializers import UserSerializer, UpdtaeUserInfoSerializer
-from .models import CustomUser
+from .models import CustomUser, UserRoles
 
 # Create your views here.
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -41,8 +41,15 @@ class RegisterUserView(generics.CreateAPIView):
 
     permission_classes = [permissions.IsAdminUser]
 
-    def perform_create(self, serializer):
-        serializer.save(username= serializer.validated_data.get('email'))
+    def perform_create(self, serializer):        
+        #serializer.save(username= serializer.validated_data.get('email'))
+
+        user_role = UserRoles.objects.filter( role= serializer.validated_data.get('role') )
+
+        if not user_role:
+            raise ValueError('The role field must be set to one of this values (admin, manager, operator, client)')
+        else:            
+            serializer.save(role= user_role[0])
     
     
 
