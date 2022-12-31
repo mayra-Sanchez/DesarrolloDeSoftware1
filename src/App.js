@@ -11,13 +11,14 @@ import RegistrarUsuario from "./admin/pages/RegistrarUsuario";
 import ConsultaCliente from "./operador/pages/ConsultaCliente";
 import AutenticarUsuario from "./admin/pages/AutenticarUsuario";
 import { LoginContext } from "./contex/Logincontext";
+import BuscadorCliente from "./gerente/pages/BuscadorCliente";
 
 function App() {
   const { isLogged } = useContext(LoginContext);
 
   return (
     <BrowserRouter>
-      {isLogged ? (
+      {!isLogged ? (
         <Routes>
           <Route path="Admin" element={<Admin />} />
           <Route path="Gerente" element={<Gerente />} />
@@ -26,6 +27,10 @@ function App() {
           <Route
             path="Admin/Registrar-Usuarios"
             element={<RegistrarUsuario />}
+          />
+          <Route
+            path="Gerente/Gestionar-Clientes"
+            element={<BuscadorCliente />}
           />
           <Route
             path="Operador/Consultar-Cliente"
@@ -40,7 +45,6 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />
-
         </Routes>
       )}
     </BrowserRouter>
