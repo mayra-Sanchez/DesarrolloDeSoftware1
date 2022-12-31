@@ -44,13 +44,29 @@ class RegisterUserView(generics.CreateAPIView):
     def perform_create(self, serializer):        
         #serializer.save(username= serializer.validated_data.get('email'))
 
+        data = serializer.validated_data
+        print("hollaaaaaaaaaaaaaaaa")
+        print(data)
+        user = None
         user_role = UserRoles.objects.filter( role= serializer.validated_data.get('role') )
 
-        if not user_role:
-            raise ValueError('The role field must be set to one of this values (admin, manager, operator, client)')
-        else:            
-            serializer.save(role= user_role[0])
+        
     
+        if(serializer.validated_data.get('role') == 'admin'):
+            CustomUser.objects.create_superuser(
+                email= data['email'],
+                password= self.request.data.get('password'),
+                first_name= data['first_name'],
+                last_name= data['last_name'],
+                phone_number= data['phone_number'],
+                role= data['role']
+            )
+        else:
+            if not user_role:
+                raise ValueError('The role field must be set to one of this values (admin, manager, operator, client)')
+            else:            
+                user = serializer.save(role= user_role[0])
+
     
 
 class UpdateUserInfoView(generics.UpdateAPIView):
