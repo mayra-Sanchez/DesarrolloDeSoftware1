@@ -24,7 +24,7 @@ const AutenticarUsuario = () => {
         </ul>
       </nav>
       <ContenedorAutenticar
-        texto1_Autenticar="Autenticar usuario"
+        texto1_Autenticar="Modificar información de usuario"
       />
     </div>
   );

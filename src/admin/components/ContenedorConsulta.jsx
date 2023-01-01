@@ -3,6 +3,7 @@ import { useState } from "react";
 import { getAllClients } from "../../services/usersAll";
 import { useEffect } from "react";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 import endpoints from "../../services/index";
 
 export function ContenedorConsulta(props) {
@@ -86,8 +87,9 @@ export function ContenedorConsulta(props) {
                                         <td>{usuarios.last_name}</td>
                                         <td>{usuarios.email}</td>
                                         <td>{usuarios.role}</td>
-                                        <td>{usuarios.is_active}</td>
-                                        <td>{usuarios.options} <button>Modificar usuarios</button><br></br><button>Cambiar estado</button></td>
+                                        <td>{usuarios.is_active ? ("Activo") : ("Inactivo")}</td>
+                                        <td>{usuarios.options} <Link to="/Admin/Autenticar-usuario" className="btn btn-outline-dark "> Modificar usuarios</Link> 
+                                        <br></br><button className="btn btn-outline-dark  " >Cambiar estado</button></td>
                                     </tr>
                             ))}
 

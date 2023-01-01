@@ -27,7 +27,7 @@ const ConsultarInformacion = () => {
                 </ul>
             </nav>
             <ContenedorConsulta
-            texto1_Consulta= "Consulta y modificación de usuarios"
+            texto1_Consulta= "Consulta de usuarios"
             />
         </div>
     );
