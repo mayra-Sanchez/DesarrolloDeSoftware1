@@ -13,4 +13,15 @@ const getAllUsers = async () => {
   return response.data;
 };
 
-export { getAllUsers };
+const getAllClients = async () => {
+  const config = {
+    headers: {
+      accept: "*/*",
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await Axios.get(endpoints.users.getAll, config);
+  return response.data;
+};
+
+export { getAllUsers, getAllClients };

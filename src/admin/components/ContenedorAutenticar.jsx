@@ -1,20 +1,21 @@
 import React, { useState } from "react";
+import "../hojaestilo/contenedorAutenticar.css";
 import "../hojaestilo/RegistrarUsuario.css";
-import logo from "../Images/logo-2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { addUser } from "../../services/users";
 import Swal from "sweetalert2";
 
-const RegistrarUsuario = () => {
+export function ContenedorAutenticar(props) {
+
   let navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    phone_number: "",
+    nombre: "",
+    apellido: "",
+    celular: "",
     email: "",
-    password: "",
-    role: "",
+    contraseña: "",
+    rol: "",
   });
 
   const handleChange = (e) => {
@@ -26,58 +27,40 @@ const RegistrarUsuario = () => {
     const data = {
       ...formData,
     };
-    Swal.fire({
-      title: "Atención, estás seguro de realizar esta acción",
-      text: "Vas a registrarte como un nuevo usuario",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      showLoaderOnConfirm: true,
-      cancelButtonColor: "#d33",
-      confirmButtonText: `Confirmar`,
-      allowOutsideClick: false,
-      cancelButtonText: "Cancelar",
-      preConfirm: () => {
-        return new Promise((resolve, reject) => {
-          addUser(data)
-            .then((response) => {
-              Swal.fire({
-                icon: "success",
-                title: "Operación exitosa",
-                text: "Te has registrado correctamente",
-                confirmButtonText: "Continuar",
-                allowOutsideClick: false,
-                showCancelButton: false,
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  navigate("/Admin");
-                }
-              });
-            })
-            .catch((err) => {
-              if (err.response.status === 412) {
-                onError(err.response.data);
-                console.log(err.response.data);
-              } else {
-                console.log("error");
-                onError("Error al crear el cargo, intenta de nuevo.");
-              }
 
-              console.log(err);
-            });
+    addUser(data)
+      .then((response) => {
+        Swal.fire({
+          icon: "success",
+          title: "Operación exitosa",
+          text: "Se ha acctualizado correctamente",
+          confirmButtonText: "Continuar",
+          allowOutsideClick: false,
+          showCancelButton: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/Admin");
+          }
         });
-      },
-    });
+      })
+      .catch((err) => {
+        if (err.response.status === 412) {
+          onError(err.response.data);
+          console.log(err.response.data);
+        } else {
+          console.log("error");
+          onError("Error al actualizar la información del usuario, intenta de nuevo.");
+        }
 
-  }
-
-  
+        console.log(err);
+      });
+  };
 
   const onError = (error) => {
     Swal.fire({
       icon: "error",
       title: "Opps algo salió mal",
-      text: "Ocurrió un error al crear el usuario, intenta de nuevo",
+      text: "Error al actualizar la información del usuario, intenta de nuevo.",
       confirmButtonText: "Continuar",
       allowOutsideClick: false,
       showCancelButton: false,
@@ -85,32 +68,16 @@ const RegistrarUsuario = () => {
   };
 
   return (
-    <div className="RegistrarUsuario">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="navbar-brand">
-          <img
-            src={logo}
-            width="50"
-            height="30"
-            class="d-inline-block align-top"
-            alt="logo"
-          />
-          SIGEIN
-        </div>
-        <ul class="navbar-nav ml-auto">
-          <Link to="/SignIn" className="btn btn-light btn-lg">
-            Cerrar sesión
-          </Link>
-        </ul>
-      </nav>
+    <div class="mx-auto" className="contenedor-autenticar">
+      <p className="texto1_Autenticar">{props.texto1_Autenticar}</p>
+      <div class="contenedor-secundario">
       <div className="Registro">
-        <div class="container mt-5">
           <form onSubmit={handleSubmit}>
             <div class="form-row">
               <div class="form-group col-md-4">
                 <label>Nombre</label>
                 <input
-                  name="first_name"
+                  name="nombre"
                   type="text"
                   class="form-control"
                   placeholder="Juanito"
@@ -121,7 +88,7 @@ const RegistrarUsuario = () => {
               <div class="form-group col-md-4">
                 <label>Apellido</label>
                 <input
-                  name="last_name"
+                  name="apellido"
                   type="text"
                   class="form-control"
                   placeholder="Cardenas"
@@ -133,7 +100,7 @@ const RegistrarUsuario = () => {
                 <label>Celular</label>
                 <input
                   type="text"
-                  name="phone_number"
+                  name="celular"
                   class="form-control"
                   placeholder="Celular"
                   onChange={handleChange}
@@ -148,7 +115,8 @@ const RegistrarUsuario = () => {
                   type="email"
                   name="email"
                   class="form-control"
-                  placeholder="juanito@gmail.com"
+                  placeholder="juanito@gmail.com
+                  "
                   onChange={handleChange}
                   required
                 />
@@ -157,7 +125,7 @@ const RegistrarUsuario = () => {
                 <label>Contraseña</label>
                 <input
                   type="password"
-                  name="password"
+                  name="contraseña"
                   class="form-control"
                   placeholder="Contraseña"
                   onChange={handleChange}
@@ -168,25 +136,27 @@ const RegistrarUsuario = () => {
             <div class="form-group">
               <label>Rol</label>
               <select
-                name="role"
+                name="rol"
                 class="form-control"
                 onChange={handleChange}
                 required
               >
-                <option value="admin">Administrador</option>
-                <option value="operator">Operador</option>
-                <option value="manager">Gerente</option>
-                <option value="client">Cliente</option>
+                <option>Administrador</option>
+                <option>Operador</option>
+                <option>Gerente</option>
+                <option>Cliente</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary">
-              Registrar
-            </button>
-          </form>
-        </div>
+              <button type="submit" class="btn btn-primary">
+                Actualizar
+              </button>
+              <nbsp>          </nbsp>
+              <button type="reset" class="btn btn-primary">
+                Cancelar
+              </button>
+            </form>
+          </div>
       </div>
     </div>
   );
-};
-
-export default RegistrarUsuario;
+}

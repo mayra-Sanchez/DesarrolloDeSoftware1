@@ -1,6 +1,3 @@
-.html,.contenedor-inicialGerente{
-    height: 100vh;
-}
   
 .contenedor-inicialGerente {
     background-image: url("../Images/fondoAmarillo.svg");
@@ -9,8 +6,11 @@
     background-repeat: no-repeat;
     background-position: center center;
     font-family: 'Hind Siliguri';
-    background-color: rgba(255, 255, 255, 0);
     text-align: center;
     color: #000;
+}
+
+.html,.contenedor-inicialGerente{
+    height: 100vh;
 }
 

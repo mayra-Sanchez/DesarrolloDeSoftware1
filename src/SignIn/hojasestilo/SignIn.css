@@ -1,5 +1,5 @@
 .Sign-logo {
-  width: 60vmin;
+  width: 50vmin;
   height: 20vmin;
   pointer-events: none;
   margin-top: 10vmin;
@@ -28,23 +28,22 @@
   background-repeat: no-repeat;
   background-position: center center;
   font-family: 'Hind Siliguri';
-  background-color: #FFF;
   color: #000;
 }
  
 .login {
-  padding: 3%;
+  
   margin: auto;
   border-radius: 2vmin;
 }
 
 .form {
-  margin-top: 5vmin;
+  margin-top: 4vmin;
   align-self: center;
   background: #FFFFFF;
   border-radius: 5%;
   min-width: 80vmin;
-  max-width: 90vmax;
+  
   padding: 2%;
   text-align: center;
 }
@@ -53,7 +52,7 @@
   outline: 0;
   background: #f2f2f2;
   width: 100%;
-  border: 0;
+  border: 3px;
   border-radius: 5px;
   padding: 2%;
   box-sizing: border-box;
@@ -86,7 +85,7 @@
 .form span {
   font-size: 8vmin;
   color: #2f3544;
-  margin-top: 2vmin;
+  margin-top: 5vmin;
   margin-bottom: 3vmin;
   display: block;
 }

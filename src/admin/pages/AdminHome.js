@@ -6,7 +6,7 @@ import { ContenedorPrincipal } from "../components/ContenedorPrincipal";
 
 const AdminHome = () => {
   return (
-    <div className="Admin">
+    <div class="Admin">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand">
           <img

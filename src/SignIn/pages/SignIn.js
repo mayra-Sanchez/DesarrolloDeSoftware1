@@ -7,10 +7,8 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { loginUser } from "../../services/users";
 import { LoginContext } from "../../contex/Logincontext";
-
-
-
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 // Creating schema
 const schema = Yup.object().shape({
@@ -23,6 +21,7 @@ const schema = Yup.object().shape({
 });
 
 const SignIn = () => {
+  let navigate = useNavigate();
   const { setIsLogged } = useContext(LoginContext);
   const [loading, setLoading] = useState(false);
 
@@ -75,7 +74,6 @@ const SignIn = () => {
               </div>
             </div>
           </div>
-
           <br />
           <>
             {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
@@ -92,16 +90,8 @@ const SignIn = () => {
                     setLoading(false);
                     localStorage.setItem("userData", JSON.stringify(response));
                     let data = localStorage.getItem("userData");
-                    data = JSON.parse(data);
-                    
-                    console.log(data);
-                    console.log(typeof(data));
-                    console.log(data.access);
-                    console.log(data['access']);
-
+                    data = JSON.parse(data)
                     const decoded = jwtDecode(data.access);
-                    console.log(decoded);
-
 
                     Swal.fire({
                       icon: "success",
@@ -112,6 +102,15 @@ const SignIn = () => {
                       showCancelButton: false,
                     }).then(() => {
                       setIsLogged(true);
+                      if (decoded.role[0] == ("admin")) {
+                        navigate("/Admin");
+                      } else if (decoded.role[0] == ("operator")) {
+                        navigate("/Operador");
+                      } else if (decoded.role[0] == ("manager")) {
+                        navigate("/Gerente");
+                      } else {
+                        navigate("/Cliente");
+                      }
                     });
                   })
                   .catch((err) => {
@@ -128,8 +127,8 @@ const SignIn = () => {
                 handleChange,
                 handleSubmit,
               }) => (
-                <div className="login">
-                  <div className="form">
+                <div className="form">
+                  <div className="login">
                     {/* Passing handleSubmit parameter tohtml form onSubmit property */}
                     <form noValidate onSubmit={handleSubmit}>
                       <span>Iniciar sesión</span>
