@@ -8,6 +8,10 @@ import Swal from "sweetalert2";
 import { loginUser } from "../../services/users";
 import { LoginContext } from "../../contex/Logincontext";
 
+
+
+import jwtDecode from 'jwt-decode';
+
 // Creating schema
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -87,6 +91,18 @@ const SignIn = () => {
                   .then((response) => {
                     setLoading(false);
                     localStorage.setItem("userData", JSON.stringify(response));
+                    let data = localStorage.getItem("userData");
+                    data = JSON.parse(data);
+                    
+                    console.log(data);
+                    console.log(typeof(data));
+                    console.log(data.access);
+                    console.log(data['access']);
+
+                    const decoded = jwtDecode(data.access);
+                    console.log(decoded);
+
+
                     Swal.fire({
                       icon: "success",
                       title: "Bienvenido",
