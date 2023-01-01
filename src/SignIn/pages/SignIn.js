@@ -127,8 +127,8 @@ const SignIn = () => {
                 handleChange,
                 handleSubmit,
               }) => (
-                <div className="login">
-                  <div className="form">
+                <div className="form">
+                  <div className="login">
                     {/* Passing handleSubmit parameter tohtml form onSubmit property */}
                     <form noValidate onSubmit={handleSubmit}>
                       <span>Iniciar sesión</span>

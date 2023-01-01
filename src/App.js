@@ -8,6 +8,7 @@ import Gerente from "./gerente/pages/GerenteHome";
 import Operador from "./operador/pages/OperadorHome";
 import Cliente from "./cliente/pages/ClienteHome";
 import RegistrarUsuario from "./admin/pages/RegistrarUsuario";
+import ConsultarInformacion from "./admin/pages/ConsultarInformacion";
 import ConsultaCliente from "./operador/pages/ConsultaCliente";
 import AutenticarUsuario from "./admin/pages/AutenticarUsuario";
 import { LoginContext } from "./contex/Logincontext";
@@ -40,11 +41,15 @@ function App() {
             path="Admin/Autenticar-Usuario"
             element={<AutenticarUsuario />}
           />
+          <Route
+            path = "Admin/Consultar-informacion"
+            element = {<ConsultarInformacion />}
+          />
+          <Route index element={<Home />} />
+          <Route path="SignIn" element={<SignIn />} />
         </Routes>
       ) : (
         <Routes>
-          <Route index element={<Home />} />
-          <Route path="SignIn" element={<SignIn />} />
         </Routes>
       )}
     </BrowserRouter>

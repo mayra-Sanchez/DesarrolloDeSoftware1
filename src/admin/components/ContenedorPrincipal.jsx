@@ -25,7 +25,7 @@ export function ContenedorPrincipal(props) {
         Autenticar usuarios
       </Link>
       <Link
-        to="/Admin/Gestion-usuarios/Consultar-informacion"
+        to="/Admin/Consultar-informacion"
         className="btn btn-outline-dark btn-lg mb-3 "
       >
         Consultar informacion

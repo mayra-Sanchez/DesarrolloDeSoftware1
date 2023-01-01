@@ -26,7 +26,4 @@
 .contenedor-secundario{
     height: 50vmin;
     width: 90vmin;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0 3px 13px 1px rgb(51, 52, 53);
-    margin-top: 5vmin; 
 }
