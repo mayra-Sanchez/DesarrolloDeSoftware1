@@ -8,6 +8,7 @@ const endpoints = {
   users: {
     registerUser: `${URL}/users/register-user/`,
     loginUser: `${URL}/users/login/`,
+    updateActive: (id) => `${URL}/users/${id}/update-info/`,
   },
 
   roles: {},

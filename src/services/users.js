@@ -27,7 +27,7 @@ const loginUser = async (body) => {
   return response.data;
 };
 
-const actualizarEstado = async (body) => {
+const actualizarEstado = async (body, id) => {
   const config = {
     headers: {
       accept: "*/*",
@@ -35,7 +35,11 @@ const actualizarEstado = async (body) => {
     },
   };
 
-  const response = await Axios.post(endpoints.users.is_active, body, config);
+  const response = await Axios.patch(
+    endpoints.users.updateActive(id),
+    body,
+    config
+  );
   console.log(response.data);
   return response.data;
 };

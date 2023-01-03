@@ -3,105 +3,126 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
+import { actualizarEstado } from "../../services/users";
 
 export function ContenedorConsulta(props) {
+  const [usuarios, setUsuarios] = useState([]);
+  const [tablaUsuarios, setTablaUsuarios] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
 
-    const [usuarios, setUsuarios] = useState([]);
-    const [tablaUsuarios, setTablaUsuarios] = useState([]);
-    const [busqueda, setBusqueda] = useState("");
+  const peticion = async () => {
+    await Axios.get("http://127.0.0.1:8000/users/list-all/") //"http://127.0.0.1:8000/users/list-all/" nuestra BD
+      .then((response) => {
+        setUsuarios(response.data);
+        setTablaUsuarios(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    
+  useEffect(() => {
+    peticion();
+  }, []);
 
-    const peticion = async () => {
-        await Axios.get("http://127.0.0.1:8000/users/list-all/") //"http://127.0.0.1:8000/users/list-all/" nuestra BD
-            .then((response) => {
-                setUsuarios(response.data);
-                setTablaUsuarios(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+  const handleChange = (e) => {
+    setBusqueda(e.target.value);
+    filtro(e.target.value);
+  };
 
-    useEffect(() => {
-        peticion();
-    }, []);
+  const filtro = (busqueda) => {
+    var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
+      if (
+        elemento.name
+          .toString()
+          .toLowerCase()
+          .includes(busqueda.toLowerCase()) ||
+        elemento.name.toString().toLowerCase().includes(busqueda.toLowerCase())
+      ) {
+        return elemento;
+      }
+    });
+    setUsuarios(resultadosBusqueda);
+  };
 
-    const handleChange = (e) => {
-        setBusqueda(e.target.value);
-        filtro(e.target.value);
-    };
+  const handleStatus = (id) => {
+    actualizarEstado(id);
+  };
 
-    const filtro = (busqueda) => {
-        var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
-            if (
-                elemento.name
-                    .toString()
-                    .toLowerCase()
-                    .includes(busqueda.toLowerCase()) ||
-                elemento.name.toString().toLowerCase().includes(busqueda.toLowerCase())
-            ) {
-                return elemento;
-            }
-        });
-        setUsuarios(resultadosBusqueda);
-    };
-
-    const handleStatus = (id) => {
-        actualizarEstado(id)   
-      };
-
-    const actualizarEstado = (usuario)=> {
-        setUsuarios([ ...usuarios, {...usuario, is_active: !usuario.is_active}  ]);
+  const actualizarEstadoMetodo = (usuario) => {
+    var actualizacion;
+    if (usuario.is_active === true) {
+      actualizacion = false;
+    } else if (usuario.is_active === false) {
+      actualizacion = true;
     }
 
-    return (
-        <div class="mx-auto" className="contenedor-consulta">
-            <p className="texto1_Consulta">{props.texto1_Consulta}</p>
-            <div className="buscador">
-                <div className="barra-busqueda">
-                    <input
-                        className="form-control inputBuscar"
-                        value={busqueda}
-                        placeholder="Búsqueda por Nombre o número de celular"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="table-responsive">
-                    <table className="table table-striped table-bordered table-hover table-responsive-sm">
-                        <thead>
-                            <tr>
-                                <th>Celular</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Email</th>
-                                <th>Rol</th>
-                                <th>Estado</th>
-                                <th>Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {usuarios &&
-                                usuarios.map((usuario) => (
-                                    <tr key={usuario.id}>
-                                        <td>{usuario.phone_number}</td>
-                                        <td>{usuario.first_name}</td>
-                                        <td>{usuario.last_name}</td>
-                                        <td>{usuario.email}</td>
-                                        <td>{usuario.role}</td>
-                                        <td>{usuario.is_active ? ("Activo") : ("Inactivo")}</td>
-                                        <td>{usuario.options} 
-                                        <Link to="/Admin/Autenticar-usuario" className="btn btn-outline-dark mb-1"> Modificar usuarios</Link> 
-                                        <br/>
-                                        <button className="btn btn-outline-dark  mb-1" onClick={() => setUsuarios([ ...usuarios, {...usuario, is_active: !usuario.is_active}])}
-                                        >Cambiar estado</button></td>
-                                    </tr>
-                            ))}
+    const body = { is_active: actualizacion };
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    actualizarEstado(body, usuario.id).then((response) => {
+      setUsuarios([response]);
+      setTablaUsuarios([response]);
+    });
+  };
+
+  return (
+    <div class="mx-auto" className="contenedor-consulta">
+      <p className="texto1_Consulta">{props.texto1_Consulta}</p>
+      <div className="buscador">
+        <div className="barra-busqueda">
+          <input
+            className="form-control inputBuscar"
+            value={busqueda}
+            placeholder="Búsqueda por Nombre o número de celular"
+            onChange={handleChange}
+          />
         </div>
-    );
+        <div className="table-responsive">
+          <table className="table table-striped table-bordered table-hover table-responsive-sm">
+            <thead>
+              <tr>
+                <th>Celular</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usuarios &&
+                usuarios.map((usuario) => (
+                  <tr key={usuario.id}>
+                    <td>{usuario.phone_number}</td>
+                    <td>{usuario.first_name}</td>
+                    <td>{usuario.last_name}</td>
+                    <td>{usuario.email}</td>
+                    <td>{usuario.role}</td>
+                    <td>{usuario.is_active ? "Activo" : "Inactivo"}</td>
+                    <td>
+                      {usuario.options}
+                      <Link
+                        to="/Admin/Autenticar-usuario"
+                        className="btn btn-outline-dark mb-1"
+                      >
+                        {" "}
+                        Modificar usuarios
+                      </Link>
+                      <br />
+                      <button
+                        className="btn btn-outline-dark  mb-1"
+                        onClick={() => actualizarEstadoMetodo(usuario)}
+                      >
+                        Cambiar estado
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
 }

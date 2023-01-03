@@ -42,15 +42,14 @@ function App() {
             element={<AutenticarUsuario />}
           />
           <Route
-            path = "Admin/Consultar-informacion"
-            element = {<ConsultarInformacion />}
+            path="Admin/Consultar-informacion"
+            element={<ConsultarInformacion />}
           />
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />
         </Routes>
       ) : (
-        <Routes>
-        </Routes>
+        <Routes></Routes>
       )}
     </BrowserRouter>
   );
