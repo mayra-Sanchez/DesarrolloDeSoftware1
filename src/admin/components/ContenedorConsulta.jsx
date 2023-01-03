@@ -38,6 +38,9 @@ export function ContenedorConsulta(props) {
   const handleChange = (e) => {
     setBusqueda(e.target.value);
     filtro(e.target.value);
+  };
+
+  const cambioUser = (e) => {
     const { name, value } = e.target;
     setDatosSeleccionado((prevState) => ({
       ...prevState,
@@ -86,19 +89,66 @@ export function ContenedorConsulta(props) {
   }
 
   const editar = () => {
+    let usuario_editar_id; 
     var dataNueva = usuarios;
-    dataNueva.map(usuarios => {
-      if (usuarios.id === datosSeleccionado.id) {
-        usuarios.phone_number = datosSeleccionado.phone_number;
-        usuarios.first_name = datosSeleccionado.first_name;
-        usuarios.last_name = datosSeleccionado.last_name;
-        usuarios.email = datosSeleccionado.email;
-        usuarios.role = datosSeleccionado.role;
-      }
+    dataNueva.map( usuario => {
+        if (usuario.id == datosSeleccionado.id) {
+            usuario_editar_id = datosSeleccionado.id            
+            usuario.phone_number = datosSeleccionado.phone_number;
+            usuario.first_name = datosSeleccionado.first_name;
+            usuario.last_name = datosSeleccionado.last_name;
+            usuario.email = datosSeleccionado.email;
+            usuario.role = datosSeleccionado.role;            
+        }
     });
     setUsuarios(dataNueva);
+
+    const usuario = usuarios.find(user => user.id == usuario_editar_id)
+
+    const handleClick = async () => {
+        try {
+
+
+          const res = await Axios.put(`http://127.0.0.1:8000/users/${usuario.id}/update-info/`, {
+            email: usuario.email,
+            first_name: usuario.first_name,
+            last_name: usuario.last_name,
+            phone_number: usuario.phone_number,
+            role: 4 // aqui no va un numero, Bailon cuadra luego esto en el back para que pueda pasar el nombvre del rol
+          });
+    
+            console.log(res.data);
+        } catch (error) {
+          console.error(error);
+        }
+
+    }
+    
+    console.log(usuario)
+    console.log(usuario.id)
+    console.log(dataNueva.id)
+    console.log(datosSeleccionado.first_name)
+    handleClick()
+
     setModalEditar(false);
-  }
+    }
+
+
+// const editar = () => {
+//     var dataNueva = usuario;
+//     dataNueva.map(usuario => {
+//       if (usuario.id === datosSeleccionado.id) {
+//         usuario.phone_number = datosSeleccionado.phone_number;
+//         usuario.first_name = datosSeleccionado.first_name;
+//         usuario.last_name = datosSeleccionado.last_name;
+//         usuario.email = datosSeleccionado.email;
+//         usuario.role = datosSeleccionado.role;
+//       }
+//     });
+//     setUsuarios(dataNueva);
+//     setModalEditar(false);
+//   }
+
 
   return (
     <div class="mx-auto" className="contenedor-consulta">
@@ -169,7 +219,7 @@ export function ContenedorConsulta(props) {
                   type="text"
                   name="first_name"
                   value={datosSeleccionado && datosSeleccionado.first_name}
-                  onChange={handleChange}
+                  onChange={cambioUser}
                 />
                 <br />
 
@@ -179,7 +229,7 @@ export function ContenedorConsulta(props) {
                   type="text"
                   name="last_name"
                   value={datosSeleccionado && datosSeleccionado.last_name}
-                  onChange={handleChange}
+                  onChange={cambioUser}
                 />
                 <br />
 
@@ -189,7 +239,7 @@ export function ContenedorConsulta(props) {
                   type="text"
                   name="phone_number"
                   value={datosSeleccionado && datosSeleccionado.phone_number}
-                  onChange={handleChange}
+                  onChange={cambioUser}
                 />
                 <br />
 
@@ -199,7 +249,7 @@ export function ContenedorConsulta(props) {
                   type="text"
                   name="email"
                   value={datosSeleccionado && datosSeleccionado.email}
-                  onChange={handleChange}
+                  onChange={cambioUser}
                 />
                 <br />
 
@@ -207,7 +257,7 @@ export function ContenedorConsulta(props) {
                 <select
                   name="role"
                   class="form-control"
-                  onChange={handleChange}
+                  onChange={cambioUser}
                   required
                   value={datosSeleccionado && datosSeleccionado.role}
                 >
