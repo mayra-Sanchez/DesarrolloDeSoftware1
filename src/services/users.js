@@ -26,4 +26,18 @@ const loginUser = async (body) => {
   const response = await Axios.post(endpoints.users.loginUser, body, config);
   return response.data;
 };
-export { addUser, loginUser };
+
+const actualizarEstado = async (body) => {
+  const config = {
+    headers: {
+      accept: "*/*",
+      "Content-Type": "application/json",
+    },
+  };
+
+  const response = await Axios.post(endpoints.users.is_active, body, config);
+  console.log(response.data);
+  return response.data;
+};
+
+export { addUser, loginUser, actualizarEstado };

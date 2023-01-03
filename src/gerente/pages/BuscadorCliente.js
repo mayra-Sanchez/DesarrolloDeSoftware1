@@ -1,11 +1,9 @@
 import "../hojaestilo/BuscadorCliente.css";
 import Axios from "axios";
-import endpoints from "../../services/index";
 import logo from "../Images/logo-2.png";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { getAllClients } from "../../services/usersAll";
 import { useEffect } from "react";
 
 const BuscadorCliente = () => {
@@ -14,12 +12,6 @@ const BuscadorCliente = () => {
   const [busqueda, setBusqueda] = useState("");
 
   const peticion = async () => {
-    const config = {
-      headers: {
-        accept: "*/*",
-        "Content-Type": "application/json",
-      },
-    };
     await Axios.get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
         setUsuarios(response.data);

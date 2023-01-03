@@ -1,10 +1,8 @@
 import "../hojaestilo/ConsultarInformacion.css";
 import { useState } from "react";
-import { getAllClients } from "../../services/usersAll";
 import { useEffect } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-import endpoints from "../../services/index";
 
 export function ContenedorConsulta(props) {
 
@@ -12,14 +10,10 @@ export function ContenedorConsulta(props) {
     const [tablaUsuarios, setTablaUsuarios] = useState([]);
     const [busqueda, setBusqueda] = useState("");
 
+    
+
     const peticion = async () => {
-        const config = {
-            headers: {
-                accept: "*/*",
-                "Content-Type": "application/json",
-            },
-        };
-        await Axios.get("http://127.0.0.1:8000/users/list-all/")
+        await Axios.get("http://127.0.0.1:8000/users/list-all/") //"http://127.0.0.1:8000/users/list-all/" nuestra BD
             .then((response) => {
                 setUsuarios(response.data);
                 setTablaUsuarios(response.data);
@@ -52,6 +46,14 @@ export function ContenedorConsulta(props) {
         });
         setUsuarios(resultadosBusqueda);
     };
+
+    const handleStatus = (id) => {
+        actualizarEstado(id)   
+      };
+
+    const actualizarEstado = (usuario)=> {
+        setUsuarios([ ...usuarios, {...usuario, is_active: !usuario.is_active}  ]);
+    }
 
     return (
         <div class="mx-auto" className="contenedor-consulta">
@@ -88,11 +90,13 @@ export function ContenedorConsulta(props) {
                                         <td>{usuarios.email}</td>
                                         <td>{usuarios.role}</td>
                                         <td>{usuarios.is_active ? ("Activo") : ("Inactivo")}</td>
-                                        <td>{usuarios.options} <Link to="/Admin/Autenticar-usuario" className="btn btn-outline-dark "> Modificar usuarios</Link> 
-                                        <br></br><button className="btn btn-outline-dark  " >Cambiar estado</button></td>
+                                        <td>{usuarios.options} 
+                                        <Link to="/Admin/Autenticar-usuario" className="btn btn-outline-dark mb-1"> Modificar usuarios</Link> 
+                                        <br/>
+                                        <button className="btn btn-outline-dark  mb-1" onClick={() => handleStatus(usuarios.id)}
+                                        >Cambiar estado</button></td>
                                     </tr>
                             ))}
-
 
                         </tbody>
                     </table>
