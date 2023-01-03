@@ -2,13 +2,23 @@ import "../hojaestilo/ConsultarInformacion.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
 import { actualizarEstado } from "../../services/users";
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 
 export function ContenedorConsulta(props) {
   const [usuarios, setUsuarios] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
+  const [modalEditar, setModalEditar] = useState(false);
+  const [datosSeleccionado, setDatosSeleccionado] = useState({
+    id: '',
+    phone_number: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    role: '',
+  });
 
   const peticion = async () => {
     await Axios.get("http://127.0.0.1:8000/users/list-all/") //"http://127.0.0.1:8000/users/list-all/" nuestra BD
@@ -28,6 +38,11 @@ export function ContenedorConsulta(props) {
   const handleChange = (e) => {
     setBusqueda(e.target.value);
     filtro(e.target.value);
+    const { name, value } = e.target;
+    setDatosSeleccionado((prevState) => ({
+      ...prevState,
+      [name]: value
+    }))
   };
 
   const filtro = (busqueda) => {
@@ -64,6 +79,26 @@ export function ContenedorConsulta(props) {
       setTablaUsuarios([response]);
     });
   };
+
+  const seleccionarDatos = (usuario, caso) => {
+    setDatosSeleccionado(usuario);
+    (caso === 'Editar') && setModalEditar(true)
+  }
+
+  const editar = () => {
+    var dataNueva = usuarios;
+    dataNueva.map(usuarios => {
+      if (usuarios.id === datosSeleccionado.id) {
+        usuarios.phone_number = datosSeleccionado.phone_number;
+        usuarios.first_name = datosSeleccionado.first_name;
+        usuarios.last_name = datosSeleccionado.last_name;
+        usuarios.email = datosSeleccionado.email;
+        usuarios.role = datosSeleccionado.role;
+      }
+    });
+    setUsuarios(dataNueva);
+    setModalEditar(false);
+  }
 
   return (
     <div class="mx-auto" className="contenedor-consulta">
@@ -102,25 +137,101 @@ export function ContenedorConsulta(props) {
                     <td>{usuario.is_active ? "Activo" : "Inactivo"}</td>
                     <td>
                       {usuario.options}
-                      <Link
-                        to="/Admin/Autenticar-usuario"
-                        className="btn btn-outline-dark mb-1"
-                      >
-                        {" "}
-                        Modificar usuarios
-                      </Link>
+                      <button className="btn btn-outline-dark  mb-1" onClick={() => seleccionarDatos(usuario, 'Editar')}> Modificar usuario </button>
                       <br />
-                      <button
-                        className="btn btn-outline-dark  mb-1"
-                        onClick={() => actualizarEstadoMetodo(usuario)}
-                      >
-                        Cambiar estado
-                      </button>
+                      <button className="btn btn-outline-dark  mb-1" onClick={() => actualizarEstadoMetodo(usuario)}> Cambiar estado </button>
                     </td>
                   </tr>
                 ))}
             </tbody>
           </table>
+          <Modal isOpen={modalEditar}>
+            <ModalHeader>
+              <div>
+                <h3> Modificar datos </h3>
+              </div>
+            </ModalHeader>
+            <ModalBody>
+              <div className="form-group">
+                <label>ID</label>
+                <input
+                  className="form-control"
+                  readOnly
+                  type="text"
+                  name="id"
+                  value={datosSeleccionado && datosSeleccionado.id}
+                />
+                <br />
+
+                <label>Nombre</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="first_name"
+                  value={datosSeleccionado && datosSeleccionado.first_name}
+                  onChange={handleChange}
+                />
+                <br />
+
+                <label>Apellido</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="last_name"
+                  value={datosSeleccionado && datosSeleccionado.last_name}
+                  onChange={handleChange}
+                />
+                <br />
+
+                <label>Celular</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="phone_number"
+                  value={datosSeleccionado && datosSeleccionado.phone_number}
+                  onChange={handleChange}
+                />
+                <br />
+
+                <label>Email</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="email"
+                  value={datosSeleccionado && datosSeleccionado.email}
+                  onChange={handleChange}
+                />
+                <br />
+
+                <label>Rol</label>
+                <select
+                  name="role"
+                  class="form-control"
+                  onChange={handleChange}
+                  required
+                  value={datosSeleccionado && datosSeleccionado.role}
+                >
+                  <option value="admin">Administrador</option>
+                  <option value="operator">Operador</option>
+                  <option value="manager">Gerente</option>
+                  <option value="client">Cliente</option>
+                </select>
+                <br />
+
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <button className="btn btn-primary" onClick={() => editar()}>
+                Actualizar
+              </button>
+              <button
+                className="btn btn-danger"
+                onClick={() => setModalEditar(false)}
+              >
+                Cancelar
+              </button>
+            </ModalFooter>
+          </Modal>
         </div>
       </div>
     </div>

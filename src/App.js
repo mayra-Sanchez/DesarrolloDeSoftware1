@@ -10,7 +10,6 @@ import Cliente from "./cliente/pages/ClienteHome";
 import RegistrarUsuario from "./admin/pages/RegistrarUsuario";
 import ConsultarInformacion from "./admin/pages/ConsultarInformacion";
 import ConsultaCliente from "./operador/pages/ConsultaCliente";
-import AutenticarUsuario from "./admin/pages/AutenticarUsuario";
 import { LoginContext } from "./contex/Logincontext";
 import BuscadorCliente from "./gerente/pages/BuscadorCliente";
 
@@ -36,10 +35,6 @@ function App() {
           <Route
             path="Operador/Consultar-Cliente"
             element={<ConsultaCliente />}
-          />
-          <Route
-            path="Admin/Autenticar-Usuario"
-            element={<AutenticarUsuario />}
           />
           <Route
             path="Admin/Consultar-informacion"
