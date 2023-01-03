@@ -10,7 +10,6 @@ import Cliente from "./cliente/pages/ClienteHome";
 import RegistrarUsuario from "./admin/pages/RegistrarUsuario";
 import ConsultarInformacion from "./admin/pages/ConsultarInformacion";
 import ConsultaCliente from "./operador/pages/ConsultaCliente";
-import AutenticarUsuario from "./admin/pages/AutenticarUsuario";
 import { LoginContext } from "./contex/Logincontext";
 import BuscadorCliente from "./gerente/pages/BuscadorCliente";
 
@@ -38,19 +37,14 @@ function App() {
             element={<ConsultaCliente />}
           />
           <Route
-            path="Admin/Autenticar-Usuario"
-            element={<AutenticarUsuario />}
-          />
-          <Route
-            path = "Admin/Consultar-informacion"
-            element = {<ConsultarInformacion />}
+            path="Admin/Consultar-informacion"
+            element={<ConsultarInformacion />}
           />
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />
         </Routes>
       ) : (
-        <Routes>
-        </Routes>
+        <Routes></Routes>
       )}
     </BrowserRouter>
   );
