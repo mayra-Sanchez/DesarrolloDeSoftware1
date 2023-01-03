@@ -20,7 +20,7 @@ export function ContenedorConsulta(props) {
         };
         await Axios.get("http://127.0.0.1:8000/users/list-all/")
             .then((response) => {
-                setUsuarios(response.data);
+                setUsuarios(response.data);                
                 setTablaUsuarios(response.data);
             })
             .catch((error) => {
@@ -31,6 +31,7 @@ export function ContenedorConsulta(props) {
     useEffect(() => {
         peticion();
     }, []);
+
 
     const handleChange = (e) => {
         setBusqueda(e.target.value);
@@ -86,7 +87,7 @@ export function ContenedorConsulta(props) {
                                         <td>{usuarios.last_name}</td>
                                         <td>{usuarios.email}</td>
                                         <td>{usuarios.role}</td>
-                                        <td>{usuarios.is_active}</td>
+                                        <td>{usuarios.is_active ? ("Activo") : ("Inactivo")}</td>
                                         <td>{usuarios.options} <button>Modificar usuarios</button><br></br><button>Cambiar estado</button></td>
                                     </tr>
                             ))}

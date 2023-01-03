@@ -20,7 +20,7 @@ const BuscadorCliente = () => {
         "Content-Type": "application/json",
       },
     };
-    await Axios.get("https://jsonplaceholder.typicode.com/users")
+    await Axios.get("http://127.0.0.1:8000/users/list-all/")
       .then((response) => {
         setUsuarios(response.data);
         setTablaUsuarios(response.data);
