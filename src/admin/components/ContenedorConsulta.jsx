@@ -82,18 +82,18 @@ export function ContenedorConsulta(props) {
                         </thead>
                         <tbody>
                             {usuarios &&
-                                usuarios.map((usuarios) => (
-                                    <tr key={usuarios.id}>
-                                        <td>{usuarios.phone_number}</td>
-                                        <td>{usuarios.first_name}</td>
-                                        <td>{usuarios.last_name}</td>
-                                        <td>{usuarios.email}</td>
-                                        <td>{usuarios.role}</td>
-                                        <td>{usuarios.is_active ? ("Activo") : ("Inactivo")}</td>
-                                        <td>{usuarios.options} 
+                                usuarios.map((usuario) => (
+                                    <tr key={usuario.id}>
+                                        <td>{usuario.phone_number}</td>
+                                        <td>{usuario.first_name}</td>
+                                        <td>{usuario.last_name}</td>
+                                        <td>{usuario.email}</td>
+                                        <td>{usuario.role}</td>
+                                        <td>{usuario.is_active ? ("Activo") : ("Inactivo")}</td>
+                                        <td>{usuario.options} 
                                         <Link to="/Admin/Autenticar-usuario" className="btn btn-outline-dark mb-1"> Modificar usuarios</Link> 
                                         <br/>
-                                        <button className="btn btn-outline-dark  mb-1" onClick={() => handleStatus(usuarios.id)}
+                                        <button className="btn btn-outline-dark  mb-1" onClick={() => setUsuarios([ ...usuarios, {...usuario, is_active: !usuario.is_active}])}
                                         >Cambiar estado</button></td>
                                     </tr>
                             ))}
