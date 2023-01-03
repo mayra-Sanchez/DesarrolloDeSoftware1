@@ -14,6 +14,8 @@ Setting up the virtual enviroment
 ```
 python3.9 -m venv venv
 source venv/bin/activate
+//windows: 
+.\venv\Scripts\activate
 pip install -r requirements.txt
 ```
 <br>
