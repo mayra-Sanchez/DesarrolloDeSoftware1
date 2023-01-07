@@ -11,6 +11,7 @@ export function ContenedorConsulta(props) {
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [modalEditar, setModalEditar] = useState(false);
+  
   const [datosSeleccionado, setDatosSeleccionado] = useState({
     id: '',
     phone_number: '',

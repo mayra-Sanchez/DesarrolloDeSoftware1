@@ -12,6 +12,7 @@ import ConsultarInformacion from "./admin/pages/ConsultarInformacion";
 import ConsultaCliente from "./operador/pages/ConsultaCliente";
 import { LoginContext } from "./contex/Logincontext";
 import BuscadorCliente from "./gerente/pages/BuscadorCliente";
+import PagosRealizados from "./operador/pages/PagosRealizados";
 
 function App() {
   const { isLogged } = useContext(LoginContext);
@@ -39,6 +40,10 @@ function App() {
           <Route
             path="Admin/Consultar-informacion"
             element={<ConsultarInformacion />}
+          />
+          <Route
+            path="Operador/PagosRealizados"
+            element={<PagosRealizados />}
           />
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />
