@@ -46,6 +46,9 @@ INSTALLED_APPS = [
 
 
     'users',
+    'contracts',
+    'bills',
+    'consumption'
 ]
 
 
