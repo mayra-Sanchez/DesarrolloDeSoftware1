@@ -35,31 +35,17 @@ class UserSerializer(serializers.ModelSerializer):
         ("root", "root")
     )
 
-    role = serializers.ChoiceField(choices=ROLE_CHOICES)
-    #role = serializers.CharField(max_length=20)
+    role = serializers.ChoiceField(choices=ROLE_CHOICES)    
 
     class Meta:
         model = custom_user_model
         fields = ('id', 'email', 'password', 'first_name', 'last_name', 'phone_number', 'role', 'is_active')        
         extra_kwargs = {
             'password': {'write_only': True}, 
-            'id': {'read_only': True}, 
-            #'username': {'read_only': True},           
+            'id': {'read_only': True},                      
             'is_active': {'read_only': True}            
             }
         
-        
-
-    # def save(self, **kwargs):
-    #     # Get the email field value
-    #     email = self.validated_data.get('email')
-        
-    #     # Set the username field value to be equal to the email field value
-    #     self.validated_data['username'] = email
-        
-    #     # Call the parent save method to save the object to the database
-    #     return super().save(**kwargs)
-
 
     def validate(self, data):
         # Perform validation on email field
@@ -95,21 +81,5 @@ class UserSerializer(serializers.ModelSerializer):
 
 
         return super().update(instance, validated_data)
-
-    # def create_root_user(self, validated_data):
-    #     return MyUser.objects.create_superuser(**validated_data)        
-
-
-
-class UpdtaeUserInfoSerializer(serializers.ModelSerializer):
-
-
-
-    class Meta:
-        model = custom_user_model
-        fields = ('id', 'email', 'first_name', 'last_name', 'phone_number', 'role')        
-        extra_kwargs = {
-            'id': {'read_only': True}
-            }
 
                          

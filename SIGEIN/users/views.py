@@ -9,7 +9,7 @@ from rest_framework import generics, permissions, serializers
 from rest_framework_simplejwt.views import TokenObtainPairView
 from user_agents import parse
 from ipware import get_client_ip
-from .serializers import UserSerializer, UpdtaeUserInfoSerializer, MyTokenObtainPairSerializer
+from .serializers import UserSerializer, MyTokenObtainPairSerializer
 from .models import CustomUser, UserRoles
 from .groups import company_groups ## DO NOT erase this line
 from .permissions import IsAdminPermission, IsManagerPermission, IsOwnerPermission, IsOperatorPermission
@@ -71,10 +71,8 @@ class MyTokenObtainPairView(TokenObtainPairView):
 class RegisterUserView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-
-    #permission_classes = [permissions.AllowAny]
     permission_classes = [ permissions.IsAuthenticated, IsAdminPermission | permissions.IsAdminUser]
-    
+   
 
     def perform_create(self, serializer):                
         data = serializer.validated_data
@@ -102,7 +100,6 @@ class RegisterUserView(generics.CreateAPIView):
     
 
 class UpdateUsersInfoView(generics.UpdateAPIView):
-    #queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'pk'
 
@@ -127,26 +124,6 @@ class UpdateUsersInfoView(generics.UpdateAPIView):
         elif(company_groups['operators'] in user_groups):
             unaccessible_users = UserRoles.objects.filter(role__in= ['root', 'admin', 'manager', 'operator'])
             return CustomUser.objects.exclude(role__in= unaccessible_users)
-
-
-    # def perform_update(self, serializer):
-    #     user = serializer.instance
-    #     data = serializer.validated_data
-    #     role_name = serializer.validated_data.get('role')
-    #     password = serializer.validated_data.get('password')
-
-    #     if(role_name is not None):
-    #         user_role = UserRoles.objects.filter( role= role_name )
-    #         if(not user_role.exists()):
-    #             raise serializers.ValidationError(f"The role <{role_name}> DOES NOT exist in the system")
-    #         data['role'] = user_role[0]
-
-    #     if(password is not None):            
-    #         user.set_password(password)
-    #         user.save()
-    #         data.pop('password')
-
-    #     serializer.save()
        
 
 
@@ -155,8 +132,7 @@ class UpdateOwnInfoView(generics.UpdateAPIView):
     lookup_field = 'pk'    
     permission_classes = [permissions.IsAuthenticated, IsOwnerPermission] 
 
-    def get_queryset(self):
-        print(self.request.user.id, "]]]]]]]]]]]]]]]]]]]]" )
+    def get_queryset(self):        
         return CustomUser.objects.filter(id= self.request.user.id)
 
 

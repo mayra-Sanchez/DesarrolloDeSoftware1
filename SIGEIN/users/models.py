@@ -3,8 +3,6 @@ from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
-
-##from .groups import *
 from django.contrib.auth.models import Group
 
 
@@ -25,8 +23,6 @@ class UserRoles(models.Model):
 
 
 
-
-
 class CustomUserManager(BaseUserManager):
 
     def create_user(self, email, password, first_name, last_name, phone_number, role, **extra_fields):
@@ -39,8 +35,6 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('The last_name field must be set')
 
 
-
-        #extra_fields.setdefault('username', email)
         email = self.normalize_email(email)
         user = self.model(email=email, first_name=first_name, last_name=last_name, phone_number=phone_number, role=role, **extra_fields)
         user.set_password(password)        
@@ -52,7 +46,6 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, password, first_name, last_name, phone_number, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)        
-        #extra_fields.setdefault('username', email)
 
         # Remove the 'role' field from the extra_fields dictionary
         extra_fields.pop('role', None)
@@ -103,8 +96,4 @@ def add_user_to_group(sender, instance, created, **kwargs):
         elif instance.role.__str__() == 'client':
             group = Group.objects.get(name='clients')
             instance.groups.add(group)
-            print("hola perras")
-        # elif instance.role.__str__() == 'root':
-        #     group = Group.objects.get(name='clients')
-        #     instance.groups.add(group)
-        #     print("hola perras")            
+                        
