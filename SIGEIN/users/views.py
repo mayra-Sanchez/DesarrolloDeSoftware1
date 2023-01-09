@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.models import Group
 from django.conf import settings
 from email.utils import formatdate
+from django.db.models.signals import post_save
 from rest_framework import generics, permissions, serializers
 from rest_framework_simplejwt.views import TokenObtainPairView
 from user_agents import parse
@@ -13,44 +14,13 @@ from .serializers import UserSerializer, MyTokenObtainPairSerializer
 from .models import CustomUser, UserRoles
 from .groups import company_groups ## DO NOT erase this line
 from .permissions import IsAdminPermission, IsManagerPermission, IsOwnerPermission, IsOperatorPermission
+from .signals import login_successful_signal, send_login_email
+from django.dispatch import receiver
 
 # Create your views here.
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-    def send_login_email(self, request, user):
-        ua = request.META.get('HTTP_USER_AGENT')
-        user_agent = parse(ua)
-        OS = user_agent.os.family
-        OS_version = user_agent.os.version_string
-        browser = user_agent.browser.family
-        browser_version = user_agent.browser.version_string
-        is_mobile = user_agent.is_mobile
-        is_PC = user_agent.is_pc
-
-        ip_address, is_routable = get_client_ip(request)
-        login_time = timezone.localtime(timezone.now()).strftime('%A, %b %d, %Y %H:%M')
-
-        subject = "New Login in your SIGEIN account"
-        email_body = f"You logged in from ip:{ip_address}\n \
-                        At: {login_time}\n \
-                        Browser: {browser} {browser_version}\n \
-                        OS: {OS} {OS_version}\n \
-                        Divice: {'mobile' if is_mobile else ('PC' if is_PC else 'unknown') }\n \
-                        "
-        
-        if(settings.SEND_EMAIL_AFTER_LOGIN):
-            # this function returns 1 if the email was successfully sent, false otherwise
-            send_mail(
-                subject= subject,
-                message= email_body,
-                from_email= settings.EMAIL_HOST_USER,
-                recipient_list= [user.email],
-                fail_silently=True,
-            # headers={'Date': formatdate()}
-            )
-
 
     def post(self, request, *args, **kwargs):        
         # Call the `post` method of the parent class to obtain the tokens
@@ -61,10 +31,11 @@ class MyTokenObtainPairView(TokenObtainPairView):
         if user:
             user.last_login = timezone.now()            
             user.save()
-            self.send_login_email(request, user)
+            #post_save.connect(receiver=send_login_email_2, sender=MyTokenObtainPairView)
+            #post_save.send(sender=MyTokenObtainPairView, request=request, user=user)
+            login_successful_signal.send(sender=MyTokenObtainPairView, request=request, user=user)            
 
         return response
-
 
 
 
