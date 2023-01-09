@@ -1,6 +1,21 @@
-from django.contrib.auth.models import Group
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 
-ADMINS = Group.objects.create(name='Admins')
-MANAGERS = Group.objects.create(name='Managers')
-OPERATORS = Group.objects.create(name='Operators')
-CLIENTS = Group.objects.create(name='Clinets')
+custom_user = get_user_model()
+
+group_names = (
+    'admins',
+    'managers',
+    'operators',
+    'clients'    
+    )
+
+# creating groups
+company_groups = {}
+
+for g_name in group_names:
+    group = Group.objects.get_or_create(name= g_name)
+    company_groups[g_name] = group[0]
+
+
+#print('company_groups: ', company_groups)

@@ -1,7 +1,11 @@
-from django.db import models
 from django.core import validators
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
 
+##from .groups import *
+from django.contrib.auth.models import Group
 
 
 class UserRoles(models.Model):
@@ -10,13 +14,16 @@ class UserRoles(models.Model):
         ("admin", "admin"),
         ("manager", "manager"),
         ("operator", "operator"),
-        ("client", "client")
+        ("client", "client"),
+        ("root", "root")
     )
 
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, blank=False, null=True, default=None)   
+    role = models.CharField(unique=True, max_length=20, choices=ROLE_CHOICES, blank=False, null=True, default=None)   
 
     def __str__(self):
         return self.role
+
+
 
 
 
@@ -33,7 +40,7 @@ class CustomUserManager(BaseUserManager):
 
 
 
-        extra_fields.setdefault('username', email)
+        #extra_fields.setdefault('username', email)
         email = self.normalize_email(email)
         user = self.model(email=email, first_name=first_name, last_name=last_name, phone_number=phone_number, role=role, **extra_fields)
         user.set_password(password)        
@@ -45,12 +52,12 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, password, first_name, last_name, phone_number, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)        
-        extra_fields.setdefault('username', email)
+        #extra_fields.setdefault('username', email)
 
         # Remove the 'role' field from the extra_fields dictionary
         extra_fields.pop('role', None)
 
-        user_role = UserRoles.objects.filter( role='admin' )
+        user_role = UserRoles.objects.filter( role='root' )
         user_role = user_role[0]          
         extra_fields['role'] = user_role 
         
@@ -58,7 +65,7 @@ class CustomUserManager(BaseUserManager):
 
 
 
-class CustomUser(AbstractUser):
+class CustomUser(AbstractUser, PermissionsMixin):
     
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=200, validators=[validators.MinLengthValidator(8)])
@@ -69,7 +76,35 @@ class CustomUser(AbstractUser):
     is_staff = models.BooleanField(default=False)
     role = models.ForeignKey(UserRoles, on_delete=models.SET_NULL, null=True)
     
-    objects = CustomUserManager()
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'phone_number', 'role']
+
+    objects = CustomUserManager()
+
+    def save(self, *args, **kwargs):
+        self.username = self.email
+        super().save(*args, **kwargs)
+
+
+
+@receiver(post_save, sender=CustomUser)
+def add_user_to_group(sender, instance, created, **kwargs):
+    if created:
+        if instance.role.__str__() == 'admin':
+            group = Group.objects.get(name='admins')
+            instance.groups.add(group)
+        if instance.role.__str__() == 'manager':
+            group = Group.objects.get(name='managers')
+            instance.groups.add(group)
+        elif instance.role.__str__() == 'operator':            
+            group = Group.objects.get(name='operators')
+            instance.groups.add(group)
+        elif instance.role.__str__() == 'client':
+            group = Group.objects.get(name='clients')
+            instance.groups.add(group)
+            print("hola perras")
+        # elif instance.role.__str__() == 'root':
+        #     group = Group.objects.get(name='clients')
+        #     instance.groups.add(group)
+        #     print("hola perras")            
