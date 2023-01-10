@@ -10,4 +10,5 @@ PyYAML==6.0
 sqlparse==0.4.3
 ua-parser==0.16.1
 user-agents==2.2.0
-reportlab==3.6.12
+django-ipware==4.0.2
+xhtml2pdf==0.2.8

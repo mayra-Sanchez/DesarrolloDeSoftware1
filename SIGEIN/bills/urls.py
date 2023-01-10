@@ -5,6 +5,6 @@ from . import views
 app_name='bills'
 
 urlpatterns = [
-    path("user_bill/<int:user_id>", views.userBill),
+    path("user_bill/<int:user_id>", views.CreateClientPdf.as_view()),
     
 ]

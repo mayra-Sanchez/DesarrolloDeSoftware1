@@ -1,18 +1,23 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template.loader import get_template
+from io import BytesIO
+from django.views.generic import ListView, View
 
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-
+from xhtml2pdf import pisa
 
 # Create your views here.
 
-def userBill(request, user_id):
-  c = canvas.Canvas("hola-mundo.pdf", pagesize=letter)
+class CreateClientPdf(View):
+  def get(self, request, *args, **kwargs):
+    pdf = createPdf('bill.html')
+    return HttpResponse(pdf, content_type='application/pdf')
 
-  w, h = letter
-  c.drawString(50, h - 50, "Factura")
-  c.showPage()
-
-  c.save()
-  return HttpResponse("user bill")
+def createPdf(template, context_dict={}):
+  template = get_template(template)
+  html = template.render(context_dict)
+  result = BytesIO()
+  pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+  if not pdf.err:
+    return HttpResponse(result.getvalue(), content_type='application/pdf')
+  return None
