@@ -1,32 +1,26 @@
 .buscador {
-    text-align: center;
-    padding: 40px 30px;
+    padding: 70px 80px;
     max-width: 100% !important;
   }
 
 table{
     min-width: 500px;
+    background-color: #fff;
   }
-.table-responsive{
-}
 
 .barra-busqueda{
     align-items: end;
     right: 0;
     display: flex;
     justify-content: flex-end;
+    align-items: flex-end;
     padding-bottom: 25px;
   }
 
-  @media (max-width: 988px){
-  
-    .inputBuscar{
-      width: 100% !important;
-    }
-  
-    .buscador{
-      padding: 40px 5px;
-    }
-  
-  
-  }
+
+  .boton-home{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin: 0 auto;}
+

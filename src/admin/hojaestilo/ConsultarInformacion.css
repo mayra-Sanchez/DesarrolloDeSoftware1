@@ -19,7 +19,7 @@
     justify-content: center;
     flex-wrap: wrap;
     font-size: 25px;
-    font-family: "Time new roman";
+    /*font-family: "Time new roman";*/
 }
 
 .buscador {
@@ -31,6 +31,7 @@
 table{
     min-width: 500px;
   }
+  
 .table-responsive{
 }
 

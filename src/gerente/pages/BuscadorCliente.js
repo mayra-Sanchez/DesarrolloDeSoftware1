@@ -48,57 +48,60 @@ const BuscadorCliente = () => {
 
   return (
     <div class="contenedor-inicialGerente">
-      <div className="Gerente">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="navbar-brand">
-            <img
-              src={logo}
-              width="50"
-              height="30"
-              class="d-inline-block align-top"
-              alt="logo"
-            />
-            SIGEIN
-          </div>
-          <ul class="navbar-nav ml-auto">
-            <Link to="/SignIn" className="btn btn-light btn-lg">
-              Cerrar sesión
-            </Link>
-          </ul>
-        </nav>
-        <div className="buscador">
-          <div className="barra-busqueda">
-            <input
-              className="form-control inputBuscar"
-              value={busqueda}
-              placeholder="Búsqueda por Nombre o celular"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="table-responsive">
-            <table className="table table-striped table-bordered table-hover table-responsive-sm">
-              <thead>
-                <tr>
-                  <th>Celular</th>
-                  <th>Nombre</th>
-                  <th>Apellido</th>
-                  <th>Email</th>
-                </tr>
-              </thead>
-              <tbody>
-                {usuarios &&
-                  usuarios.map((usuarios) => (
-                    <tr key={usuarios.id}>
-                      <td>{usuarios.phone}</td>
-                      <td>{usuarios.name}</td>
-                      <td>{usuarios.username}</td>
-                      <td>{usuarios.email}</td>
-                    </tr>
-                  ))}
-                        
-              </tbody>
-            </table>
-          </div>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="navbar-brand">
+          <img
+            src={logo}
+            width="50"
+            height="30"
+            class="d-inline-block align-top"
+            alt="logo"
+          />
+          SIGEIN
+        </div>
+        <ul class="navbar-nav ml-auto">
+          <Link to="/SignIn" className="btn btn-light btn-lg">
+            Cerrar sesión
+          </Link>
+        </ul>
+      </nav>
+      <div className="pago">
+        <br />
+        <div className="barra-busqueda">
+          <input
+            className="form-control inputBuscar"
+            value={busqueda}
+            placeholder="Búsqueda por Nombre o celular"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="table-responsive">
+          <table className="table table-striped table-hover table-responsive-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th>Celular</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usuarios &&
+                usuarios.map((usuarios) => (
+                  <tr key={usuarios.id}>
+                    <td>{usuarios.phone}</td>
+                    <td>{usuarios.name}</td>
+                    <td>{usuarios.username}</td>
+                    <td>{usuarios.email}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="boton-home">
+          <Link to="/Gerente" className="btn btn-success btn-lg">
+            Volver
+          </Link>
         </div>
       </div>
     </div>

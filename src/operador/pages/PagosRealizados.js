@@ -20,7 +20,7 @@ const PagosRealizados = () => {
   });
 
   const peticionGet = async () => {
-    await Axios.get("http://127.0.0.1:8000/users/list-all/") //pedir la URL de la data
+    await Axios.get("https://jsonplaceholder.typicode.com/users") //pedir la URL de la data
       .then((response) => {
         setPagos(response.data);
       })
@@ -46,133 +46,138 @@ const PagosRealizados = () => {
     setPagos(dataNueva);
     setModalInsertar(false);
   };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPagoSelecionado((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   return (
-    <div class="contenedor-inicialGerente">
-      <div className="Gerente">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="navbar-brand">
-            <img
-              src={logo}
-              width="50"
-              height="30"
-              class="d-inline-block align-top"
-              alt="logo"
-            />
-            SIGEIN
-          </div>
-          <ul class="navbar-nav ml-auto">
-            <Link to="/SignIn" className="btn btn-light btn-lg">
-              Cerrar sesión
-            </Link>
-          </ul>
-        </nav>
-        <div className="pago">
-          <br />
-          <br />
-          <br />
+    <div class="mx-auto" className="contenedor-inicialOperador">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="navbar-brand">
+          <img
+            src={logo}
+            width="50"
+            height="30"
+            class="d-inline-block align-top"
+            alt="logo"
+          />
+          SIGEIN
+        </div>
+        <ul class="navbar-nav ml-auto">
+          <Link to="/SignIn" className="btn btn-light btn-lg">
+            Cerrar sesión
+          </Link>
+        </ul>
+      </nav>
+      <div className="pago">
+        <br />
+        <div className="agregar-pago">
           <button
-            className="btn btn-success"
-            onClick={() => abrirModalInsertar()}
+            className="btn btn-success mb-3"
+            //onClick={() => abrirModalInsertar()}
           >
             Agregar pago
           </button>
-          <div className="table-responsive">
-            <table className="table table-striped table-bordered table-hover table-responsive-sm">
-              <thead>
-                <tr>
-                  <th>N° factura</th>
-                  <th>Nombre del banco</th>
-                  <th>Celular del operador</th>
-                  <th>Monto del pago</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pagos &&
-                  pagos.map((pago) => (
-                    <tr key={pago.id}>
-                      <td>{pago.id_factura}</td>
-                      <td>{pago.payment_institution}</td>
-                      <td>{pago.is_deposit}</td>
-                      <td>{pago.date}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
+        </div>
+        <div className="table-responsive">
+          <table className="table table-striped table-hover table-responsive-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th>N° factura</th>
+                <th>Nombre del banco</th>
+                <th>Celular del operador</th>
+                <th>Monto del pago</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pagos &&
+                pagos.map((pago) => (
+                  <tr key={pago.id}>
+                    <td>{pago.id_factura}</td>
+                    <td>{pago.payment_institution}</td>
+                    <td>{pago.is_deposit}</td>
+                    <td>{pago.date}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+          <Modal isOpen={modalInsertar}>
+            <ModalHeader>
+              <div>
+                <h3>Insertar País</h3>
+              </div>
+            </ModalHeader>
+            <ModalBody>
+              <div className="form-group">
+                <label>ID</label>
+                <input
+                  className="form-control"
+                  readOnly
+                  type="text"
+                  name="id"
+                  value={pagos[pagos.length - 1].id_payment + 1} //id que tenemos en la ultima posicion +1
+                />
+                <br />
 
-            <Modal isOpen={modalInsertar}>
-              <ModalHeader>
-                <div>
-                  <h3>Insertar País</h3>
-                </div>
-              </ModalHeader>
-              <ModalBody>
-                <div className="form-group">
-                  <label>ID</label>
-                  <input
-                    className="form-control"
-                    readOnly
-                    type="text"
-                    name="id"
-                    value={pagos[pagos.length - 1].id_payment + 1} //id que tenemos en la ultima posicion +1
-                  />
-                  <br />
+                <label>N° factura</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="factura"
+                  value={pagoSelecionado ? pagoSelecionado.id_factura : ""}
+                  onChange={handleChange}
+                />
+                <br />
 
-                  <label>N° factura</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="factura"
-                    value={pagoSelecionado ? pagoSelecionado.id_factura : ""}
-                    onChange
-                  />
-                  <br />
+                <label>Nombre del banco</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="banco"
+                  value={
+                    pagoSelecionado ? pagoSelecionado.payment_institution : ""
+                  }
+                  onChange={handleChange}
+                />
+                <br />
 
-                  <label>Nombre del banco</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="banco"
-                    value={
-                      pagoSelecionado ? pagoSelecionado.payment_institution : ""
-                    }
-                    onChange
-                  />
-                  <br />
+                <label>Monto</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  name="monto"
+                  value={pagoSelecionado ? pagoSelecionado.is_deposit : ""}
+                  onChange={handleChange}
+                />
+                <br />
 
-                  <label>Monto</label>
-                  <input
-                    className="form-control"
-                    type="number"
-                    name="monto"
-                    value={pagoSelecionado ? pagoSelecionado.is_deposit : ""}
-                    onChange
-                  />
-                  <br />
-
-                  <label>Fecha</label>
-                  <input
-                    className="form-control"
-                    type="number"
-                    name="fecha"
-                    value={pagoSelecionado ? pagoSelecionado.date : ""}
-                    onChange
-                  />
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <button className="btn btn-primary" onClick={() => insertar()}>
-                  Insertar
-                </button>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => setModalInsertar(false)}
-                >
-                  Cancelar
-                </button>
-              </ModalFooter>
-            </Modal>
-          </div>
+                <label>Fecha</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  name="fecha"
+                  value={pagoSelecionado ? pagoSelecionado.date : ""}
+                  onChange={handleChange}
+                />
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <button className="btn btn-primary" onClick={() => insertar()}>
+                Insertar
+              </button>
+              <button
+                className="btn btn-danger"
+                onClick={() => setModalInsertar(false)}
+              >
+                Cancelar
+              </button>
+            </ModalFooter>
+                    
+          </Modal>
         </div>
       </div>
     </div>
