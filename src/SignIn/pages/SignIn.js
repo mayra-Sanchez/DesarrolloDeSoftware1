@@ -1,14 +1,16 @@
 import "../hojasestilo/SignIn.css";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import logo from "../Images/logo-inicial.png";
-//import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { loginUser } from "../../services/users";
 import { LoginContext } from "../../contex/Logincontext";
 import jwtDecode from "jwt-decode";
+import SignMod from "../components/signmodal";
+import ReCAPTCHAV2 from "react-google-recaptcha"
 import { useNavigate } from "react-router-dom";
+
 
 // Creating schema
 const schema = Yup.object().shape({
@@ -18,12 +20,15 @@ const schema = Yup.object().shape({
   password: Yup.string()
     .required("Una contraseña es requerida")
     .min(8, "La contraseña debe ser al menos de 8 caracteres"),
+  recaptcha: Yup.string().required("La validación reCaptcha es requerida")
 });
 
+
 const SignIn = () => {
+  const captchaRef = useRef(null)
   let navigate = useNavigate();
   const { setIsLogged } = useContext(LoginContext);
-  const [loading, setLoading] = useState(false);
+  const [setLoading] = useState(false);
 
   const onError = (error) => {
     Swal.fire({
@@ -42,49 +47,15 @@ const SignIn = () => {
         <header className="Sign-header">
           <img src={logo} className="Sign-logo" alt="logo" />
         </header>
-        <div>
-          {/* The Modal */}
-          <div class="modal" id="myModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                {/*} Modal Header */}
-                <div class="modal-header">
-                  <h4 class="modal-title">Ayuda</h4>
-                  <button type="button" class="close" data-dismiss="modal">
-                    &times;
-                  </button>
-                </div>
-
-                {/*Modal body */}
-                <div class="modal-body">
-                  Para conocer su usuario, contraseña o solicitar credenciales
-                  de ingreso, diríjase al administrador de su dependencia.
-                </div>
-
-                {/*Modal footer*/}
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    data-dismiss="modal"
-                  >
-                    Cerrar
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br />
+        <div className="formc">
           <>
             {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
             <Formik
               validationSchema={schema}
-              initialValues={{ email: "", password: "" }}
+              initialValues={{ email: "", password: "", recaptcha:"", }}
               onSubmit={(values) => {
                 // Alert the input values of the form that we filled
-
                 setLoading(true);
-
                 loginUser(values)
                   .then((response) => {
                     setLoading(false);
@@ -102,16 +73,28 @@ const SignIn = () => {
                       showCancelButton: false,
                     }).then(() => {
                       setIsLogged(true);
-                      if (decoded.role[0] == ("admin")) {
+                      if (decoded.role[0] === ("admin")) {
                         navigate("/Admin");
-                      } else if (decoded.role[0] == ("operator")) {
+                      } else if (decoded.role[0] === ("operator")) {
                         navigate("/Operador");
-                      } else if (decoded.role[0] == ("manager")) {
+                      } else if (decoded.role[0] === ("manager")) {
                         navigate("/Gerente");
                       } else {
                         navigate("/Cliente");
                       }
                     });
+                  })
+
+                  .handleSubmit((e) =>{
+                    e.preventDefault();
+                    const token = captchaRef.current.getValue();
+                    captchaRef.current.reset();
+
+                    {/*await axios.post(process.env.REACT_APP_API_URL, {token})
+                    .then(res =>  console.log(res))
+                    .catch((error) => {
+                    console.log(error);
+                    }) */}
                   })
                   .catch((err) => {
                     onError(err);
@@ -127,7 +110,7 @@ const SignIn = () => {
                 handleChange,
                 handleSubmit,
               }) => (
-                <div className="form">
+                <div className="form" style={{marginTop:"5%"}}>
                   <div className="login">
                     {/* Passing handleSubmit parameter tohtml form onSubmit property */}
                     <form noValidate onSubmit={handleSubmit}>
@@ -159,8 +142,16 @@ const SignIn = () => {
                       />
                       {/* If validation is not passed show errors */}
                       <p className="error">
-                        {errors.password && touched.password && errors.password}
+                        {errors.password && touched.password && errors.password && errors.recaptcha 
+                        && touched.recaptcha }
                       </p>
+                      {/*ReCaptcha*/}
+                      <div class="recaptcha">
+                        <ReCAPTCHAV2
+                          sitekey={process.env.REACT_APP_SITE_KEY}
+                          ref={captchaRef}
+                        />
+                      </div>               
                       {/* Click on submit button to submit the form */}
                       <button onClick={handleSubmit} type="submit">
                         Ingresar
@@ -171,6 +162,7 @@ const SignIn = () => {
               )}
             </Formik>
           </>
+          <SignMod/>
         </div>
         <button
           type="button"
