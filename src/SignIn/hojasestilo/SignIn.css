@@ -2,11 +2,10 @@
   width: 50vmin;
   height: 20vmin;
   pointer-events: none;
-  margin-top: 10vmin;
+  margin-top: 3vmin;
 }
  
 .SignIn{
-  
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -17,33 +16,26 @@
   line-height: 24px;
 }
 
-.html,.Contenedor-principal{
-  height: 100vh;
-}
-
 .Contenedor-principal{
   background-image: url("../Images/fondoInicial.svg");
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;
-  font-family: 'Hind Siliguri';
-  color: #000;
+  height: 100vh;
 }
  
 .login {
-  
   margin: auto;
   border-radius: 2vmin;
 }
 
 .form {
-  margin-top: 4vmin;
-  align-self: center;
-  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5%;
   border-radius: 5%;
-  min-width: 80vmin;
-  
   padding: 2%;
   text-align: center;
 }
