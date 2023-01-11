@@ -10,6 +10,7 @@ import Cliente from "./cliente/pages/ClienteHome";
 import RegistrarUsuario from "./admin/pages/RegistrarUsuario";
 import ConsultarInformacion from "./admin/pages/ConsultarInformacion";
 import ConsultaCliente from "./operador/pages/ConsultaCliente";
+import RegistroPagos from "./operador/pages/RegistroPagos";
 import { LoginContext } from "./contex/Logincontext";
 import BuscadorCliente from "./gerente/pages/BuscadorCliente";
 import PagosRealizados from "./operador/pages/PagosRealizados";
@@ -44,6 +45,10 @@ function App() {
           <Route
             path="Operador/PagosRealizados"
             element={<PagosRealizados />}
+          />
+          <Route
+            path="Operador/Registrar-pagos-clientes"
+            element={<RegistroPagos />}
           />
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />

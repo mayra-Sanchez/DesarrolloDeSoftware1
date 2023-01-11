@@ -17,6 +17,9 @@ export function ContenedorOperador(props){
             <Link to="/Operador/Registar-pagos-realizados" className="btn btn-outline-dark btn-lg  mb-3">
                 Registar pagos realizados
             </Link>
+            <Link to="/Operador/Registrar-pagos-clientes" className="btn btn-outline-dark btn-lg  mb-3">
+                Registar pagos clientes
+            </Link>
         </div>
     );
 };
