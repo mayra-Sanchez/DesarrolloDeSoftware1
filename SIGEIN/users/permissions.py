@@ -10,6 +10,9 @@ class IsAdminPermission(permissions.BasePermission):
         user = CustomUser.objects.filter(id= request.user.id)      
 
         if(role.exists() and user.exists()):
+            print(user[0].role == role[0] and user[0].groups.filter(name='admins').exists() )
+            print(user[0].role, "  ", role[0])
+            print(user[0].groups.filter(name='admins'))
             return user[0].role == role[0] and user[0].groups.filter(name='admins').exists()
         else:
             return False

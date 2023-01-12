@@ -39,6 +39,8 @@ class CustomUserManager(BaseUserManager):
         user = self.model(email=email, first_name=first_name, last_name=last_name, phone_number=phone_number, role=role, **extra_fields)
         user.set_password(password)        
         user.save()
+        print("ejecutando create_user de customUserManager")
+        print("password: ", user.password)
        
         return user
     
@@ -77,23 +79,28 @@ class CustomUser(AbstractUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         self.username = self.email
+        print("ejecutando save de customusers")
         super().save(*args, **kwargs)
+        #executing_CustomUser_save_signal.connect(sender=CustomUser, request=request, user=user)
 
 
 
 @receiver(post_save, sender=CustomUser)
 def add_user_to_group(sender, instance, created, **kwargs):
-    if created:
-        if instance.role.__str__() == 'admin':
-            group = Group.objects.get(name='admins')
-            instance.groups.add(group)
-        if instance.role.__str__() == 'manager':
-            group = Group.objects.get(name='managers')
-            instance.groups.add(group)
-        elif instance.role.__str__() == 'operator':            
-            group = Group.objects.get(name='operators')
-            instance.groups.add(group)
-        elif instance.role.__str__() == 'client':
-            group = Group.objects.get(name='clients')
-            instance.groups.add(group)
+    if not created:
+        instance.groups.clear()
+
+    if instance.role.__str__() == 'admin':
+        group = Group.objects.get(name='admins')
+        instance.groups.add(group)
+    if instance.role.__str__() == 'manager':
+        group = Group.objects.get(name='managers')
+        instance.groups.add(group)
+    elif instance.role.__str__() == 'operator':            
+        group = Group.objects.get(name='operators')
+        instance.groups.add(group)
+    elif instance.role.__str__() == 'client':
+        group = Group.objects.get(name='clients')
+        instance.groups.add(group)
+
                         

@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
+# from reportlab.pdfgen import canvas
+# from reportlab.lib.pagesizes import letter
 
-
+letter=0
+canvas=0
 # Create your views here.
 
 def userBill(request, user_id):
