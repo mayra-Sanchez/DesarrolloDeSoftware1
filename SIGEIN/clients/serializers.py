@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from users.models import CustomUser
+from users.models import CustomUser, UserRoles
 from .models import Clients
 
 
@@ -39,6 +39,25 @@ class ClientSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):        
         return Clients.objects.create_user(**validated_data)   
+
+    
+    def update(self, instance, validated_data):                
+        role_name = validated_data.get('role')
+        password = validated_data.get('password')
+
+        if(role_name is not None):
+            user_role = UserRoles.objects.filter( role= role_name )
+            if(not user_role.exists()):
+                raise serializers.ValidationError(f"The role <{role_name}> DOES NOT exist in the system")
+            validated_data['role'] = user_role[0]        
+
+        if(password is not None):            
+            instance.set_password(password)
+            instance.save()
+            validated_data.pop('password')
+
+
+        return super().update(instance, validated_data) 
        
 
 
