@@ -24,6 +24,12 @@ export function ContenedorPrincipal(props) {
       >
         Consultar informacion
       </Link>
+      <Link
+        to="/Admin/ubicacion-clientes"
+        className="btn btn-outline-dark btn-lg mb-3 "
+      >
+        Ubicación clientes
+      </Link>
     </div>
   );
 }

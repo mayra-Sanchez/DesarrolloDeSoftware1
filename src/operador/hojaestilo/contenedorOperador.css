@@ -3,12 +3,12 @@
     align-items: center;
     justify-content: center;
     flex-flow: column;
-    height: 70vmin;
+    height: 80vmin;
     width: 50vmin;
     border-radius: 4vmin;
     background-color: aliceblue;
     margin: auto;
-    margin-top: 5%;
+    margin-top: 3%;
     box-shadow: 0 3px 13px 1px rgb(51, 52, 53);
 }
 

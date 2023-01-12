@@ -9,6 +9,7 @@ import Operador from "./operador/pages/OperadorHome";
 import Cliente from "./cliente/pages/ClienteHome";
 import RegistrarUsuario from "./admin/pages/RegistrarUsuario";
 import ConsultarInformacion from "./admin/pages/ConsultarInformacion";
+import UbicacionClientes from "./admin/pages/UbicacionClientes";
 import ConsultaCliente from "./operador/pages/ConsultaCliente";
 import RegistroPagos from "./operador/pages/RegistroPagos";
 import { LoginContext } from "./contex/Logincontext";
@@ -43,12 +44,16 @@ function App() {
             element={<ConsultarInformacion />}
           />
           <Route
-            path="Operador/PagosRealizados"
+            path="Operador/Registar-pagos-realizados"
             element={<PagosRealizados />}
           />
           <Route
             path="Operador/Registrar-pagos-clientes"
             element={<RegistroPagos />}
+          />
+          <Route
+            path="Admin/ubicacion-clientes"
+            element={<UbicacionClientes />}
           />
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />
