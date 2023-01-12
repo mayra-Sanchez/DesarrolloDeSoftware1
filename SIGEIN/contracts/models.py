@@ -23,6 +23,7 @@ class Contract(models.Model):
     address = models.CharField(max_length=60, blank=False, null=False)
     city = models.CharField(max_length=20, blank=False, null=False)
     zip_code = models.CharField(max_length=20, blank=False, null=False)
+    is_active = models.BooleanField(blank=False, null=False, default=True)
     contract_type = models.ForeignKey(ContractType, on_delete=models.DO_NOTHING, null=False, blank=False)
 
 
