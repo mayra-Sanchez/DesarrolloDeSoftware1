@@ -4,7 +4,13 @@ from clients.models import Clients
 # Create your models here.
 
 class ContractType(models.Model):
-    contract_type = models.CharField(max_length=30, null=False, blank=False, unique=True)
+
+    CONTRACT_TYPE_CHOICES = (
+        ('energy', 'energy'),
+        ('advertising', 'advertising')
+    )
+
+    contract_type = models.CharField(max_length=30, choices= CONTRACT_TYPE_CHOICES, null=False, blank=False, unique=True)
 
 
 class Estrato(models.Model):
