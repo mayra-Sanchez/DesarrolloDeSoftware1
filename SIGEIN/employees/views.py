@@ -7,6 +7,7 @@ from users.permissions import IsAdminPermission,IsManagerPermission, IsOperatorP
 from .models import Employees
 from .serializers import EmployeeSerializer, updtaeOwnInfoSerializer
 from .permissions import IsEmployeePermission
+from .filters import EmployeeFilter
 
 # Create your views here.
 
@@ -68,7 +69,7 @@ class UpdateEmployeesInfoView(generics.UpdateAPIView):
         elif(company_groups['admins'] in user_groups):
             unaccessible_users = UserRoles.objects.filter(role__in=['root', 'admin'])            
             return Employees.objects.exclude(role__in= unaccessible_users)
-            
+
 
 
 class UpdateOwnInfoView(generics.UpdateAPIView):
@@ -77,4 +78,36 @@ class UpdateOwnInfoView(generics.UpdateAPIView):
     permission_classes = [permissions.IsAuthenticated, IsOwnerPermission] 
 
     def get_queryset(self):        
-        return Employees.objects.filter(id= self.request.user.id)                                   
+        return Employees.objects.filter(id= self.request.user.id) 
+
+
+class EmployeeSearchView(generics.ListAPIView):
+    serializer_class = EmployeeSerializer
+    filter_class = EmployeeFilter
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsEmployeePermission]
+    queryset = Employees.objects.all()
+
+    def get_queryset(self):
+        user = self.request.user
+        user_groups = user.groups.all()
+        queryset = super().get_queryset()        
+
+        if(self.request.user and self.request.user.is_staff): ## this if for superusers, user with root as their role            
+            return self.filter_class(self.request.query_params, queryset=queryset).qs
+
+        elif(company_groups['admins'] in user_groups):
+            return self.filter_class(self.request.query_params, queryset=queryset).qs
+
+        elif(company_groups['managers'] in user_groups):
+            unaccessible_users = UserRoles.objects.filter(role__in= ['root', 'admin'])
+            queryset = Employees.objects.exclude(role__in= unaccessible_users)
+            
+            # The qs attribute of the filter instance contains the filtered queryset.
+            queryset = self.filter_class(self.request.query_params, queryset=queryset).qs
+            return queryset
+
+        elif(company_groups['operators'] in user_groups):
+            unaccessible_users = UserRoles.objects.filter(role__in= ['root', 'admin', 'manager'])
+            queryset = Employees.objects.exclude(role__in= unaccessible_users)
+            queryset = self.filter_class(self.request.query_params, queryset=queryset).qs
+            return queryset
