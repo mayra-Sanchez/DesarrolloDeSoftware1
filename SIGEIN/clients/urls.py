@@ -9,5 +9,6 @@ urlpatterns = [
     path('list-all/', views.ListAllClientsView.as_view(), name='list_all_clients'),
     path('list-own-info/', views.ListOwnInfoView.as_view(), name='list_own_info'),
     path('update-own-info/<int:pk>/', views.UpdateOwnInfoView.as_view(), name='update_client_own_info'),
+    path('search/', views.ClientSearchView.as_view(), name='search_client'),
     
 ]

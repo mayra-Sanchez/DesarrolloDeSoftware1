@@ -6,9 +6,9 @@ from .models import Employees
 class EmployeeFilter(filters.FilterSet):
 
     email = filters.CharFilter(field_name="email", lookup_expr='iexact')
-    name = filters.CharFilter(field_name="first_name", lookup_expr="iconstains")
-    last_name = filters.CharFilter(field_name="last_name", lookup_expr="iconstains")
-    phone_number = filters.NumberFilter(field_name="phone_number", lookup_expr="exact")
+    name = filters.CharFilter(field_name="first_name", lookup_expr="icontains")
+    last_name = filters.CharFilter(field_name="last_name", lookup_expr="icontains")
+    phone_number = filters.CharFilter(field_name="phone_number", lookup_expr="exact")
     #role = filters.MultipleChoiceFilter(field_name="role", exclude=['client'], method='filter') #NO FUNCIONO
     role = filters.ModelChoiceFilter(queryset= UserRoles.objects.exclude(role='client'), to_field_name='role')
     is_active = filters.BooleanFilter(field_name="is_active", lookup_expr="exact")

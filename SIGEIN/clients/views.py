@@ -4,6 +4,7 @@ from users.permissions import IsAdminPermission, IsOwnerPermission, IsClientPerm
 from employees.permissions import IsEmployeePermission
 from .serializers import ClientSerializer, updtaeOwnInfoSerializer
 from .models import Clients
+from .filter import ClientFilter
 # Create your views here.
 
 
@@ -57,5 +58,16 @@ class UpdateOwnInfoView(generics.UpdateAPIView):
         return Clients.objects.filter(id= self.request.user.id)
 
 
+class ClientSearchView(generics.ListAPIView):
+    serializer_class = ClientSerializer
+    filter_class = ClientFilter
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsEmployeePermission]
+    queryset = Clients.objects.all()
 
+    def get_queryset(self):        
+        queryset = super().get_queryset()        
+
+        # The qs attribute of the filter instance contains the filtered queryset.
+        queryset = self.filter_class(self.request.query_params, queryset=queryset).qs
+        return queryset
 
