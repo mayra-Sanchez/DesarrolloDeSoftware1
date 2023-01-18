@@ -20,11 +20,19 @@ const schema = Yup.object().shape({
   password: Yup.string()
     .required("Una contraseña es requerida")
     .min(8, "La contraseña debe ser al menos de 8 caracteres"),
-  recaptcha: Yup.string().required("La validación reCaptcha es requerida")
+  ReCAPTCHAV2: Yup.string().required("La validación reCaptcha es requerida")
 });
 
 
 const SignIn = () => {
+
+  function onChange(value, e) {
+    console.log('Captcha value:', value);
+    e.preventDefault();
+    const token = captchaRef.current.getValue();
+    captchaRef.current.reset();
+  }
+
   const captchaRef = useRef(null)
   let navigate = useNavigate();
   const { setIsLogged } = useContext(LoginContext);
@@ -47,14 +55,24 @@ const SignIn = () => {
         <header className="Sign-header">
           <img src={logo} className="Sign-logo" alt="logo" />
         </header>
+        
         <div className="formc">
           <>
             {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
             <Formik
               validationSchema={schema}
-              initialValues={{ email: "", password: "", recaptcha:"", }}
+              initialValues={{ email: "", password: "", ReCAPTCHAV2:"", }}
               onSubmit={(values) => {
                 // Alert the input values of the form that we filled
+                alert(
+                  JSON.stringify(
+                    {
+                      ReCAPTCHAV2: values.ReCAPTCHAV2,
+                    },
+                    null,
+                    2
+                  )
+                );
                 setLoading(true);
                 loginUser(values)
                   .then((response) => {
@@ -85,17 +103,6 @@ const SignIn = () => {
                     });
                   })
 
-                  .handleSubmit((e) =>{
-                    e.preventDefault();
-                    const token = captchaRef.current.getValue();
-                    captchaRef.current.reset();
-
-                    {/*await axios.post(process.env.REACT_APP_API_URL, {token})
-                    .then(res =>  console.log(res))
-                    .catch((error) => {
-                    console.log(error);
-                    }) */}
-                  })
                   .catch((err) => {
                     onError(err);
                     setLoading(false);
@@ -142,16 +149,17 @@ const SignIn = () => {
                       />
                       {/* If validation is not passed show errors */}
                       <p className="error">
-                        {errors.password && touched.password && errors.password && errors.recaptcha 
-                        && touched.recaptcha }
+                        {errors.password && touched.password && errors.password}
                       </p>
                       {/*ReCaptcha*/}
-                      <div class="recaptcha">
-                        <ReCAPTCHAV2
-                          sitekey={process.env.REACT_APP_SITE_KEY}
-                          ref={captchaRef}
-                        />
-                      </div>               
+                      <ReCAPTCHAV2
+                        sitekey={process.env.REACT_APP_SITE_KEY}
+                        ref={captchaRef}
+                        onChange={onChange}
+                      /> 
+                      <p className="error">
+                        {errors.ReCAPTCHAV2 && touched.ReCAPTCHAV2 && errors.ReCAPTCHAV2}  
+                      </p>            
                       {/* Click on submit button to submit the form */}
                       <button onClick={handleSubmit} type="submit">
                         Ingresar
