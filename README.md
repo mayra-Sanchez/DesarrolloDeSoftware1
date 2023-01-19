@@ -49,4 +49,50 @@ Making the migrations
 ```
 After this you should see the default tables that django creates 
 
+<br>
 
+# Celery and Redis installation/set-up
+Keep in mind that redis now only suports Unix systems
+
+```
+sudo apt update
+sudo apt install redis
+```
+After the installation is complete, you can start the Redis server to confirm that everything worked. Open up a new terminal window to start the server:
+```
+redis-server
+```
+To test whether communicating with the Redis server works, start the Redis CLI in another new terminal window:
+```
+redis-cli
+```
+Once the prompt has changed, you can type ping and press Enter, then wait for the answer from Redis.
+
+REDIS:
+```
+127.0.0.1:6379> ping
+PONG
+127.0.0.1:6379>
+```
+<br>
+
+Now that Redis server is install and working, lets install the needed programs in our virtual enviroment.
+
+execute:
+```
+(venv)$ pip install -r requirements.txt
+```
+<br>
+
+if redis or celery is NOT in the requirements file, then you can install them using:
+
+```
+(venv)$ pip install celery
+(venv)$ pip install redis
+```
+Now lets run celery, run the command in another new terminal window
+```sh
+(venv) your_path/SIGEIN/SIGEIN $  celery -A SIGEIN worker -l info
+```
+
+Now celery should be up and runing
