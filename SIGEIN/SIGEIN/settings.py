@@ -45,13 +45,14 @@ INSTALLED_APPS = [
     'ipware',
     'django_filters',
 
-
     'users',
     'clients',
     'employees',
     'contracts',
     'energy_products',
     'bills',
+
+    #'celery',
 ]
 
 
@@ -200,6 +201,11 @@ CORS_ALLOW_ALL_ORIGINS = True
 #         'django.contrib.auth.backends.ModelBackend',
 # )
 AUTH_USER_MODEL = 'users.CustomUser'
+
+
+# Celery Configuration
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
 
 # SMTP Configuration
