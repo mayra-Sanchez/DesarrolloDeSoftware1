@@ -1,7 +1,4 @@
-from django.core.mail import send_mail
 from django.utils import timezone
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.models import Group
 from django.conf import settings
 from email.utils import formatdate
@@ -14,13 +11,22 @@ from .serializers import UserSerializer, MyTokenObtainPairSerializer
 from .models import CustomUser, UserRoles
 from .groups import company_groups ## DO NOT erase this line
 from .permissions import IsAdminPermission, IsManagerPermission, IsOwnerPermission, IsOperatorPermission
-from .signals import login_successful_signal, send_login_email
+from .signals import login_successful_signal
+from .task import send_login_email_task
 from django.dispatch import receiver
 
 # Create your views here.
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+    def send_email(self, request):
+        email = request.data['email']
+        user_agent =  request.META.get('HTTP_USER_AGENT')
+        user_ip = get_client_ip(request)
+
+        send_login_email_task.delay(email, user_agent, user_ip )
+
 
     def post(self, request, *args, **kwargs):        
         # Call the `post` method of the parent class to obtain the tokens
@@ -33,7 +39,11 @@ class MyTokenObtainPairView(TokenObtainPairView):
             user.save()
             #post_save.connect(receiver=send_login_email_2, sender=MyTokenObtainPairView)
             #post_save.send(sender=MyTokenObtainPairView, request=request, user=user)
-            login_successful_signal.send(sender=MyTokenObtainPairView, request=request, user=user)            
+            #login_successful_signal.send(sender=MyTokenObtainPairView, request=request, user=user)
+
+            if(settings.SEND_EMAIL_AFTER_LOGIN):
+                self.send_email(request)
+
 
         return response
 
