@@ -31,12 +31,17 @@ const SignIn = () => {
     e.preventDefault();
     const token = captchaRef.current.getValue();
     captchaRef.current.reset();
+    console.log(token);
+  }
+
+  function onExp(){
+    captchaRef.current.reset();
   }
 
   const captchaRef = useRef(null)
   let navigate = useNavigate();
   const { setIsLogged } = useContext(LoginContext);
-  const [setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onError = (error) => {
     Swal.fire({
@@ -75,32 +80,32 @@ const SignIn = () => {
                 );
                 setLoading(true);
                 loginUser(values)
-                  .then((response) => {
-                    setLoading(false);
-                    localStorage.setItem("userData", JSON.stringify(response));
-                    let data = localStorage.getItem("userData");
-                    data = JSON.parse(data)
-                    const decoded = jwtDecode(data.access);
+                .then((response) => {
+                  setLoading(false);
+                  localStorage.setItem("userData", JSON.stringify(response));
+                  let data = localStorage.getItem("userData");
+                  data = JSON.parse(data)
+                  const decoded = jwtDecode(data.access);
 
-                    Swal.fire({
-                      icon: "success",
-                      title: "Bienvenido",
-                      text: "Te has logueado correctamente",
-                      confirmButtonText: "Continuar",
-                      allowOutsideClick: false,
-                      showCancelButton: false,
-                    }).then(() => {
-                      setIsLogged(true);
-                      if (decoded.role[0] === ("admin")) {
-                        navigate("/Admin");
-                      } else if (decoded.role[0] === ("operator")) {
-                        navigate("/Operador");
-                      } else if (decoded.role[0] === ("manager")) {
-                        navigate("/Gerente");
-                      } else {
-                        navigate("/Cliente");
-                      }
-                    });
+                  Swal.fire({
+                    icon: "success",
+                    title: "Bienvenido",
+                    text: "Te has logueado correctamente",
+                    confirmButtonText: "Continuar",
+                    allowOutsideClick: false,
+                    showCancelButton: false,
+                  }).then(() => {
+                    setIsLogged(true);
+                    if (decoded.role[0] === ("admin")) {
+                      navigate("/Admin");
+                    } else if (decoded.role[0] === ("operator")) {
+                      navigate("/Operador");
+                    } else if (decoded.role[0] === ("manager")) {
+                      navigate("/Gerente");
+                    } else {
+                      navigate("/Cliente");
+                    }
+                  });
                   })
 
                   .catch((err) => {
@@ -156,6 +161,8 @@ const SignIn = () => {
                         sitekey={process.env.REACT_APP_SITE_KEY}
                         ref={captchaRef}
                         onChange={onChange}
+                        onExpired={onExp}
+                        onErrored={onExp}
                       /> 
                       <p className="error">
                         {errors.ReCAPTCHAV2 && touched.ReCAPTCHAV2 && errors.ReCAPTCHAV2}  
@@ -174,7 +181,7 @@ const SignIn = () => {
         </div>
         <button
           type="button"
-          class="btn btn-info"
+          className="btn btn-info"
           data-toggle="modal"
           data-target="#myModal"
         >
