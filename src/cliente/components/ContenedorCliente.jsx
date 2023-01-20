@@ -15,7 +15,7 @@ export function ContenedorCliente(props){
                  Ver mi consumo mensual
             </Link>
             <Link
-                 to="/Cliente/pagar-facturas-online"
+                to="/Cliente/pagar-facturas-online"
                 className="btn btn-outline-dark btn-lg  mb-3"
             >
                 Pagar mis facturas online 

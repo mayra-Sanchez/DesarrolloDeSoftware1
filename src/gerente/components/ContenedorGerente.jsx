@@ -14,6 +14,9 @@ export function ContenedorGerente(props){
             <Link to="/Gerente/Generar-facturas-mensuales" className="btn btn-outline-dark btn-lg  mb-3">
                 Generar facturas mensuales
             </Link>
+            <Link to="/Gerente/Consumo-clientes" className="btn btn-outline-dark btn-lg  mb-3">
+                Consumo de clientes
+            </Link>
         </div>
     );
 };

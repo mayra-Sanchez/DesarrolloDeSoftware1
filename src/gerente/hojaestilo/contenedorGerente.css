@@ -1,11 +1,10 @@
 .contenedor-gerente{
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-flow: column;
     height: 70vmin;
-    width: 50vmin;
-    border-radius: 4vmin;
+    width: 30vmax;
+    border-radius: 15px;
     background-color: aliceblue;
     margin: auto;
     margin-top: 5%;
@@ -17,20 +16,25 @@
     height: 15vmin;
     border-radius: 8px;
     flex-wrap: wrap;
-    margin-top: 7vmin;
     image-rendering: auto;
 }
 
 .texto1_Gerente{
     width: 30vmin;
-    flex-wrap: wrap;
-    font-size: 25px;
+    font-size: 4vmin;
+    margin: 0%;
 }
 
 .texto2_Gerente{
     align-self: center;
-    font-size: 20px;
+    font-size: 3.5vmin;
     width: 40vmin;
-    margin-top: 7vmin;
-    flex-wrap: wrap;
+    margin-bottom: 5%;
+}
+
+.btn-group-lg > .btn, .btn-lg {
+    --bs-btn-padding-y: 0%;
+    --bs-btn-padding-x: 0%;
+    --bs-btn-font-size: 4vmin;
+    --bs-btn-border-radius: 0.5rem;
 }

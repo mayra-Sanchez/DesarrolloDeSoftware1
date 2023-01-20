@@ -15,6 +15,10 @@ import RegistroPagos from "./operador/pages/RegistroPagos";
 import { LoginContext } from "./contex/Logincontext";
 import BuscadorCliente from "./gerente/pages/BuscadorCliente";
 import PagosRealizados from "./operador/pages/PagosRealizados";
+import ConsumoCliente from "./gerente/pages/ConsumoClientes";
+import ConsumoMensualC from "./cliente/pages/ConsumoMensualC";
+import PagoFacturas from "./cliente/pages/PagoFacturas";
+import ConsultaFacV from "./cliente/pages/ConsultaFacturasV";
 
 function App() {
   const { isLogged } = useContext(LoginContext);
@@ -54,6 +58,22 @@ function App() {
           <Route
             path="Admin/ubicacion-clientes"
             element={<UbicacionClientes />}
+          />
+          <Route
+            path="Gerente/Consumo-clientes"
+            element={<ConsumoCliente/>}
+          />
+          <Route
+            path="Cliente/consumo-mensual"
+            element={<ConsumoMensualC/>}
+          />
+          <Route
+            path="Cliente/pagar-facturas-online"
+            element={<PagoFacturas/>}
+          />
+          <Route
+            path="Cliente/consultar-facturas-vencidas"
+            element={<ConsultaFacV/>}
           />
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />
