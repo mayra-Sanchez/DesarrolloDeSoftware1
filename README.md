@@ -82,17 +82,28 @@ execute:
 ```
 (venv)$ pip install -r requirements.txt
 ```
+
+>if redis or celery is NOT in the requirements file, then you can install them using:
+>
+>```
+>(venv)$ pip install celery
+>(venv)$ pip install redis
+>(venv)$ pip install django-celery-beat
+>```
+>
+
+
+After you installed the needed stuff, run the dajngo migration commands
+
 <br>
 
-if redis or celery is NOT in the requirements file, then you can install them using:
-
-```
-(venv)$ pip install celery
-(venv)$ pip install redis
-```
-Now lets run celery, run the command in another new terminal window
+Now lets run celery, run each of the folowing commands in a new terminal window
 ```sh
 (venv) your_path/SIGEIN/SIGEIN $  celery -A SIGEIN worker -l info
+```
+```sh
+(venv) your_path/SIGEIN/SIGEIN $  celery -A SIGEIN beat -l info
+
 ```
 
 Now celery should be up and runing
