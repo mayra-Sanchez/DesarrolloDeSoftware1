@@ -12,7 +12,7 @@ from .models import CustomUser, UserRoles
 from .groups import company_groups ## DO NOT erase this line
 from .permissions import IsAdminPermission, IsManagerPermission, IsOwnerPermission, IsOperatorPermission
 from .signals import login_successful_signal
-from .task import send_login_email_task
+from .tasks import send_login_email_task
 from django.dispatch import receiver
 
 # Create your views here.

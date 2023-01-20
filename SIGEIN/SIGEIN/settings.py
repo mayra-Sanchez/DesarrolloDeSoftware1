@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'energy_products',
     'bills',
 
-    #'celery',
+    'django_celery_beat',
 ]
 
 

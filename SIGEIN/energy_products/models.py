@@ -8,10 +8,10 @@ class ElecticityPrice(models.Model):
     date = models.DateField(null=False, blank=False)
     price = models.DecimalField(max_digits=7, decimal_places=2, null=False, blank=False)
 
-    def clean(self):
-        super().clean()
-        if self.date.day != 1:
-            raise ValidationError("The date should only contain the month and year.") 
+    # def clean(self):
+    #     super().clean()
+    #     if self.date.day != 1:
+    #         raise ValidationError("The date should only contain the month and year.") 
 
 
 class EnergyConsumptions(models.Model):
