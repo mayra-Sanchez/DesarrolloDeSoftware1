@@ -8,13 +8,18 @@ class ElectricityPrice(models.Model):
     date = models.DateField(null=False, blank=False)
     price = models.DecimalField(max_digits=7, decimal_places=2, null=False, blank=False)
 
-    # def clean(self):
-    #     # Check if there is already an instance with the same month and year
-    #     existing = ElectricityPrice.objects.filter(date__month=self.date.month, date__year=self.date.year)
-    #     if self.pk:
-    #         existing = existing.exclude(pk=self.pk)
-    #     if existing.exists():
-    #         raise ValidationError("An electricity price for this month and year already exists.")
+    def validate_unique_month_year_combination(self):
+        # Check if there is already an instance with the same month and year
+        existing = ElectricityPrice.objects.filter(date__month=self.date.month, date__year=self.date.year)
+    
+        if existing.exists():
+            raise ValidationError("An electricity price for this month and year already exists.")
+
+
+    def save(self, *args, **kwargs):
+        self.validate_unique_month_year_combination()
+        super().save(*args, **kwargs)
+
 
 
 class EnergyConsumptions(models.Model):
