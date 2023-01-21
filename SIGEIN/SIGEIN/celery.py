@@ -18,6 +18,11 @@ app.conf.beat_schedule = {
         'task': 'energy_products.tasks.generate_electricity_price_task',
         'schedule': crontab(day_of_month='2', month_of_year='*')        
     },
+
+    'create_instance_energy_consumtions': {
+        'task': 'energy_products.tasks.generate_electricity_consumption_task',
+        'schedule': crontab(minute=0, hour=1)        
+    },
 }
 
 # Load task modules from all registered Django apps.

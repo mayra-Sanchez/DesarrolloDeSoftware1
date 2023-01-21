@@ -31,3 +31,4 @@ class EnergyConsumptions(models.Model):
     issue_date = models.DateField(blank=False, null=False)
     due_date = models.DateField(blank=False, null=True)
     is_fully_paid = models.BooleanField(default=False, null=False, blank=False)
+
