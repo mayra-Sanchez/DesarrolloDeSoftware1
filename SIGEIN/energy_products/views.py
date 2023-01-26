@@ -2,9 +2,9 @@ from rest_framework import generics, permissions, serializers
 from users.permissions import IsAdminPermission, IsOwnerPermission, IsClientPermission
 from employees.permissions import IsEmployeePermission
 from clients.models import Clients
-from .models import ElectricityPrice
-from .serializers import ElectricityPriceSerializer
-from .filters import ElectricityPriceFilter
+from .models import ElectricityPrice, EnergyConsumptions
+from .serializers import ElectricityPriceSerializer, EnergyConsumptionSerializar
+from .filters import ElectricityPriceFilter, EnergyConsumptionFilter
 
 
 # Create your views here.
@@ -21,10 +21,71 @@ class SearchElectricityPriceView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsEmployeePermission]
     queryset = ElectricityPrice.objects.all()
 
+    def validate_url_params(self):
+        remove_list = []        
+
+        for param in self.request.query_params:
+            if param not in self.filter_class.Meta.fields:
+                remove_list.append(param)     
+
+        output = (True, remove_list) if len(remove_list)==0 else (False, remove_list)
+        return output
+
+
     def get_queryset(self):
         queryset = super().get_queryset()
+        validate_params = self.validate_url_params()
 
-        # The qs attribute of the filter instance contains the filtered queryset.
-        queryset = self.filter_class(self.request.query_params, queryset=queryset).qs
+        if(not validate_params[0]):                        
+            if( len(self.request.query_params) == len(validate_params[1]) ):
+                return queryset.none()
+
+        if(len(self.request.query_params)>0):
+            # The qs attribute of the filter instance contains the filtered queryset.
+            queryset = self.filter_class(self.request.query_params, queryset=queryset).qs
+        else:            
+            queryset = queryset.none()            
+        
         return queryset
+
+
+class ListAllEnergyConsumptionsView(generics.ListAPIView):
+    serializer_class = EnergyConsumptionSerializar
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsEmployeePermission]
+    queryset = EnergyConsumptions.objects.all()
+
+
+class SearchEnergyConsumptionsView(generics.ListAPIView):
+    serializer_class = EnergyConsumptionSerializar
+    filter_class = EnergyConsumptionFilter
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsEmployeePermission]
+    queryset = EnergyConsumptions.objects.all()
+
+    def validate_url_params(self):
+        remove_list = [] 
+        filter_fields =  self.filter_class.Meta.fields.copy() + [self.filter_class.extra_fields]
+
+        for param in self.request.query_params:
+            if param not in filter_fields:
+                remove_list.append(param)     
+
+        output = (True, remove_list) if len(remove_list)==0 else (False, remove_list)
+        return output
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        validate_params = self.validate_url_params()
+
+        if(not validate_params[0]):                        
+            if( len(self.request.query_params) == len(validate_params[1]) ):
+                return queryset.none()
+
+        if(len(self.request.query_params)>0):
+            # The qs attribute of the filter instance contains the filtered queryset.
+            queryset = self.filter_class(self.request.query_params, queryset=queryset).qs
+        else:            
+            queryset = queryset.none() 
+            
+        return queryset
+       
 
