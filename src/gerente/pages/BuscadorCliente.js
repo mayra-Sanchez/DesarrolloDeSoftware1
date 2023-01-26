@@ -12,7 +12,7 @@ const BuscadorCliente = () => {
   const [busqueda, setBusqueda] = useState("");
 
   const peticion = async () => {
-    await Axios.get("https://jsonplaceholder.typicode.com/users")
+    await Axios.get("http://127.0.0.1:8000/clients/list-all/")
       .then((response) => {
         setUsuarios(response.data);
         setTablaUsuarios(response.data);
@@ -87,12 +87,12 @@ const BuscadorCliente = () => {
             </thead>
             <tbody>
               {usuarios &&
-                usuarios.map((usuarios) => (
-                  <tr key={usuarios.id}>
-                    <td>{usuarios.phone}</td>
-                    <td>{usuarios.name}</td>
-                    <td>{usuarios.username}</td>
-                    <td>{usuarios.email}</td>
+                usuarios.map((usuario) => (
+                  <tr key={usuario.id}>
+                    <td>{usuario.phone}</td>
+                    <td>{usuario.name}</td>
+                    <td>{usuario.username}</td>
+                    <td>{usuario.email}</td>
                   </tr>
                 ))}
             </tbody>
