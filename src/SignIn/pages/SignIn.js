@@ -19,29 +19,26 @@ const schema = Yup.object().shape({
     .email("Correo inválido"),
   password: Yup.string()
     .required("Una contraseña es requerida")
-    .min(8, "La contraseña debe ser al menos de 8 caracteres"),
-  ReCAPTCHAV2: Yup.string().required("La validación reCaptcha es requerida")
+    .min(8, "La contraseña debe ser al menos de 8 caracteres")
 });
 
 
 const SignIn = () => {
 
   function onChange(value, e) {
-    console.log('Captcha value:', value);
-    e.preventDefault();
-    const token = captchaRef.current.getValue();
-    captchaRef.current.reset();
-    console.log(token);
+    SetcaptchaFilled(true);
   }
 
-  function onExp(){
+  function onExp() {
     captchaRef.current.reset();
+    SetcaptchaFilled(false);
   }
 
   const captchaRef = useRef(null)
   let navigate = useNavigate();
   const { setIsLogged } = useContext(LoginContext);
   const [loading, setLoading] = useState(false);
+  const [captchaFilled, SetcaptchaFilled] = useState(false);
 
   const onError = (error) => {
     Swal.fire({
@@ -60,58 +57,50 @@ const SignIn = () => {
         <header className="Sign-header">
           <img src={logo} className="Sign-logo" alt="logo" />
         </header>
-        
+
         <div className="formc">
           <>
             {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
             <Formik
               validationSchema={schema}
-              initialValues={{ email: "", password: "", ReCAPTCHAV2:"", }}
+              initialValues={{ email: "", password: "" }}
               onSubmit={(values) => {
-                // Alert the input values of the form that we filled
-                alert(
-                  JSON.stringify(
-                    {
-                      ReCAPTCHAV2: values.ReCAPTCHAV2,
-                    },
-                    null,
-                    2
-                  )
-                );
                 setLoading(true);
-                loginUser(values)
-                .then((response) => {
-                  setLoading(false);
-                  localStorage.setItem("userData", JSON.stringify(response));
-                  let data = localStorage.getItem("userData");
-                  data = JSON.parse(data)
-                  const decoded = jwtDecode(data.access);
-
-                  Swal.fire({
-                    icon: "success",
-                    title: "Bienvenido",
-                    text: "Te has logueado correctamente",
-                    confirmButtonText: "Continuar",
-                    allowOutsideClick: false,
-                    showCancelButton: false,
-                  }).then(() => {
-                    setIsLogged(true);
-                    if (decoded.role[0] === ("admin")) {
-                      navigate("/Admin");
-                    } else if (decoded.role[0] === ("operator")) {
-                      navigate("/Operador");
-                    } else if (decoded.role[0] === ("manager")) {
-                      navigate("/Gerente");
-                    } else {
-                      navigate("/Cliente");
+                if (captchaRef.current.getValue() != "") {
+                  loginUser(values)
+                    .then((response) => {
+                      setLoading(false);
+                      localStorage.setItem("userData", JSON.stringify(response));
+                      let data = localStorage.getItem("userData");
+                      data = JSON.parse(data)
+                      const decoded = jwtDecode(data.access);
+                      console.log(decoded.role[0])
+                      Swal.fire({
+                        icon: "success",
+                        title: "Bienvenido",
+                        text: "Te has logueado correctamente",
+                        confirmButtonText: "Continuar",
+                        allowOutsideClick: false,
+                        showCancelButton: false,
+                      }).then(() => {
+                        setIsLogged(true);
+                        if (decoded.role[0] === ("admin")) {
+                          navigate("/Admin");
+                        } else if (decoded.role[0] === ("operator")) {
+                          navigate("/Operador");
+                        } else if (decoded.role[0] === ("manager")) {
+                          navigate("/Gerente");
+                        } else {
+                          navigate("/Cliente");
+                        }
+                      });
                     }
-                  });
-                  })
-
-                  .catch((err) => {
-                    onError(err);
-                    setLoading(false);
-                  });
+                    )
+                    .catch((err) => {
+                      onError(err);
+                      setLoading(false);
+                    });
+                }
               }}
             >
               {({
@@ -122,7 +111,7 @@ const SignIn = () => {
                 handleChange,
                 handleSubmit,
               }) => (
-                <div className="form" style={{marginTop:"5%"}}>
+                <div className="form" style={{ marginTop: "5%" }}>
                   <div className="login">
                     {/* Passing handleSubmit parameter tohtml form onSubmit property */}
                     <form noValidate onSubmit={handleSubmit}>
@@ -163,10 +152,10 @@ const SignIn = () => {
                         onChange={onChange}
                         onExpired={onExp}
                         onErrored={onExp}
-                      /> 
+                      />
                       <p className="error">
-                        {errors.ReCAPTCHAV2 && touched.ReCAPTCHAV2 && errors.ReCAPTCHAV2}  
-                      </p>            
+                        {captchaFilled ? "" : "La validación reCaptcha es requerida"}
+                      </p>
                       {/* Click on submit button to submit the form */}
                       <button onClick={handleSubmit} type="submit">
                         Ingresar
@@ -177,7 +166,7 @@ const SignIn = () => {
               )}
             </Formik>
           </>
-          <SignMod/>
+          <SignMod />
         </div>
         <button
           type="button"
