@@ -2,7 +2,7 @@ const URL = "http://localhost:8000";
 
 const endpoints = {
   clients: {
-    getAll: `${URL}/cliente`,
+    listAll: `${URL}/clients/list-all/`,
   },
 
   users: {
