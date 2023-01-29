@@ -5,7 +5,7 @@ from contracts.models import AdvertisingContract
 
 class AdvertisingService(models.Model):
     service_name = models.CharField(max_length=40, null=False, blank=False)
-    price = models.DecimalField(decimal_places=3, null=False, blank=False)
+    price = models.DecimalField(max_digits=10, decimal_places=3, null=False, blank=False)
     service_description = models.TextField(blank=False, null=False)
 
 

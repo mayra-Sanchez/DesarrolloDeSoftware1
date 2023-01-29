@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'employees',
     'contracts',
     'energy_products',
+    'advertising_products',
     'payments',
     'bills',
 
