@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'employees',
     'contracts',
     'energy_products',
+    'payments',
     'bills',
 
     'django_celery_beat',
