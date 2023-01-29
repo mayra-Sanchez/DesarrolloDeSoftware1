@@ -1,21 +1,55 @@
-import '../hojaestilo/ConsultaCliente.css'
+import "../hojaestilo/ConsultaCliente.css";
+import Axios from "axios";
 import logo from "../Images/logo-2.png";
 import React from "react";
 import { Link } from "react-router-dom";
-import { Formik } from "formik";
-import * as Yup from "yup";
-
-// Creating schema
-const schema = Yup.object().shape({
-  idCliente: Yup.string()
-    .required("Una identificación válida es requerida")
-});
+import { useState } from "react";
+import { useEffect } from "react";
 
 const ConsultaCliente = () => {
+  const [usuarios, setUsuarios] = useState([]);
+  const [tablaUsuarios, setTablaUsuarios] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
+
+  const peticion = async () => {
+    await Axios.get("http://127.0.0.1:8000/clients/list-all/")
+      .then((response) => {
+        setUsuarios(response.data);
+        setTablaUsuarios(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    peticion();
+  }, []);
+
+  const handleChange = (e) => {
+    setBusqueda(e.target.value);
+    filtro(e.target.value);
+  };
+
+  const filtro = (busqueda) => {
+    var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
+      if (
+        elemento.name
+          .toString()
+          .toLowerCase()
+          .includes(busqueda.toLowerCase()) ||
+        elemento.name.toString().toLowerCase().includes(busqueda.toLowerCase())
+      ) {
+        return elemento;
+      }
+    });
+    setUsuarios(resultadosBusqueda);
+  };
+
   return (
-    <div className="OpConsultaCliente">
+    <div class="contenedor-inicial_Operador">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand">
+        <div class="navbar-brand">
           <img
             src={logo}
             width="50"
@@ -24,60 +58,50 @@ const ConsultaCliente = () => {
             alt="logo"
           />
           SIGEIN
-        </a>
+        </div>
         <ul class="navbar-nav ml-auto">
           <Link to="/SignIn" className="btn btn-light btn-lg">
             Cerrar sesión
           </Link>
         </ul>
       </nav>
-      <div class="contenedor-Operador-consulta">
-        <div className='ConsultaCliente'>
-          <>
-            {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
-            <Formik
-              validationSchema={schema}
-              initialValues={{ idCliente: "" }}
-              onSubmit={(values) => {
-                // Alert the input values of the form that we filled
-                alert(JSON.stringify(values));
-              }}
-            >
-              {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-              }) => (
-                <div className="buscaCliente">
-                  <div className="form">
-                    {/* Passing handleSubmit parameter tohtml form onSubmit property */}
-                    <form noValidate onSubmit={handleSubmit}>
-                      <span>Identificación del cliente</span>
-                      {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
-                      <input
-                        name="idCliente"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.idCliente}
-                        placeholder="12345678"
-                        className="form-control inp_text"
-                        id="idCliente"
-                      />
-                      {/* If validation is not passed show errors */}
-                      <p className="error">
-                        {touched.idCliente && errors.idCliente}
-                      </p>
-                      {/* Click on submit button to submit the form */}
-                      <button type="submit">Buscar</button>
-                    </form>
-                  </div>
-                </div>
-              )}
-            </Formik>
-          </>
+      <div className="buscaCliente">
+        <br />
+        <div className="barra-busqueda">
+          <input
+            className="form-control inputBuscar"
+            value={busqueda}
+            placeholder="Búsqueda por Nombre o celular"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="table-responsive">
+          <table className="table table-striped table-hover table-responsive-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th>Celular</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usuarios &&
+                usuarios.map((usuario) => (
+                  <tr key={usuario.id}>
+                    <td>{usuario.phone}</td>
+                    <td>{usuario.name}</td>
+                    <td>{usuario.username}</td>
+                    <td>{usuario.email}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="boton-home">
+          <Link to="/Operador" className="btn btn-success btn-lg">
+            Volver
+          </Link>
         </div>
       </div>
     </div>
