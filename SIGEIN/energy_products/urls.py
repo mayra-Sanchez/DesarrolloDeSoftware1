@@ -8,5 +8,7 @@ urlpatterns = [
     path('search-electricity-prices/', views.SearchElectricityPriceView.as_view(), name='search_electricity_prices'),
     path('list-energy-consumptions/', views.ListAllEnergyConsumptionsView.as_view(), name='list_all_energy_consumptions'),
     path('search-energy-consumptions/', views.SearchEnergyConsumptionsView.as_view(), name='search_energy_consumptions'),
+
+    path('csv-energy-consumptions/', views.EnergyConsumptionsCsvReportView.as_view(), name='csv_report_energy_consumptions'),
     
 ]
