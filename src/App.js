@@ -19,6 +19,9 @@ import ConsumoCliente from "./gerente/pages/ConsumoClientes";
 import ConsumoMensualC from "./cliente/pages/ConsumoMensualC";
 import PagoFacturas from "./cliente/pages/PagoFacturas";
 import ConsultaFacV from "./cliente/pages/ConsultaFacturasV";
+import InfoClienteA from "./admin/pages/InfoClienteA";
+import InfoClienteG from "./gerente/pages/InfoClienteG";
+import InfoClienteO from "./operador/pages/InfoClienteO";
 
 function App() {
   const { isLogged } = useContext(LoginContext);
@@ -36,9 +39,10 @@ function App() {
             element={<RegistrarUsuario />}
           />
           <Route
-            path="Gerente/Gestionar-Clientes"
+            path="Gerente/Información-clientes"
             element={<BuscadorCliente />}
           />
+          <Route path="Gerente/Gestionar-Clientes" element={<InfoClienteG />} />
           <Route
             path="Operador/Consultar-Cliente"
             element={<ConsultaCliente />}
@@ -47,6 +51,7 @@ function App() {
             path="Admin/Consultar-informacion"
             element={<ConsultarInformacion />}
           />
+          <Route path="/Admin/Gestionar-Clientes" element={<InfoClienteA />} />
           <Route
             path="Operador/Registar-pagos-realizados"
             element={<PagosRealizados />}
@@ -59,21 +64,15 @@ function App() {
             path="Admin/ubicacion-clientes"
             element={<UbicacionClientes />}
           />
-          <Route
-            path="Gerente/Consumo-clientes"
-            element={<ConsumoCliente/>}
-          />
-          <Route
-            path="Cliente/consumo-mensual"
-            element={<ConsumoMensualC/>}
-          />
+          <Route path="Gerente/Consumo-clientes" element={<ConsumoCliente />} />
+          <Route path="Cliente/consumo-mensual" element={<ConsumoMensualC />} />
           <Route
             path="Cliente/pagar-facturas-online"
-            element={<PagoFacturas/>}
+            element={<PagoFacturas />}
           />
           <Route
             path="Cliente/consultar-facturas-vencidas"
-            element={<ConsultaFacV/>}
+            element={<ConsultaFacV />}
           />
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />

@@ -22,13 +22,13 @@ export function ContenedorPrincipal(props) {
         to="/Admin/Consultar-informacion"
         className="btn btn-outline-dark btn-lg mb-3 "
       >
-        Consultar informacion
+        Consultar informacion 
       </Link>
       <Link
-        to="/Admin/ubicacion-clientes"
+        to="/Admin/Gestionar-Clientes"
         className="btn btn-outline-dark btn-lg mb-3 "
       >
-        Ubicación clientes
+        Gestionar clientes
       </Link>
     </div>
   );

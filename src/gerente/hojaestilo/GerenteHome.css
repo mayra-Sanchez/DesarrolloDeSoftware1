@@ -1,6 +1,6 @@
   
 .contenedor-inicialGerente {
-    background-image: url("../Images/fondoAmarillo.svg");
+    background-color: #FFBD59ff;
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -11,6 +11,6 @@
 }
 
 .html,.contenedor-inicialGerente{
-    height: 63vmax;
+    height: 100vh;
 }
 

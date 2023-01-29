@@ -1,15 +1,14 @@
-.html,.contenedor-inicialOperador{
-    height: 100vh;
-}
-  
 .contenedor-inicialOperador {
-    background-image: url("../Images/fondoAzul.svg");
+    background-color: #028389;
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center center;
     font-family: 'Hind Siliguri';
-    background-color: rgba(255, 255, 255, 0);
     text-align: center;
     color: #000;
+}
+
+.html,.contenedor-inicialOperador{
+    height: 100vh;
 }

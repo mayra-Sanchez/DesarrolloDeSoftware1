@@ -8,11 +8,11 @@ export function ContenedorGerente(props){
             <p className="texto1_Gerente">{props.texto1_Gerente}</p>
             <img className="gerente-logo" src={require(`../Images/${props.imagen}.png`)} alt="Foto {props.nombre}"/>
             <p className="texto2_Gerente">{props.texto2_Gerente}</p>
-            <Link to="/Gerente/Gestionar-clientes" className="btn btn-outline-dark btn-lg  mb-3">
-                Gestionar clientes
+            <Link to="/Gerente/Información-clientes" className="btn btn-outline-dark btn-lg  mb-3">
+                Información del cliente
             </Link>
-            <Link to="/Gerente/Generar-facturas-mensuales" className="btn btn-outline-dark btn-lg  mb-3">
-                Generar facturas mensuales
+            <Link to="/Gerente/Gestionar-Clientes" className="btn btn-outline-dark btn-lg  mb-3">
+                Gestionar clientes
             </Link>
             <Link to="/Gerente/Consumo-clientes" className="btn btn-outline-dark btn-lg  mb-3">
                 Consumo de clientes

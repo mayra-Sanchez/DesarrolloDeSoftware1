@@ -1,5 +1,5 @@
 .Admin{
-    background-image: url("../Images/fondoGris.svg");
+    background-color: #A6A6A6ff;
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -12,6 +12,5 @@
 .html,.Admin{
     height: 100vh;
 }
-  
 
 

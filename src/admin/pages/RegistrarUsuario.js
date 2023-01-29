@@ -11,7 +11,9 @@ const RegistrarUsuario = () => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
+    cedula: "",
     phone_number: "",
+    address: "",
     email: "",
     password: "",
     role: "",
@@ -66,12 +68,9 @@ const RegistrarUsuario = () => {
               console.log(err);
             });
         });
-      },
-    });
-
-  }
-
-  
+      },
+    });
+  };
 
   const onError = (error) => {
     Swal.fire({
@@ -107,7 +106,7 @@ const RegistrarUsuario = () => {
         <div class="container mt-5">
           <form onSubmit={handleSubmit}>
             <div class="form-row">
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
                 <label>Nombre</label>
                 <input
                   name="first_name"
@@ -118,7 +117,7 @@ const RegistrarUsuario = () => {
                   required
                 />
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
                 <label>Apellido</label>
                 <input
                   name="last_name"
@@ -129,7 +128,18 @@ const RegistrarUsuario = () => {
                   required
                 />
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
+                <label>Cédula</label>
+                <input
+                  name="cedula"
+                  type="text"
+                  class="form-control"
+                  placeholder="Cédula"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div class="form-group col-md-3">
                 <label>Celular</label>
                 <input
                   type="text"
@@ -142,7 +152,18 @@ const RegistrarUsuario = () => {
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-4">
+                <label>Dirección</label>
+                <input
+                  type="text"
+                  name="address"
+                  class="form-control"
+                  placeholder="Dirección"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div class="form-group col-md-4">
                 <label>Email</label>
                 <input
                   type="email"
@@ -153,7 +174,7 @@ const RegistrarUsuario = () => {
                   required
                 />
               </div>
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-4">
                 <label>Contraseña</label>
                 <input
                   type="password"
