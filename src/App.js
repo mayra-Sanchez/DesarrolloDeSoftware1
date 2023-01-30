@@ -61,7 +61,7 @@ function App() {
             element={<RegistroPagos />}
           />
           <Route
-            path="Admin/ubicacion-clientes"
+            path="/Admin/Gestionar-Clientes/Admin/Ubicacion"
             element={<UbicacionClientes />}
           />
           <Route path="Gerente/Consumo-clientes" element={<ConsumoCliente />} />

@@ -115,7 +115,7 @@ const SignIn = () => {
                   <div className="login">
                     {/* Passing handleSubmit parameter tohtml form onSubmit property */}
                     <form noValidate onSubmit={handleSubmit}>
-                      <span>Iniciar sesión</span>
+                      <h1>Iniciar sesión</h1>
                       {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
                       <input
                         type="email"
