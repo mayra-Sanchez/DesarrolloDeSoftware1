@@ -21,7 +21,7 @@ class Estrato(models.Model):
 
 class Contract(models.Model):
     id_client = models.ForeignKey(Clients, on_delete=models.SET_NULL, null=True)
-    start_date = models.DateField(null=False, blank=False, default= timezone.now().date())
+    start_date = models.DateField(null=False, blank=False, default= timezone.now().date()) 
     end_date = models.DateField(null=True)
     address = models.CharField(max_length=60, blank=False, null=False)
     city = models.CharField(max_length=20, blank=False, null=False)
