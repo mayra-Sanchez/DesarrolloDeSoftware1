@@ -30,7 +30,7 @@ const addClients = async (body) => {
   };
 
   const response = await Axios.post(
-    endpoints.users.registerClients,
+    endpoints.clients.registerClients,
     body,
     config
   );
@@ -66,4 +66,4 @@ const actualizarEstado = async (body, id) => {
   return response.data;
 };
 
-export { addEmpoloyees, loginUser, actualizarEstado, addClients };
+export { addEmpoloyees, addClients, loginUser, actualizarEstado };

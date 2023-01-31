@@ -154,10 +154,10 @@ const RegistrarCliente = () => {
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-4">
                 <label>Celular</label>
                 <input
-                  type="number"
+                  type="text"
                   name="phone_number"
                   class="form-control"
                   placeholder="Celular"
@@ -165,33 +165,34 @@ const RegistrarCliente = () => {
                   required
                 />
               </div>
-              <div class="form-group col-md-6">
-                <label>Cédula</label>
+              <div class="form-group col-md-4">
+                <label>Cedula</label>
                 <input
-                  name="national_id"
                   type="text"
+                  name="national_id"
                   class="form-control"
-                  placeholder="Cédula"
+                  placeholder="Cedula"
                   onChange={handleChange}
                   required
                 />
               </div>
-            </div>
-            <div class="form-group ">
-              <label>Tipo de persona</label>
-              <select
-                name="person_type"
-                class="form-control"
-                onChange={handleChange}
-                required
-              >
-                <option value="natural">Natural</option>
-                <option value="juridica">Juridica</option>
-              </select>
+              <div class="form-group col-md-4">
+                <label>Tipo de persona</label>
+                <select
+                  name="person_type"
+                  class="form-control"
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="Natural">Natural</option>
+                  <option value="Juridica">Juridica</option>
+                </select>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary">
               Registrar
             </button>
+            <br></br>
           </form>
         </div>
       </div>
