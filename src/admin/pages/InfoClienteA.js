@@ -1,9 +1,10 @@
 import logo from "../Images/logo-2.png";
+import "../hojaestilo/InfoClienteA.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import "../hojaestilo/InfoClienteA.css";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 const InfoClienteA = () => {
   const [dataCliente, setDataCliente] = useState([]);
@@ -44,36 +45,35 @@ const InfoClienteA = () => {
   };
 
   return (
-    <div className=".contenedor-inicial_Administrador">
-      <div class="bg-light">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand">
-            <img
-              src={logo}
-              width="50"
-              height="30"
-              class="d-inline-block align-top"
-              alt="logo"
-            />
-            SIGEIN
-          </a>
-          <ul class="navbar-nav ml-auto">
-            <Link to="/SignIn" className="btn btn-light btn-lg">
-              Cerrar sesión
-            </Link>
-          </ul>
-        </nav>
-        <div className="caja">
-          <div className="barra-busqueda">
-            <input
-              className="form-control inputBuscar"
-              value={busqueda}
-              placeholder="Búsqueda por Nombre o celular"
-              onChange={handleChange}
-            />
-          </div>
+    <div class="contenedor-inicial_Administrador">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="navbar-brand">
+          <img
+            src={logo}
+            width="50"
+            height="30"
+            class="d-inline-block align-top"
+            alt="logo"
+          />
+          SIGEIN
         </div>
-        <div className="Tabla-rep-cliente">
+        <ul class="navbar-nav ml-auto">
+          <Link to="/SignIn" className="btn btn-light btn-lg">
+            Cerrar sesión
+          </Link>
+        </ul>
+      </nav>
+      <div className="pago">
+        <br />
+        <div className="barra-busqueda">
+          <input
+            className="form-control inputBuscar"
+            value={busqueda}
+            placeholder="Búsqueda por Nombre o celular"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="table-responsive">
           <table className="table table-striped table-hover table-responsive-sm">
             <thead class="thead-dark">
               <tr>
@@ -93,33 +93,38 @@ const InfoClienteA = () => {
                   <td>{cliente.apellido}</td>
                   <td>{cliente.celular}</td>
                   <td>
-                    {cliente.facturas}
-                    <button className="btn btn-outline-dark  mb-1" onClick>
-                      {" "}
-                      Generar factura{" "}
-                    </button>
+                    <PDFDownloadLink
+                      document={cliente.factura}
+                      fileName={"Factura"}
+                    >
+                      <button className="btn btn-outline-dark  mb-1" onClick>
+                        {" "}
+                        Generar factura{" "}
+                      </button>
+                    </PDFDownloadLink>
                     <br />
                   </td>
                   <td>
-                    {cliente.pagos}
-                    <button className="btn btn-outline-dark  mb-1" onClick>
-                      {" "}
-                      Ver pagos{" "}
-                    </button>
+                    <PDFDownloadLink
+                      document={cliente.pagos}
+                      fileName={"Pagos"}
+                    >
+                      <button className="btn btn-outline-dark  mb-1" onClick>
+                        {" "}
+                        Ver pagos{" "}
+                      </button>
+                    </PDFDownloadLink>
                     <br />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div>
-            <br />
-            <div className="boton-home">
-              <Link to="Admin/Ubicacion" className="btn btn-success btn-lg">
-                Ubicación clientes
-              </Link>
-            </div>
-          </div>
+        </div>
+        <div className="boton-home">
+          <Link to="Admin/Ubicacion" className="btn btn-success btn-lg">
+            Ubicación clientes
+          </Link>
         </div>
       </div>
     </div>

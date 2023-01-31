@@ -1,12 +1,14 @@
 import logo from "../Images/logo-2.png";
+import "../hojaestilo/InfoClienteO.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import "../hojaestilo/InfoClienteO.css";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 const InfoClienteO = () => {
   const [dataCliente, setDataCliente] = useState([]);
+  const [factura, setFactura] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
 
@@ -20,8 +22,19 @@ const InfoClienteO = () => {
       });
   };
 
+  const peticionFacturas = async () => {
+    await Axios.get("")
+      .then((response) => {
+        setFactura(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     peticionGet();
+    peticionFacturas();
   }, []);
 
   const handleChange = (e) => {
@@ -44,25 +57,26 @@ const InfoClienteO = () => {
   };
 
   return (
-    <div className="contenedor-inicial_Operador">
-      <div class="bg-light">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand">
-            <img
-              src={logo}
-              width="50"
-              height="30"
-              class="d-inline-block align-top"
-              alt="logo"
-            />
-            SIGEIN
-          </a>
-          <ul class="navbar-nav ml-auto">
-            <Link to="/SignIn" className="btn btn-light btn-lg">
-              Cerrar sesión
-            </Link>
-          </ul>
-        </nav>
+    <div class="contenedor-inicial_Opedaror">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="navbar-brand">
+          <img
+            src={logo}
+            width="50"
+            height="30"
+            class="d-inline-block align-top"
+            alt="logo"
+          />
+          SIGEIN
+        </div>
+        <ul class="navbar-nav ml-auto">
+          <Link to="/SignIn" className="btn btn-light btn-lg">
+            Cerrar sesión
+          </Link>
+        </ul>
+      </nav>
+      <div className="pago">
+        <br />
         <div className="barra-busqueda">
           <input
             className="form-control inputBuscar"
@@ -71,46 +85,54 @@ const InfoClienteO = () => {
             onChange={handleChange}
           />
         </div>
-      </div>
-      <div className="Tabla-rep-cliente">
-        <table className="table table-striped table-hover table-responsive-sm">
-          <thead class="thead-dark">
-            <tr>
-              <th>Cedula</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Celular</th>
-              <th>Facturas</th>
-              <th>Pagos</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dataCliente.map((cliente) => (
-              <tr key={cliente.id}>
-                <td>{cliente.cedula}</td>
-                <td>{cliente.nombre}</td>
-                <td>{cliente.apellido}</td>
-                <td>{cliente.celular}</td>
-                <td>
-                  {cliente.facturas}
-                  <button className="btn btn-outline-dark  mb-1" onClick>
-                    {" "}
-                    Generar factura{" "}
-                  </button>
-                  <br />
-                </td>
-                <td>
-                  {cliente.pagos}
-                  <button className="btn btn-outline-dark  mb-1" onClick>
-                    {" "}
-                    Ver pagos{" "}
-                  </button>
-                  <br />
-                </td>
+        <div className="table-responsive">
+          <table className="table table-striped table-hover table-responsive-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th>Cedula</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Celular</th>
+                <th>Facturas</th>
+                <th>Pagos</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {dataCliente.map((cliente) => (
+                <tr key={cliente.id}>
+                  <td>{cliente.cedula}</td>
+                  <td>{cliente.nombre}</td>
+                  <td>{cliente.apellido}</td>
+                  <td>{cliente.celular}</td>
+                  <td>
+                    <PDFDownloadLink
+                      document={cliente.factura}
+                      fileName={"Factura"}
+                    >
+                      <button className="btn btn-outline-dark  mb-1" onClick>
+                        {" "}
+                        Generar factura{" "}
+                      </button>
+                    </PDFDownloadLink>
+                    <br />
+                  </td>
+                  <td>
+                    <PDFDownloadLink
+                      document={cliente.pagos}
+                      fileName={"Pagos"}
+                    >
+                      <button className="btn btn-outline-dark  mb-1" onClick>
+                        {" "}
+                        Ver pagos{" "}
+                      </button>
+                    </PDFDownloadLink>
+                    <br />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
