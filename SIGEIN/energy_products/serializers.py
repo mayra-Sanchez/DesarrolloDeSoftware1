@@ -23,6 +23,7 @@ class EnergyConsumptionSerializer(serializers.ModelSerializer):
     penalty_percentage = serializers.SerializerMethodField()
     missing_subtotal_amount_to_pay = serializers.SerializerMethodField()
     total_amount_to_pay = serializers.SerializerMethodField()
+    contract_address = serializers.SerializerMethodField()
 
     class Meta:
         model = EnergyConsumptions
@@ -30,6 +31,7 @@ class EnergyConsumptionSerializer(serializers.ModelSerializer):
          'id',
          'id_contract',
          'client_national_id',
+         'contract_address',
          'price_kwh',
          'amount_kwh', 
          'billing_period_starts', 
@@ -84,4 +86,9 @@ class EnergyConsumptionSerializer(serializers.ModelSerializer):
         total = total*self.get_penalty_percentage(obj) + total
 
         return total
+
+
+    def get_contract_address(self, obj):
+            return obj.id_contract.address   
+
 

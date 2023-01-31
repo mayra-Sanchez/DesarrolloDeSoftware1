@@ -28,6 +28,7 @@ class CreateClientView(generics.CreateAPIView):
 
 class ListAllClientsView(generics.ListAPIView):        
     serializer_class = ClientSerializer
+    #permission_classes = [permissions.AllowAny]
     permission_classes = [permissions.IsAuthenticated, IsEmployeePermission]
     queryset = Clients.objects.all()
 

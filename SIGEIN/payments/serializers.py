@@ -29,7 +29,8 @@ class PaymentSerializer(serializers.ModelSerializer):
             'service_paid',
             'id_energy_consumption',
             'id_advertising_consumption',
-            'client_national_id'
+            'client_national_id',
+            'contract_address'
         )        
         extra_kwargs = {   
             'id': {'read_only': True},
@@ -52,6 +53,7 @@ class PaymentSerializer(serializers.ModelSerializer):
                 national_id = obj['id_advertising_consumption'].id_contract.id_client.national_id
 
         return national_id
+
 
     def validate(self, data):
         amount = data.get('amount', 0.0)
