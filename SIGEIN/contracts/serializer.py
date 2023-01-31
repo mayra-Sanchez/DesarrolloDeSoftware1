@@ -10,13 +10,13 @@ class ContractSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Contract
-        fields = ('id_client', 'address', 'city', 'zip_code', 'is_active', 'contract_type')        
+        fields = ('id_client', 'address', 'city', 'zip_code', 'is_active', 'contract_type', 'end_date')        
         
 
 
 
-    def create(self, validated_data):
-         return Contract.objects.create_contracts(**validated_data)
+    #def create(self, validated_data):
+         #return Contract.objects.create_contracts(**validated_data)
 
 
     def update(self, instance, validated_data):                
