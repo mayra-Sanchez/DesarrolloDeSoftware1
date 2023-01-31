@@ -1,8 +1,8 @@
 import "../hojaestilo/PagoFacturas.css";
 import logo from "../Images/logo-2.png";
 import { Link } from "react-router-dom";
-
 import React from "react";
+import { ContenedorCliente } from "../components/ContenedorCliente.jsx";
 
 const PagoFacturas = () => {
   return (
@@ -25,6 +25,7 @@ const PagoFacturas = () => {
             </Link>
           </ul>
         </nav>
+        <ContenedorCliente/>
         <div className="boton-home">
           <Link to="/Cliente" className="btn btn-success btn-lg">
             Volver
