@@ -5,12 +5,35 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import {listAllClients} from "../../services/clients"
+import { listAllClients } from "../../services/clients";
 
 const BuscadorCliente = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleDownload = async () => {
+    setLoading(true);
+    try {
+      const response = await Axios.get(
+        "http://127.0.0.1:8000/energy-products/csv-energy-consumptions/",
+        {
+          responseType: "blob",
+        }
+      );
+      const url = URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "data.csv");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const peticion = async () => {
     listAllClients()
@@ -35,7 +58,7 @@ const BuscadorCliente = () => {
   const filtro = (busqueda) => {
     var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
       if (
-        elemento.name
+        elemento.national_id
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase()) ||
@@ -80,29 +103,41 @@ const BuscadorCliente = () => {
           <table className="table table-striped table-hover table-responsive-sm">
             <thead class="thead-dark">
               <tr>
-                <th>Celular</th>
+                <th>Cédula</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Email</th>
+                <th>Facturas</th>
               </tr>
             </thead>
             <tbody>
               {usuarios &&
                 usuarios.map((usuario) => (
                   <tr key={usuario.id}>
-                    <td>{usuario.phone}</td>
+                    <td>{usuario.nationa_id}</td>
                     <td>{usuario.name}</td>
                     <td>{usuario.username}</td>
                     <td>{usuario.email}</td>
+                    <td>
+                      <button className="btn btn-primary mb-1" onClick>
+                        {" "}
+                        Generar factura{" "}
+                      </button>
+                      <br />
+                    </td>
                   </tr>
                 ))}
             </tbody>
           </table>
         </div>
         <div className="boton-home">
-          <Link to="/Gerente" className="btn btn-success btn-lg">
-            Volver
-          </Link>
+          <button
+            onClick={handleDownload}
+            disabled={loading}
+            className="btn btn-success"
+          >
+            {loading ? "Downloading..." : "Descargar archivo csv con pagos"}
+          </button>
         </div>
       </div>
     </div>

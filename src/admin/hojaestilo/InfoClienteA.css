@@ -1,16 +1,17 @@
+
 .contenedor-inicial_Administrador{
-    background-color: #A6A6A6ff;
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center center;
-    font-family: 'Hind Siliguri';
-    text-align: center;
-    color: #000;
+  background-color: #A6A6A6ff;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  font-family: 'Hind Siliguri';
+  text-align: center;
+  color: #000;
 }
 
 .html,.contenedor-inicial_Administrador{
-    height: 100vh;
+  height: 100vh;
 }
 
 .buscador {
