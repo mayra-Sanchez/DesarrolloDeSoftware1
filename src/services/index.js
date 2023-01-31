@@ -18,7 +18,7 @@ const endpoints = {
   },
 
   energy: {
-    energy_payments: `${URL}/energy-products/list-energy-consumptions/`,
+    list_energy_consumption: `${URL}/energy-products/list-energy-consumptions/`,
   },
 
   roles: {},

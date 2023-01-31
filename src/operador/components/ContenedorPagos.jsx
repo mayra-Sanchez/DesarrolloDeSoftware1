@@ -4,7 +4,7 @@ import "../hojaestilo/OperadorHome.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import { useState, useEffect } from "react";
-import { listAllClients } from "../../services/clients";
+import { list_energy_consumptions } from "../../services/energy";
 
 const data = [
     { facturaID: 1234, direccion: "La fortaleza", number: 3213615366, consumo: "126 Kwh", valor: 210.000, fecha: "3/02/2023", estado: "Sin pagar" },
@@ -27,7 +27,7 @@ export function ContenedorPagos(props) {
     });
 
     const peticion = async () => {
-        listAllClients()
+        list_energy_consumptions()
             .then((response) => {
                 setUsuarios(response);
                 setTablaUsuarios(response);

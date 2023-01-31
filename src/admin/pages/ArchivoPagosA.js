@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState, useEffect } from "react";
 import ReactHTMLTabletoExcel from "react-html-table-to-excel";
-import { energy_payment } from "../../services/energy";
+import { list_energy_consumptions } from "../../services/energy";
 
 const InfoClienteA = () => {
   const [dataCliente, setDataCliente] = useState([]);
@@ -36,7 +36,7 @@ const InfoClienteA = () => {
   };
 
   const peticionGet = async () => {
-    energy_payment()
+    list_energy_consumptions()
       .then((response) => {
         setDataCliente(response.data);
       })

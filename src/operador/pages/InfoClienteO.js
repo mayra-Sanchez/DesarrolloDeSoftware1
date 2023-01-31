@@ -14,8 +14,8 @@ const InfoClienteO = () => {
   const peticion = async () => {
     listAllClients()
       .then((response) => {
-        setDataCliente(response.data);
-        setTablaUsuarios(response.data);
+        setDataCliente(response);
+        setTablaUsuarios(response);
       })
       .catch((error) => {
         console.log(error);
