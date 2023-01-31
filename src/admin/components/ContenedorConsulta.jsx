@@ -134,23 +134,6 @@ export function ContenedorConsulta(props) {
     setModalEditar(false);
     }
 
-
-// const editar = () => {
-//     var dataNueva = usuario;
-//     dataNueva.map(usuario => {
-//       if (usuario.id === datosSeleccionado.id) {
-//         usuario.phone_number = datosSeleccionado.phone_number;
-//         usuario.first_name = datosSeleccionado.first_name;
-//         usuario.last_name = datosSeleccionado.last_name;
-//         usuario.email = datosSeleccionado.email;
-//         usuario.role = datosSeleccionado.role;
-//       }
-//     });
-//     setUsuarios(dataNueva);
-//     setModalEditar(false);
-//   }
-
-
   return (
     <div class="mx-auto" className="contenedor-consulta">
       <p className="texto1_Consulta">{props.texto1_Consulta}</p>
