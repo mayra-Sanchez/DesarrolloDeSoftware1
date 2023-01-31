@@ -4,7 +4,7 @@ import {endpoints, token} from "./index";
 const addUser = async (body) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token()}`,
     },
   };
 

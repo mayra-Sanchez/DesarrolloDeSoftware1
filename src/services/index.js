@@ -18,8 +18,12 @@ const endpoints = {
   roles: {},
 };
 
-let aux = localStorage.getItem("userData");
-aux = JSON.parse(aux);
-const token = aux.access;
+const token = () => {
+  let aux = localStorage.getItem("userData");
+  aux = JSON.parse(aux);
+  const tokenAcces = aux.access;
+  return tokenAcces
+} ;
+
 
 export { endpoints, token };

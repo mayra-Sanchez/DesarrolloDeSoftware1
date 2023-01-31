@@ -6,7 +6,7 @@ const listAllClients = async () => {
     headers: {
       accept: "*/*",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token()}`
     },
   };
   const response = await Axios.get(endpoints.clients.listAll, config);
