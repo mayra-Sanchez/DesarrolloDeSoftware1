@@ -53,6 +53,7 @@ class SearchElectricityPriceView(generics.ListAPIView):
 
 class ListAllEnergyConsumptionsView(generics.ListAPIView):
     serializer_class = EnergyConsumptionSerializer
+    #permission_classes = [permissions.AllowAny]
     permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsEmployeePermission]
     queryset = EnergyConsumptions.objects.all()
 
@@ -94,6 +95,7 @@ class SearchEnergyConsumptionsView(generics.ListAPIView):
 
 class EnergyConsumptionsCsvReportView(generics.ListAPIView):
     filter_class = EnergyConsumptionFilter
+    #permission_classes = [permissions.AllowAny]
     permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsAdminPermission | IsManagerPermission]
     queryset = EnergyConsumptions.objects.all()
 

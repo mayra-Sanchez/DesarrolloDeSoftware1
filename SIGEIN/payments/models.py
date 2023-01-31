@@ -24,6 +24,6 @@ class Payment(models.Model):
     payment_institution = models.CharField(max_length=50, blank=False, null=False)
     is_deposit = models.BooleanField(default=False, null=False, blank=False)
     service_paid = models.CharField(max_length=50, choices=SERVICE_PAID_CHOICES, null=False, blank=False)
-    id_energy_consumption = models.ForeignKey(EnergyConsumptions, on_delete=models.DO_NOTHING, related_name='payment', null=True, blank=False)
+    id_energy_consumption = models.ForeignKey(EnergyConsumptions, on_delete=models.DO_NOTHING, null=True, blank=False)
     id_advertising_consumption = models.ForeignKey(AdvertisingConsumption, on_delete=models.DO_NOTHING, related_name='payment', null=True, blank=False)
 
