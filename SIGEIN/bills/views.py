@@ -3,6 +3,10 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from io import BytesIO
 from django.views.generic import ListView, View
+from users.models import CustomUser
+from energy_products.models import EnergyConsumptions, ElectricityPrice
+from contracts.models import EnergyContract,Estrato,ContractType,Contract
+from clients.models import Clients
 
 from xhtml2pdf import pisa
 
@@ -10,10 +14,28 @@ from xhtml2pdf import pisa
 
 class CreateClientPdf(View):
   def get(self, request, *args, **kwargs):
-    pdf = createPdf('bill.html')
+    lookup_field = 'pk'
+    pdf = createPdf('bill.html', {"usuario":"usuario de prueba"})
     return HttpResponse(pdf, content_type='application/pdf')
+  
+def pdf(request, user_id):
+  usuario = CustomUser.objects.get(id=user_id)
+  clients = Clients.objects.get(customuser_ptr_id=usuario.id)
+  contract = Contract.objects.get(id_client_id=clients.customuser_ptr_id)
+  energycontract = EnergyContract.objects.get(contract_ptr_id=contract.id)
+  estrato = Estrato.objects.get(id=energycontract.estrato_id)
+  energyconsumptions = EnergyConsumptions.objects.get(id_contract=energycontract.contract_ptr_id)
+  price = ElectricityPrice.objects.get(id=energyconsumptions.price_kwh_id)
+  total = energyconsumptions.amount_kwh * price.price
+  print(total)
+  context = {'usuario':usuario, 'clients':clients,
+             'contract':contract, 'context_dict':energycontract,
+             'estrato':estrato, 'energyconsumptions':energyconsumptions, 'price':price,
+             'total': total}
+  pdf = createPdf('bill.html', context)
+  return HttpResponse(pdf, content_type='application/pdf')
 
-def createPdf(template, context_dict={}):
+def createPdf(template, context_dict):
   template = get_template(template)
   html = template.render(context_dict)
   result = BytesIO()
