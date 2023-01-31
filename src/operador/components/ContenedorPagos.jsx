@@ -15,6 +15,7 @@ export function ContenedorPagos(props) {
     const [tablaUsuarios, setTablaUsuarios] = useState([]);
     const [modalPagar, setModalPagar] = useState(false);
 
+    //Usuario
     const [datosSeleccionado, setDatosSeleccionado] = useState({
         id: '',
         phone_number: '',
@@ -23,10 +24,10 @@ export function ContenedorPagos(props) {
         email: '',
     });
 
+    //Factura
     const [datosPagarFactura, setDatosPagarFactura] = useState({
-        facturaId: '',
-        valor: '',
-        puntopay: '',
+        id: '',
+        total_amount_to_pay: '',
 
     });
 
@@ -65,8 +66,8 @@ export function ContenedorPagos(props) {
         setUsuarios(resultadosBusqueda);
     };
 
-    const handleStatus = (facturaId) => {
-        actualizarEstado(facturaId);
+    const handleStatus = (id) => {
+        actualizarEstado(id);
     };
 
     const actualizarEstadoMetodo = (FacturaUsuario) => {
@@ -79,7 +80,7 @@ export function ContenedorPagos(props) {
 
         const body = { facturaStatus: actualizacion };
 
-        actualizarEstado(body, FacturaUsuario.facturaId).then((response) => {
+        actualizarEstado(body, FacturaUsuario.id).then((response) => {
             setUsuarios([response]);
             setTablaUsuarios([response]);
         });
@@ -136,12 +137,12 @@ export function ContenedorPagos(props) {
                     <tbody>
                         {usuarios &&
                             usuarios.map((FacturaUsuario) => (
-                                <tr key={FacturaUsuario.facturaId}>
+                                <tr key={FacturaUsuario.id_energy_consumption}>
                                     <td>{FacturaUsuario.address}</td>
-                                    <td>{FacturaUsuario.consumo}</td>
-                                    <td>{FacturaUsuario.valor}</td>
-                                    <td>{FacturaUsuario.facturaDate}</td>
-                                    <td>{FacturaUsuario.facturaStatus ? "Pago" : "Sin pagar"}</td>
+                                    <td>{FacturaUsuario.amount_kwh}</td>
+                                    <td>{FacturaUsuario.total_amount_to_pay}</td>
+                                    <td>{FacturaUsuario.due_date}</td>
+                                    <td>{FacturaUsuario.is_fully_paid ? "Pago" : "Sin pagar"}</td>
                                     <td>
                                         {FacturaUsuario.options}
                                         <button className="btn btn-outline-dark  mb-1" onClick={() => seleccionarDatos(FacturaUsuario, 'Pagar')}> Pagar </button>
@@ -214,8 +215,8 @@ export function ContenedorPagos(props) {
                                 className="form-control"
                                 readOnly
                                 type="text"
-                                name="facturaId"
-                                value={datosPagarFactura && datosPagarFactura.facturaId}
+                                name="id_energy_consumption"
+                                value={datosPagarFactura && datosPagarFactura.id_energy_consumption}
                             />
                             <br />
 
@@ -223,19 +224,19 @@ export function ContenedorPagos(props) {
                             <input
                                 className="form-control"
                                 type="text"
-                                name="pay_amount"
-                                value={datosPagarFactura && datosPagarFactura.valor}
+                                name="amount"
+                                value={datosPagarFactura && datosPagarFactura.amount}
                                 onChange={subirInfo}
                             />
                             <br />
 
                             <label>Punto de pago</label>
                             <select
-                                name="puntopay"
+                                name="payment_institution"
                                 class="form-control"
                                 onChange={subirInfo}
                                 required
-                                value={datosPagarFactura && datosPagarFactura.puntopay}
+                                value={datosPagarFactura && datosPagarFactura.payment_institution}
                             >
                                 <option value="punto_baloto">Baloto</option>
                                 <option value="punto_gane">GANE</option>
