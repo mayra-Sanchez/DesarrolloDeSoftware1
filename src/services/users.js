@@ -1,7 +1,7 @@
 import Axios from "axios";
 import endpoints from "./index";
 
-const addUser = async (body) => {
+const addEmpoloyees = async (body) => {
   let aux = localStorage.getItem("userData");
   aux = JSON.parse(aux);
   const token = aux.access;
@@ -11,7 +11,29 @@ const addUser = async (body) => {
     },
   };
 
-  const response = await Axios.post(endpoints.users.registerUser, body, config);
+  const response = await Axios.post(
+    endpoints.users.registerEmployees,
+    body,
+    config
+  );
+  return response.data;
+};
+
+const addClients = async (body) => {
+  let aux = localStorage.getItem("userData");
+  aux = JSON.parse(aux);
+  const token = aux.access;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await Axios.post(
+    endpoints.users.registerClients,
+    body,
+    config
+  );
   return response.data;
 };
 
@@ -44,4 +66,4 @@ const actualizarEstado = async (body, id) => {
   return response.data;
 };
 
-export { addUser, loginUser, actualizarEstado };
+export { addEmpoloyees, loginUser, actualizarEstado, addClients };

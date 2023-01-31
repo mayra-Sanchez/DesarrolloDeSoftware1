@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "../hojaestilo/RegistrarUsuario.css";
 import logo from "../Images/logo-2.png";
 import { Link, useNavigate } from "react-router-dom";
-import { addEmpoloyees } from "../../services/users";
+import { addClients } from "../../services/users";
 import Swal from "sweetalert2";
 
-const RegistrarUsuario = () => {
+const RegistrarCliente = () => {
   let navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -14,7 +14,8 @@ const RegistrarUsuario = () => {
     first_name: "",
     last_name: "",
     phone_number: "",
-    role: "",
+    national_id: "",
+    person_type: "",
   });
 
   const handleChange = (e) => {
@@ -40,7 +41,7 @@ const RegistrarUsuario = () => {
       cancelButtonText: "Cancelar",
       preConfirm: () => {
         return new Promise((resolve, reject) => {
-          addEmpoloyees(data)
+          addClients(data)
             .then((response) => {
               Swal.fire({
                 icon: "success",
@@ -165,27 +166,31 @@ const RegistrarUsuario = () => {
                 />
               </div>
               <div class="form-group col-md-6">
-                <label>Rol</label>
-                <select
-                  name="role"
+                <label>Cédula</label>
+                <input
+                  name="national_id"
+                  type="text"
                   class="form-control"
+                  placeholder="Cédula"
                   onChange={handleChange}
                   required
-                >
-                  <option value="admin">Administrador</option>
-                  <option value="operator">Operador</option>
-                  <option value="manager">Gerente</option>
-                </select>
+                />
               </div>
+            </div>
+            <div class="form-group ">
+              <label>Tipo de persona</label>
+              <select
+                name="person_type"
+                class="form-control"
+                onChange={handleChange}
+                required
+              >
+                <option value="natural">Natural</option>
+                <option value="juridica">Juridica</option>
+              </select>
             </div>
             <button type="submit" class="btn btn-primary">
               Registrar
-            </button>
-            <br></br>
-            <button>
-              <Link to="/Admin/Registrar_Cliente" className="btn btn-primary">
-                Registrar cliente
-              </Link>
             </button>
           </form>
         </div>
@@ -194,4 +199,4 @@ const RegistrarUsuario = () => {
   );
 };
 
-export default RegistrarUsuario;
+export default RegistrarCliente;

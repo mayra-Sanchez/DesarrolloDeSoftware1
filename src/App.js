@@ -23,13 +23,14 @@ import InfoClienteA from "./admin/pages/InfoClienteA";
 import InfoClienteG from "./gerente/pages/InfoClienteG";
 import InfoClienteO from "./operador/pages/InfoClienteO";
 import ArchivosPagosA from "./admin/pages/ArchivoPagosA";
+import RegitrarCliente from "./admin/pages/RegistrarCliente";
 
 function App() {
   const { isLogged } = useContext(LoginContext);
 
   return (
     <BrowserRouter>
-      {isLogged ? (
+      {!isLogged ? (
         <Routes>
           <Route path="Admin" element={<Admin />} />
           <Route path="Gerente" element={<Gerente />} />
@@ -56,6 +57,10 @@ function App() {
           <Route
             path="Operador/Registar-pagos-realizados"
             element={<PagosRealizados />}
+          />
+          <Route
+            path="/Admin/Registrar_Cliente"
+            element={<RegitrarCliente />}
           />
           <Route
             path="Operador/Registrar-pagos-clientes"

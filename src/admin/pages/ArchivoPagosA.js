@@ -4,7 +4,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import ReactHTMLTabletoExcel from "react-html-table-to-excel";
 import { energy_payment } from "../../services/energy";
 
 const InfoClienteA = () => {
