@@ -18,4 +18,8 @@ const endpoints = {
   roles: {},
 };
 
-module.exports = endpoints;
+let aux = localStorage.getItem("userData");
+aux = JSON.parse(aux);
+const token = aux.access;
+
+export { endpoints, token };

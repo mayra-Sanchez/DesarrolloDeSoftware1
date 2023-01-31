@@ -5,6 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import {listAllClients} from "../../services/clients"
 
 const BuscadorCliente = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -12,7 +13,7 @@ const BuscadorCliente = () => {
   const [busqueda, setBusqueda] = useState("");
 
   const peticion = async () => {
-    await Axios.get("http://127.0.0.1:8000/clients/list-all/")
+    listAllClients()
       .then((response) => {
         setUsuarios(response.data);
         setTablaUsuarios(response.data);

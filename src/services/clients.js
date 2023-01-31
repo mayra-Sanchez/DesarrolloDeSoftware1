@@ -1,10 +1,7 @@
 import Axios from "axios";
-import endpoints from "./index";
+import {endpoints, token} from "./index";
 
 const listAllClients = async () => {
-  let aux = localStorage.getItem("userData");
-  aux = JSON.parse(aux);
-  const token = aux.access;
   const config = {
     headers: {
       accept: "*/*",
