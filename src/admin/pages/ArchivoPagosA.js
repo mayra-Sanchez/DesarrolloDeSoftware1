@@ -1,17 +1,20 @@
 import logo from "../Images/logo-2.png";
-import "../hojaestilo/InfoClienteG.css";
+import "../hojaestilo/InfoClienteA.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState, useEffect } from "react";
+import ReactHTMLTabletoExcel from "react-html-table-to-excel";
 
-const InfoClienteG = () => {
+const InfoClienteA = () => {
   const [dataCliente, setDataCliente] = useState([]);
-  const [tablaUsuarios, setTablaUsuarios] = useState([]);
+  const [tablaClientes, setTablaClientes] = useState([]);
   const [busqueda, setBusqueda] = useState("");
 
   const peticionGet = async () => {
-    await Axios.get("https://jsonplaceholder.typicode.com/users")
+    await Axios.get(
+      "http://127.0.0.1:8000/energy-products/list-energy-consumptions/"
+    )
       .then((response) => {
         setDataCliente(response.data);
       })
@@ -30,9 +33,9 @@ const InfoClienteG = () => {
   };
 
   const filtro = (busqueda) => {
-    var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
+    var resultadosBusqueda = tablaClientes.filter((elemento) => {
       if (
-        elemento.cedula
+        elemento.client_national_id
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase())
@@ -44,7 +47,7 @@ const InfoClienteG = () => {
   };
 
   return (
-    <div class="contenedor-inicialGerente">
+    <div class="contenedor-inicial_Administrador">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="navbar-brand">
           <img
@@ -64,6 +67,19 @@ const InfoClienteG = () => {
       </nav>
       <div className="pago">
         <br />
+        <div aling="center">
+          <ReactHTMLTabletoExcel
+            id="botonExportarExcel"
+            className="btn btn-primary"
+            table="tablaClientesPagos"
+            filename="Clientes_Pagos"
+            sheet="pagina 1"
+            buttonText="Exportar archivo"
+          />
+        </div>
+
+        <br />
+
         <div className="barra-busqueda">
           <input
             className="form-control inputBuscar"
@@ -73,28 +89,30 @@ const InfoClienteG = () => {
           />
         </div>
         <div className="table-responsive">
-          <table className="table table-striped table-hover table-responsive-sm">
+          <table
+            className="table table-striped table-hover table-responsive-sm"
+            id="tablaClientesPagos"
+          >
             <thead class="thead-dark">
               <tr>
                 <th>Cedula</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Celular</th>
-                <th>Facturas</th>
+                <th>Precio por kwh</th>
+                <th>Total</th>
+                <th>Fecha de expedision</th>
+                <th>Fecha de vencimiento</th>
+                <th>Pagado</th>
               </tr>
             </thead>
             <tbody>
               {dataCliente.map((cliente) => (
                 <tr key={cliente.id}>
-                  <td>{cliente.cedula}</td>
-                  <td>{cliente.nombre}</td>
-                  <td>{cliente.apellido}</td>
-                  <td>{cliente.celular}</td>
+                  <td>{cliente.client_national_id}</td>
+                  <td>{cliente.price_kwh}</td>
+                  <td>{cliente.amount_kwh}</td>
+                  <td>{cliente.issue_date}</td>
+                  <td>{cliente.due_date}</td>
+                  <th>{cliente.is_fully_paid}</th>
                   <td>
-                    <button className="btn btn-outline-dark  mb-1" onClick>
-                      {" "}
-                      Generar factura{" "}
-                    </button>
                     <br />
                   </td>
                 </tr>
@@ -107,4 +125,4 @@ const InfoClienteG = () => {
   );
 };
 
-export default InfoClienteG;
+export default InfoClienteA;

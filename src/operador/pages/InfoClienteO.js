@@ -4,7 +4,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 
 const InfoClienteO = () => {
   const [dataCliente, setDataCliente] = useState([]);
@@ -94,7 +93,6 @@ const InfoClienteO = () => {
                 <th>Apellido</th>
                 <th>Celular</th>
                 <th>Facturas</th>
-                <th>Pagos</th>
               </tr>
             </thead>
             <tbody>
@@ -105,27 +103,10 @@ const InfoClienteO = () => {
                   <td>{cliente.apellido}</td>
                   <td>{cliente.celular}</td>
                   <td>
-                    <PDFDownloadLink
-                      document={cliente.factura}
-                      fileName={"Factura"}
-                    >
-                      <button className="btn btn-outline-dark  mb-1" onClick>
-                        {" "}
-                        Generar factura{" "}
-                      </button>
-                    </PDFDownloadLink>
-                    <br />
-                  </td>
-                  <td>
-                    <PDFDownloadLink
-                      document={cliente.pagos}
-                      fileName={"Pagos"}
-                    >
-                      <button className="btn btn-outline-dark  mb-1" onClick>
-                        {" "}
-                        Ver pagos{" "}
-                      </button>
-                    </PDFDownloadLink>
+                    <button className="btn btn-outline-dark  mb-1" onClick>
+                      {" "}
+                      Generar factura{" "}
+                    </button>
                     <br />
                   </td>
                 </tr>

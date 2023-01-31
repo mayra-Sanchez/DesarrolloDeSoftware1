@@ -22,6 +22,7 @@ import ConsultaFacV from "./cliente/pages/ConsultaFacturasV";
 import InfoClienteA from "./admin/pages/InfoClienteA";
 import InfoClienteG from "./gerente/pages/InfoClienteG";
 import InfoClienteO from "./operador/pages/InfoClienteO";
+import ArchivosPagosA from "./admin/pages/ArchivoPagosA";
 
 function App() {
   const { isLogged } = useContext(LoginContext);
@@ -43,6 +44,7 @@ function App() {
             element={<BuscadorCliente />}
           />
           <Route path="Gerente/Gestionar-Clientes" element={<InfoClienteG />} />
+          <Route path="Admin/Archivos_pagos" element={<ArchivosPagosA />} />
           <Route
             path="Operador/Consultar-Cliente"
             element={<ConsultaCliente />}
