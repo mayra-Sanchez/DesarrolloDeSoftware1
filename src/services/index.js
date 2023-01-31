@@ -11,6 +11,10 @@ const endpoints = {
     updateActive: (id) => `${URL}/users/${id}/update-info/`,
   },
 
+  energy: {
+    energy_payments: `${URL}/energy-products/list-energy-consumptions/`,
+  },
+
   roles: {},
 };
 

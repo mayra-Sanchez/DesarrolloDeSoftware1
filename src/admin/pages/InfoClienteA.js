@@ -24,6 +24,9 @@ const InfoClienteA = () => {
     peticionGet();
   }, []);
 
+  const handleChange2 = (e) => {
+    dataCliente(e.target.value);
+  };
   const handleChange = (e) => {
     setBusqueda(e.target.value);
     filtro(e.target.value);
