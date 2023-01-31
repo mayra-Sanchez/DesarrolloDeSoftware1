@@ -82,7 +82,6 @@ function App() {
           />
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />
-
           <Route path="Admin/Archivos_pagos" element={<ArchivosPagosA />} />
           <Route path="Admin" element={<Admin />} />
         </Routes>

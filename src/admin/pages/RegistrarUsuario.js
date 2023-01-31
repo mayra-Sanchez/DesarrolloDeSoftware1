@@ -182,11 +182,6 @@ const RegistrarUsuario = () => {
               Registrar
             </button>
             <br></br>
-            <button>
-              <Link to="/Admin/Registrar_Cliente" className="btn btn-primary">
-                Registrar cliente
-              </Link>
-            </button>
           </form>
         </div>
       </div>

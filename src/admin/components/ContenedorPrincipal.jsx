@@ -18,6 +18,10 @@ export function ContenedorPrincipal(props) {
       >
         Registrar usuarios
       </Link>
+      <Link to="/Admin/Registrar_Cliente" className="btn btn-primary">
+                Registrar cliente
+              
+    </Link>
       <Link
         to="/Admin/Consultar-informacion"
         className="btn btn-outline-dark btn-lg mb-3 "

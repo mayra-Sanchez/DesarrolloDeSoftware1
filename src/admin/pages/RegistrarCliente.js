@@ -157,7 +157,7 @@ const RegistrarCliente = () => {
               <div class="form-group col-md-6">
                 <label>Celular</label>
                 <input
-                  type="text"
+                  type="number"
                   name="phone_number"
                   class="form-control"
                   placeholder="Celular"
