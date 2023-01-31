@@ -5,6 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import {listAllClients} from "../../services/clients";
 
 const ConsultaCliente = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -12,10 +13,10 @@ const ConsultaCliente = () => {
   const [busqueda, setBusqueda] = useState("");
 
   const peticion = async () => {
-    await Axios.get("http://127.0.0.1:8000/clients/list-all/")
+    listAllClients()
       .then((response) => {
-        setUsuarios(response.data);
-        setTablaUsuarios(response.data);
+        setUsuarios(response);
+        setTablaUsuarios(response);
       })
       .catch((error) => {
         console.log(error);
@@ -34,11 +35,11 @@ const ConsultaCliente = () => {
   const filtro = (busqueda) => {
     var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
       if (
-        elemento.name
+        elemento.first_name
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase()) ||
-        elemento.name.toString().toLowerCase().includes(busqueda.toLowerCase())
+        elemento.phone_number.toString().toLowerCase().includes(busqueda.toLowerCase())
       ) {
         return elemento;
       }
@@ -89,9 +90,9 @@ const ConsultaCliente = () => {
               {usuarios &&
                 usuarios.map((usuario) => (
                   <tr key={usuario.id}>
-                    <td>{usuario.phone}</td>
-                    <td>{usuario.name}</td>
-                    <td>{usuario.username}</td>
+                    <td>{usuario.phone_number}</td>
+                    <td>{usuario.first_name}</td>
+                    <td>{usuario.last_name}</td>
                     <td>{usuario.email}</td>
                   </tr>
                 ))}
