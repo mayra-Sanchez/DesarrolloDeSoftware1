@@ -6,10 +6,6 @@ import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import { useState, useEffect } from "react";
 import { list_energy_consumptions } from "../../services/energy";
 
-const data = [
-    { facturaID: 1234, direccion: "La fortaleza", number: 3213615366, consumo: "126 Kwh", valor: 210.000, fecha: "3/02/2023", estado: "Sin pagar" },
-];
-
 export function ContenedorPagos(props) {
     const [usuarios, setUsuarios] = useState([]);
     const [tablaUsuarios, setTablaUsuarios] = useState([]);
