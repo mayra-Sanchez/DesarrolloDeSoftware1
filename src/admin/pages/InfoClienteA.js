@@ -4,16 +4,41 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState, useEffect } from "react";
+import { listAllClients } from "../../services/clients";
 
 const InfoClienteA = () => {
   const [dataCliente, setDataCliente] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const peticionGet = async () => {
-    await Axios.get("https://jsonplaceholder.typicode.com/users")
+  const handleDownload = async () => {
+    setLoading(true);
+    try {
+      const response = await Axios.get(
+        "http://127.0.0.1:8000/energy-products/csv-energy-consumptions/",
+        {
+          responseType: "blob",
+        }
+      );
+      const url = URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "data.csv");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const peticion = async () => {
+    listAllClients()
       .then((response) => {
         setDataCliente(response.data);
+        setTablaUsuarios(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -21,12 +46,9 @@ const InfoClienteA = () => {
   };
 
   useEffect(() => {
-    peticionGet();
+    peticion();
   }, []);
 
-  const handleChange2 = (e) => {
-    dataCliente(e.target.value);
-  };
   const handleChange = (e) => {
     setBusqueda(e.target.value);
     filtro(e.target.value);
@@ -79,10 +101,10 @@ const InfoClienteA = () => {
           <table className="table table-striped table-hover table-responsive-sm">
             <thead class="thead-dark">
               <tr>
-                <th>Cedula</th>
+                <th>Cédula</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Celular</th>
+                <th>Email</th>
                 <th>Facturas</th>
               </tr>
             </thead>
@@ -105,11 +127,27 @@ const InfoClienteA = () => {
             </tbody>
           </table>
         </div>
-        <div className="boton-home">
+        <div class="form-row">
+          <div class="col-md-6">
+            <Link to="Admin/Ubicacion" className="btn btn-success btn-lg">
+              Ubicación clientes
+            </Link>
+          </div>
+          <div class="col-md-6">
+            <button
+              onClick={handleDownload}
+              disabled={loading}
+              className="btn btn-success"
+            >
+              {loading ? "Downloading..." : "Descargar archivo csv con pagos"}
+            </button>
+          </div>
+        </div>
+        {/* <div className="boton-home">
           <Link to="Admin/Ubicacion" className="btn btn-success btn-lg">
             Ubicación clientes
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );

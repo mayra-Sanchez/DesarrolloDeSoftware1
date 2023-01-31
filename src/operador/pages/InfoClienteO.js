@@ -4,27 +4,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState, useEffect } from "react";
+import { listAllClients } from "../../services/clients";
 
 const InfoClienteO = () => {
   const [dataCliente, setDataCliente] = useState([]);
-  const [factura, setFactura] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
 
-  const peticionGet = async () => {
-    await Axios.get("https://jsonplaceholder.typicode.com/users")
+  const peticion = async () => {
+    listAllClients()
       .then((response) => {
         setDataCliente(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const peticionFacturas = async () => {
-    await Axios.get("")
-      .then((response) => {
-        setFactura(response.data);
+        setTablaUsuarios(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -32,8 +23,7 @@ const InfoClienteO = () => {
   };
 
   useEffect(() => {
-    peticionGet();
-    peticionFacturas();
+    peticion();
   }, []);
 
   const handleChange = (e) => {
@@ -88,7 +78,7 @@ const InfoClienteO = () => {
           <table className="table table-striped table-hover table-responsive-sm">
             <thead class="thead-dark">
               <tr>
-                <th>Cedula</th>
+                <th>Cédula</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Celular</th>

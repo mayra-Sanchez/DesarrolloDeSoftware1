@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "../hojaestilo/RegistrarUsuario.css";
 import logo from "../Images/logo-2.png";
 import { Link, useNavigate } from "react-router-dom";
-import { addEmpoloyees } from "../../services/users";
+import { addClients } from "../../services/users";
 import Swal from "sweetalert2";
 
-const RegistrarUsuario = () => {
+const RegistrarCliente = () => {
   let navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -14,7 +14,8 @@ const RegistrarUsuario = () => {
     first_name: "",
     last_name: "",
     phone_number: "",
-    role: "",
+    national_id: "",
+    person_type: "",
   });
 
   const handleChange = (e) => {
@@ -40,7 +41,7 @@ const RegistrarUsuario = () => {
       cancelButtonText: "Cancelar",
       preConfirm: () => {
         return new Promise((resolve, reject) => {
-          addEmpoloyees(data)
+          addClients(data)
             .then((response) => {
               Swal.fire({
                 icon: "success",
@@ -153,7 +154,7 @@ const RegistrarUsuario = () => {
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-6">
+              <div class="form-group col-md-4">
                 <label>Celular</label>
                 <input
                   type="text"
@@ -164,36 +165,34 @@ const RegistrarUsuario = () => {
                   required
                 />
               </div>
-              <div class="form-group col-md-6">
-                <label>Rol</label>
+              <div class="form-group col-md-4">
+                <label>Cedula</label>
+                <input
+                  type="text"
+                  name="national_id"
+                  class="form-control"
+                  placeholder="Cedula"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div class="form-group col-md-4">
+                <label>Tipo de persona</label>
                 <select
-                  name="role"
+                  name="person_type"
                   class="form-control"
                   onChange={handleChange}
                   required
                 >
-                  <option value="admin">Administrador</option>
-                  <option value="operator">Operador</option>
-                  <option value="manager">Gerente</option>
+                  <option value="Natural">Natural</option>
+                  <option value="Juridica">Juridica</option>
                 </select>
               </div>
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                {" "}
-                <button type="submit" class="btn btn-primary">
-                  Registrar
-                </button>
-              </div>
-              <div class="form-group col-md-6">
-                <Link
-                  to="Admin/Registrar-usuarios/Admin/Registrar_Cliente"
-                  className="btn btn-primary"
-                >
-                  Registrar cliente
-                </Link>
-              </div>
-            </div>
+            <button type="submit" class="btn btn-primary">
+              Registrar
+            </button>
+            <br></br>
           </form>
         </div>
       </div>
@@ -201,4 +200,4 @@ const RegistrarUsuario = () => {
   );
 };
 
-export default RegistrarUsuario;
+export default RegistrarCliente;

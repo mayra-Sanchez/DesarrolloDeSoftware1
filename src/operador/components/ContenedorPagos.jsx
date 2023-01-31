@@ -2,40 +2,35 @@ import React from "react";
 import "../hojaestilo/contenedorPago.css";
 import "../hojaestilo/OperadorHome.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useState } from "react";
-import { useEffect } from "react";
-import { actualizarEstado } from "../../services/users";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
-import Axios from "axios";
+import { useState, useEffect } from "react";
+import { listAllClients } from "../../services/clients";
+
+const data = [
+    { facturaID: 1234, direccion: "La fortaleza", number: 3213615366, consumo: "126 Kwh", valor: 210.000, fecha: "3/02/2023", estado: "Sin pagar" },
+];
 
 export function ContenedorPagos(props) {
-
     const [usuarios, setUsuarios] = useState([]);
-    const [busqueda, setBusqueda] = useState("");
     const [tablaUsuarios, setTablaUsuarios] = useState([]);
+    const [busqueda, setBusqueda] = useState("");
     const [modalPagar, setModalPagar] = useState(false);
 
-    //Usuario
     const [datosSeleccionado, setDatosSeleccionado] = useState({
         id: '',
+        address: '',
         phone_number: '',
-        first_name: '',
-        last_name: '',
-        email: '',
-    });
-
-    //Factura
-    const [datosPagarFactura, setDatosPagarFactura] = useState({
-        id: '',
+        amount_kwh: '',
         total_amount_to_pay: '',
-
+        due_date: '',
+        is_fully_paid: '',
     });
 
     const peticion = async () => {
-        await Axios.get("http://127.0.0.1:8000/users/list-all/") //"http://127.0.0.1:8000/users/list-all/" nuestra BD
+        listAllClients()
             .then((response) => {
-                setUsuarios(response.data);
-                setTablaUsuarios(response.data);
+                setUsuarios(response);
+                setTablaUsuarios(response);
             })
             .catch((error) => {
                 console.log(error);
@@ -46,19 +41,13 @@ export function ContenedorPagos(props) {
         peticion();
     }, []);
 
-    const handleChange = (e) => {
-        setBusqueda(e.target.value);
-        filtro(e.target.value);
-    };
-
     const filtro = (busqueda) => {
         var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
             if (
                 elemento.phone_number
                     .toString()
                     .toLowerCase()
-                    .includes(busqueda.toLowerCase()) ||
-                elemento.phone_number.toString().toLowerCase().includes(busqueda.toLowerCase())
+                    .includes(busqueda.toLowerCase())
             ) {
                 return elemento;
             }
@@ -66,46 +55,15 @@ export function ContenedorPagos(props) {
         setUsuarios(resultadosBusqueda);
     };
 
-    const handleStatus = (id) => {
-        actualizarEstado(id);
+    const handleChange = (e) => {
+        setBusqueda(e.target.value);
+        filtro(e.target.value);
     };
 
-    const actualizarEstadoMetodo = (FacturaUsuario) => {
-        var actualizacion;
-        if (FacturaUsuario.facturaStatus === true) {
-            actualizacion = false;
-        } else if (FacturaUsuario.facturaStatus === false) {
-            actualizacion = true;
-        }
-
-        const body = { facturaStatus: actualizacion };
-
-        actualizarEstado(body, FacturaUsuario.id).then((response) => {
-            setUsuarios([response]);
-            setTablaUsuarios([response]);
-        });
-    };
-
-    const subirInfo = (e) => {
-        const { name, value } = e.target;
-        setDatosSeleccionado((prevState) => ({
-            ...prevState,
-            [name]: value
-        }))
-        setDatosPagarFactura((prevState) => ({
-            ...prevState,
-            [name]: value
-        }))
-    };
-
-    const seleccionarDatos = (FacturaUsuario, caso) => {
-        setDatosSeleccionado(FacturaUsuario);
+    const seleccionarDatos = (usuario, caso) => {
+        setDatosSeleccionado(usuario);
         (caso === 'Pagar') && setModalPagar(true)
-    }
-
-    const pagar = () => {
-
-    }
+      }
 
     return (
         <div class="mx-auto" className="contenedor-inicialOperador">
@@ -115,151 +73,47 @@ export function ContenedorPagos(props) {
                 <div className="barra-busquedaPago">
                     <input
                         className="form-control inputBuscar"
-                        /*value={busqueda}*/
+                        value={busqueda}
                         placeholder="Número de celular del cliente"
-                    /*onChange={handleChange}*/
+                        onChange={handleChange}
                     />
                 </div>
             </div>
             <div className="table-responsive">
-                <table className="table table-striped table-bordered table-hover table-responsive-sm">
+                <table className="table table-hover table-dark">
                     <thead>
                         <tr>
                             <th>Factura ID</th>
                             <th>Dirección</th>
-                            <th>Consumo</th>
-                            <th>Valor</th>
-                            <th>Fecha</th>
-                            <th>Estado</th>
+                            <th>Número de celular</th>
+                            <th>Consumo de energia</th>
+                            <th>Valor a pagar</th>
+                            <th>Fecha de vencimiento</th>
+                            <th>Estado actual</th>
                             <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {usuarios &&
-                            usuarios.map((FacturaUsuario) => (
-                                <tr key={FacturaUsuario.id_energy_consumption}>
-                                    <td>{FacturaUsuario.address}</td>
-                                    <td>{FacturaUsuario.amount_kwh}</td>
-                                    <td>{FacturaUsuario.total_amount_to_pay}</td>
-                                    <td>{FacturaUsuario.due_date}</td>
-                                    <td>{FacturaUsuario.is_fully_paid ? "Pago" : "Sin pagar"}</td>
+                            usuarios.map((usuario) => (
+                                <tr key={usuario.id}>
+                                    <td>{usuario.id}</td>
+                                    <td>{usuario.address}</td>
+                                    <td>{usuario.phone_number}</td>
+                                    <td>{usuario.amount_kwh}</td>
+                                    <td>{usuario.total_amount_to_pay}</td>
+                                    <td>{usuario.due_date}</td>
+                                    <td>{usuario.is_fully_paid ? "Sin pagar" : "Pago"}</td>
                                     <td>
-                                        {FacturaUsuario.options}
-                                        <button className="btn btn-outline-dark  mb-1" onClick={() => seleccionarDatos(FacturaUsuario, 'Pagar')}> Pagar </button>
-
+                                        {usuario.options}
+                                        <button className="btn btn-outline-dark  mb-1" onClick={() => seleccionarDatos(usuario, 'Pagar')}> Pagar factura </button>
                                     </td>
                                 </tr>
                             ))}
                     </tbody>
                 </table>
-                <Modal isOpen={modalPagar}>
-                    <ModalHeader>
-                        <div>
-                            <h3> Pagar factura </h3>
-                        </div>
-                    </ModalHeader>
-                    <ModalBody>
-                        <div className="form-group">
-                            <label>ID</label>
-                            <input
-                                className="form-control"
-                                readOnly
-                                type="text"
-                                name="id"
-                                value={datosSeleccionado && datosSeleccionado.id}
-                            />
-                            <br />
 
-                            <label>Nombre</label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                name="first_name"
-                                value={datosSeleccionado && datosSeleccionado.first_name}
-                                onChange={subirInfo}
-                            />
-                            <br />
-
-                            <label>Apellido</label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                name="last_name"
-                                value={datosSeleccionado && datosSeleccionado.last_name}
-                                onChange={subirInfo}
-                            />
-                            <br />
-
-                            <label>Celular</label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                name="phone_number"
-                                value={datosSeleccionado && datosSeleccionado.phone_number}
-                                onChange={subirInfo}
-                            />
-                            <br />
-
-                            <label>Email</label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                name="email"
-                                value={datosSeleccionado && datosSeleccionado.email}
-                                onChange={subirInfo}
-                            />
-                            <br />
-
-                            <label>Factura ID</label>
-                            <input
-                                className="form-control"
-                                readOnly
-                                type="text"
-                                name="id_energy_consumption"
-                                value={datosPagarFactura && datosPagarFactura.id_energy_consumption}
-                            />
-                            <br />
-
-                            <label>Valor a pagar: </label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                name="amount"
-                                value={datosPagarFactura && datosPagarFactura.amount}
-                                onChange={subirInfo}
-                            />
-                            <br />
-
-                            <label>Punto de pago</label>
-                            <select
-                                name="payment_institution"
-                                class="form-control"
-                                onChange={subirInfo}
-                                required
-                                value={datosPagarFactura && datosPagarFactura.payment_institution}
-                            >
-                                <option value="punto_baloto">Baloto</option>
-                                <option value="punto_gane">GANE</option>
-                                <option value="punto_efecty">Efecty</option>
-                                <option value="punto_bancolombia">Bancolombia</option>
-                            </select>
-                            <br />
-                        </div>
-                    </ModalBody>
-                    <ModalFooter>
-                        <button className="btn btn-primary" onClick={() => pagar()}>
-                            Pagar
-                        </button>
-                        <button
-                            className="btn btn-danger"
-                            onClick={() => setModalPagar(false)}
-                        >
-                            Cancelar
-                        </button>
-                    </ModalFooter>
-                </Modal>
             </div>
         </div>
-
-    );
-};
+    )
+}
