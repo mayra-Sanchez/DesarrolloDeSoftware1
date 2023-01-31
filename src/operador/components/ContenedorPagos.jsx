@@ -43,7 +43,7 @@ export function ContenedorPagos(props) {
     const filtro = (busqueda) => {
         var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
             if (
-                elemento.phone_number
+                elemento.client_national_id
                     .toString()
                     .toLowerCase()
                     .includes(busqueda.toLowerCase())
@@ -73,7 +73,7 @@ export function ContenedorPagos(props) {
                     <input
                         className="form-control inputBuscar"
                         value={busqueda}
-                        placeholder="Número de celular del cliente"
+                        placeholder="Número de identificación"
                         onChange={handleChange}
                     />
                 </div>
