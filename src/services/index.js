@@ -5,6 +5,10 @@ const endpoints = {
     listAll: `${URL}/clients/list-all/`,
   },
 
+  employees: {
+    listAll: `${URL}/employees/list-all/`
+  },
+
   users: {
     registerUser: `${URL}/users/register-user/`,
     loginUser: `${URL}/users/login/`,

@@ -5,6 +5,7 @@ import Axios from "axios";
 import { actualizarEstado } from "../../services/users";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { listAllEmployees } from "../../services/employees";
 
 export function ConsultarConsultaEmpleado(props) {
   const [usuarios, setUsuarios] = useState([]);
@@ -22,10 +23,10 @@ export function ConsultarConsultaEmpleado(props) {
   });
 
   const peticion = async () => {
-    await Axios.get("http://127.0.0.1:8000/users/list-all/") // Empleado
+    listAllEmployees()
       .then((response) => {
-        setUsuarios(response.data);
-        setTablaUsuarios(response.data);
+        setUsuarios(response);
+        setTablaUsuarios(response);
       })
       .catch((error) => {
         console.log(error);
@@ -52,11 +53,11 @@ export function ConsultarConsultaEmpleado(props) {
   const filtro = (busqueda) => {
     var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
       if (
-        elemento.name
+        elemento.first_name
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase()) ||
-        elemento.name.toString().toLowerCase().includes(busqueda.toLowerCase())
+        elemento.phone_number.toString().toLowerCase().includes(busqueda.toLowerCase())
       ) {
         return elemento;
       }
