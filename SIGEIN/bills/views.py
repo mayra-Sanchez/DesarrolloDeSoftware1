@@ -24,7 +24,7 @@ def pdf(request, user_id):
   contract = Contract.objects.get(id_client_id=clients.customuser_ptr_id)
   energycontract = EnergyContract.objects.get(contract_ptr_id=contract.id)
   estrato = Estrato.objects.get(id=energycontract.estrato_id)
-  energyconsumptions = EnergyConsumptions.objects.get(id_contract=energycontract.contract_ptr_id)
+  energyconsumptions = EnergyConsumptions.objects.filter(id_contract=contract.id).order_by('-issue_date')[0]
   price = ElectricityPrice.objects.get(id=energyconsumptions.price_kwh_id)
   total = energyconsumptions.amount_kwh * price.price
   print(total)
