@@ -2,11 +2,13 @@ const URL = "http://localhost:8000";
 
 const endpoints = {
   clients: {
+    registerClients: `${URL}clients/create-client/`,
     listAll: `${URL}/clients/list-all/`,
   },
 
   employees: {
-    listAll: `${URL}/employees/list-all/`
+    registerEmployees: `${URL}/employees/create-employee/`,
+    listAll: `${URL}/employees/list-all/`,
   },
 
   users: {
@@ -26,8 +28,7 @@ const token = () => {
   let aux = localStorage.getItem("userData");
   aux = JSON.parse(aux);
   const tokenAcces = aux.access;
-  return tokenAcces
-} ;
-
+  return tokenAcces;
+};
 
 export { endpoints, token };

@@ -24,6 +24,7 @@ import InfoClienteA from "./admin/pages/InfoClienteA";
 import InfoClienteG from "./gerente/pages/InfoClienteG";
 import InfoClienteO from "./operador/pages/InfoClienteO";
 import ArchivosPagosA from "./admin/pages/ArchivoPagosA";
+import RegistrarCliente from "./admin/pages/RegistrarCliente";
 
 function App() {
   const { isLogged } = useContext(LoginContext);
@@ -41,13 +42,8 @@ function App() {
             element={<RegistrarUsuario />}
           />
           <Route
-            path="Gerente/Información-clientes"
-            element={<BuscadorCliente />}
-          />
-          <Route path="Gerente/Gestionar-Clientes" element={<InfoClienteG />} />
-          <Route
-            path="Operador/Consultar-Cliente"
-            element={<ConsultaCliente />}
+            path="Admin/Registrar_Cliente"
+            element={<RegistrarCliente />}
           />
           <Route
             path="Admin/Consultar-informacion"
@@ -59,6 +55,22 @@ function App() {
           />
           <Route path="/Admin/Gestionar-Clientes" element={<InfoClienteA />} />
           <Route
+            path="/Admin/Gestionar-Clientes/Admin/Ubicacion"
+            element={<UbicacionClientes />}
+          />
+          <Route path="Admin/Archivos_pagos" element={<ArchivosPagosA />} />
+          <Route
+            path="Gerente/Información-clientes"
+            element={<BuscadorCliente />}
+          />
+          <Route path="Gerente/Gestionar-Clientes" element={<InfoClienteG />} />
+          <Route path="Gerente/Consumo-clientes" element={<ConsumoCliente />} />
+          <Route
+            path="Operador/Consultar-Cliente"
+            element={<ConsultaCliente />}
+          />
+
+          <Route
             path="Operador/Registar-pagos-realizados"
             element={<PagosRealizados />}
           />
@@ -66,11 +78,7 @@ function App() {
             path="Operador/Registrar-pagos-clientes"
             element={<RegistroPagos />}
           />
-          <Route
-            path="/Admin/Gestionar-Clientes/Admin/Ubicacion"
-            element={<UbicacionClientes />}
-          />
-          <Route path="Gerente/Consumo-clientes" element={<ConsumoCliente />} />
+
           <Route path="Cliente/consumo-mensual" element={<ConsumoMensualC />} />
           <Route
             path="Cliente/pagar-facturas-online"
@@ -82,11 +90,12 @@ function App() {
           />
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />
-          <Route path="Admin/Archivos_pagos" element={<ArchivosPagosA />} />
-          <Route path="Admin" element={<Admin />} />
         </Routes>
       ) : (
-        <Routes></Routes>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="SignIn" element={<SignIn />} />
+        </Routes>
       )}
     </BrowserRouter>
   );
