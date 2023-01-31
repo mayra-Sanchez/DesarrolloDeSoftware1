@@ -9,6 +9,7 @@ import Operador from "./operador/pages/OperadorHome";
 import Cliente from "./cliente/pages/ClienteHome";
 import RegistrarUsuario from "./admin/pages/RegistrarUsuario";
 import ConsultarInformacion from "./admin/pages/ConsultarInformacion";
+import ConsultarInformacionEmpleado from "./admin/pages/ConsultarInfoEmpleado";
 import UbicacionClientes from "./admin/pages/UbicacionClientes";
 import ConsultaCliente from "./operador/pages/ConsultaCliente";
 import RegistroPagos from "./operador/pages/RegistroPagos";
@@ -29,7 +30,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isLogged ? (
+      {!isLogged ? (
         <Routes>
           <Route path="Admin" element={<Admin />} />
           <Route path="Gerente" element={<Gerente />} />
@@ -51,6 +52,10 @@ function App() {
           <Route
             path="Admin/Consultar-informacion"
             element={<ConsultarInformacion />}
+          />
+          <Route
+            path="Admin/Consultar-informacion-empleados"
+            element={<ConsultarInformacionEmpleado />}
           />
           <Route path="/Admin/Gestionar-Clientes" element={<InfoClienteA />} />
           <Route
@@ -77,12 +82,11 @@ function App() {
           />
           <Route index element={<Home />} />
           <Route path="SignIn" element={<SignIn />} />
-        </Routes>
-      ) : (
-        <Routes>
           <Route path="Admin/Archivos_pagos" element={<ArchivosPagosA />} />
           <Route path="Admin" element={<Admin />} />
         </Routes>
+      ) : (
+        <Routes></Routes>
       )}
     </BrowserRouter>
   );

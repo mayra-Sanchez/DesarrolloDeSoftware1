@@ -2,10 +2,10 @@ import logo from "../Images/logo-2.png";
 import "../hojaestilo/ConsultarInformacion.css";
 import React from "react";
 import { Link } from "react-router-dom";
-import { ContenedorConsulta } from "../components/ContenedorConsulta";
+import { ConsultarConsultaEmpleado } from "../components/ContenedorConEmpleado";
 
 
-const ConsultarInformacion = () => {
+const ConsultarInformacionEmpleado = () => {
 
     return (
         <div class="bg-light">
@@ -26,11 +26,11 @@ const ConsultarInformacion = () => {
                     </Link>
                 </ul>
             </nav>
-            <ContenedorConsulta
-            texto1_Consulta= "Consulta de clientes"
+            <ConsultarConsultaEmpleado
+            texto1_Consulta= "Consulta de empleados"
             />
         </div>
     );
 }
 
-export default ConsultarInformacion;
+export default ConsultarInformacionEmpleado;

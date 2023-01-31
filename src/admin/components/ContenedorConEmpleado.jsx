@@ -6,7 +6,7 @@ import { actualizarEstado } from "../../services/users";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 
-export function ContenedorConsulta(props) {
+export function ConsultarConsultaEmpleado(props) {
   const [usuarios, setUsuarios] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
@@ -22,7 +22,7 @@ export function ContenedorConsulta(props) {
   });
 
   const peticion = async () => {
-    await Axios.get("http://127.0.0.1:8000/users/list-all/") // Cliente
+    await Axios.get("http://127.0.0.1:8000/users/list-all/") // Empleado
       .then((response) => {
         setUsuarios(response.data);
         setTablaUsuarios(response.data);
