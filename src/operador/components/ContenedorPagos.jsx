@@ -18,12 +18,11 @@ export function ContenedorPagos(props) {
 
     const [datosSeleccionado, setDatosSeleccionado] = useState({
         id: '',
-        address: '',
-        phone_number: '',
+        contract_address: '',
+        client_national_id: '',
         amount_kwh: '',
         total_amount_to_pay: '',
         due_date: '',
-        is_fully_paid: '',
     });
 
     const peticion = async () => {
@@ -98,8 +97,8 @@ export function ContenedorPagos(props) {
                             usuarios.map((usuario) => (
                                 <tr key={usuario.id}>
                                     <td>{usuario.id}</td>
-                                    <td>{usuario.address}</td>
-                                    <td>{usuario.phone_number}</td>
+                                    <td>{usuario.contract_address}</td>
+                                    <td>{usuario.client_national_id}</td>
                                     <td>{usuario.amount_kwh}</td>
                                     <td>{usuario.total_amount_to_pay}</td>
                                     <td>{usuario.due_date}</td>
