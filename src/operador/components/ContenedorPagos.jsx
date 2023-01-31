@@ -102,7 +102,7 @@ export function ContenedorPagos(props) {
                                     <td>{usuario.amount_kwh}</td>
                                     <td>{usuario.total_amount_to_pay}</td>
                                     <td>{usuario.due_date}</td>
-                                    <td>{usuario.is_fully_paid ? "Sin pagar" : "Pago"}</td>
+                                    <td>{usuario.is_fully_paid ? "Pago" : "Sin pagar"}</td>
                                     <td>
                                         {usuario.options}
                                         <button className="btn btn-outline-dark  mb-1" onClick={() => seleccionarDatos(usuario, 'Pagar')}> Pagar factura </button>
