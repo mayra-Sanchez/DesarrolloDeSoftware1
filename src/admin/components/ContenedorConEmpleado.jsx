@@ -109,20 +109,18 @@ export function ConsultarConsultaEmpleado(props) {
 
     const usuario = usuarios.find((user) => user.id == usuario_editar_id);
 
+    const datos = {
+      email: usuario.email,
+      first_name: usuario.first_name,
+      last_name: usuario.last_name,
+      phone_number: usuario.phone_number,
+      role: usuario.role,
+    };
+
     const handleClick = async () => {
       try {
-        const res = await Axios.put(
-          `http://127.0.0.1:8000/employees/update-info/106/`,
-          {
-            email: usuario.email,
-            first_name: usuario.first_name,
-            last_name: usuario.last_name,
-            phone_number: usuario.phone_number,
-            role: usuario.role,
-          }
-        );
+        actualizarEstado(datos, usuario.id).then((response) => console.log(response)).catch((error) => console.log(error))
 
-        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
