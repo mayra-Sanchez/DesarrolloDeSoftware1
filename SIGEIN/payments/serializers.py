@@ -30,7 +30,6 @@ class PaymentSerializer(serializers.ModelSerializer):
             'id_energy_consumption',
             'id_advertising_consumption',
             'client_national_id',
-            'contract_address'
         )        
         extra_kwargs = {   
             'id': {'read_only': True},
