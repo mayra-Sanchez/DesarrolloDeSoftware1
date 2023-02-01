@@ -6,6 +6,7 @@ import { actualizarEstadoEmployes } from "../../services/users";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { listAllEmployees } from "../../services/employees";
+import { actualizarEstado } from "../../services/users";
 
 export function ConsultarConsultaEmpleado(props) {
   const [usuarios, setUsuarios] = useState([]);
