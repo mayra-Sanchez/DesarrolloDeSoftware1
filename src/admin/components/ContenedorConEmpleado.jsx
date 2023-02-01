@@ -101,7 +101,6 @@ export function ConsultarConsultaEmpleado(props) {
         usuario.phone_number = datosSeleccionado.phone_number;
         usuario.first_name = datosSeleccionado.first_name;
         usuario.last_name = datosSeleccionado.last_name;
-        usuario.email = datosSeleccionado.email;
         usuario.role = datosSeleccionado.role;
       }
     });
@@ -110,7 +109,6 @@ export function ConsultarConsultaEmpleado(props) {
     const usuario = usuarios.find((user) => user.id == usuario_editar_id);
 
     const datos = {
-      email: usuario.email,
       first_name: usuario.first_name,
       last_name: usuario.last_name,
       phone_number: usuario.phone_number,
