@@ -27,7 +27,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {!isLogged ? (
+      {isLogged ? (
         <Routes>
           <Route path="Admin" element={<Admin />} />
           <Route path="Gerente" element={<Gerente />} />
@@ -54,12 +54,10 @@ function App() {
             path="/Admin/Gestionar-Clientes/Admin/Ubicacion"
             element={<UbicacionClientes />}
           />
-          
           <Route
-            path="Gerente/Información-clientes"
+            path="Gerente/InformaciÃ³n-clientes"
             element={<BuscadorCliente />}
           />
-          
           <Route path="Gerente/Consumo-clientes" element={<ConsumoCliente />} />
           <Route
             path="Operador/Consultar-Cliente"
