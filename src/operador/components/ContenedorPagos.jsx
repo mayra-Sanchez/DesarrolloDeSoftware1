@@ -21,6 +21,13 @@ export function ContenedorPagos(props) {
         due_date: '',
     });
 
+    const [datosFactura, setDatosFactura] = useState({
+        id: '',
+        type: 'in-house',
+        payment_institution: '',
+        amount: '',
+    });
+
     const peticion = async () => {
         list_energy_consumptions()
             .then((response) => {
@@ -58,7 +65,41 @@ export function ContenedorPagos(props) {
     const seleccionarDatos = (usuario, caso) => {
         setDatosSeleccionado(usuario);
         (caso === 'Pagar') && setModalPagar(true)
-      }
+    }
+
+    const subirInfo = (e) => {
+        const { name, value } = e.target;
+        setDatosFactura((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
+    };
+
+    const pagar =()=>{
+
+    }
+    /* const pagar = () => {
+         
+         const handleClick = async () => {
+             try {
+                 const res = await Axios.put(`http://127.0.0.1:8000/users/${usuario.id}/update-info/`, {
+                     email: usuario.email,
+                     first_name: usuario.first_name,
+                     last_name: usuario.last_name,
+                     phone_number: usuario.phone_number,
+                     role: usuario.role,
+                 });
+ 
+                 console.log(res.data);
+             } catch (error) {
+                 console.error(error);
+             }
+         }
+ 
+         handleClick()
+         setModalPagar(false);
+     }
+ */
 
     return (
         <div class="mx-auto" className="contenedor-inicialOperador">
@@ -107,7 +148,92 @@ export function ContenedorPagos(props) {
                             ))}
                     </tbody>
                 </table>
+                <Modal isOpen={modalPagar}>
+                    <ModalHeader>
+                        <div>
+                            <h3> Pago de factura </h3>
+                        </div>
+                    </ModalHeader>
+                    <ModalBody>
+                        <div className="form-group">
+                            <label>Factura ID: </label>
+                            <input
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                name="id"
+                                value={datosSeleccionado && datosSeleccionado.id}
+                            />
+                            <br />
 
+                            <label>Dirección: </label>
+                            <input
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                name="contract_address"
+                                value={datosSeleccionado && datosSeleccionado.contract_address}
+                            />
+                            <br />
+
+                            <label>Número de identificación: </label>
+                            <input
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                name="client_national_id"
+                                value={datosSeleccionado && datosSeleccionado.client_national_id}
+                            />
+                            <br />
+
+                            <label>Consumo total: </label>
+                            <input
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                name="amount_kwh"
+                                value={datosSeleccionado && datosSeleccionado.amount_kwh}
+                            />
+                            <br />
+
+                            <label>Valor a pagar: </label>
+                            <input
+                                className="form-control"
+                                type="text"
+                                name="amount"
+                                value={datosFactura && datosFactura.amount}
+                                onChange={subirInfo}
+                            />
+                            <br />
+                            <label>Punto de pago</label>
+                            <select
+                                name="payment_institution"
+                                class="form-control"
+                                onChange={subirInfo}
+                                required
+                                value={datosFactura && datosFactura.payment_institution}
+                            >
+                                <option value="punto_baloto">Baloto</option>
+                                <option value="punto_gane">GANE</option>
+                                <option value="punto_efecty">Efecty</option>
+                                <option value="punto_bancolombia">Bancolombia</option>
+                            </select>
+                            <br />
+
+                        </div>
+                    </ModalBody>
+                    <ModalFooter>
+                        <button className="btn btn-primary" onClick={() => pagar()}>
+                            Pagar
+                        </button>
+                        <button
+                            className="btn btn-danger"
+                            onClick={() => setModalPagar(false)}
+                        >
+                            Cancelar
+                        </button>
+                    </ModalFooter>
+                </Modal>
             </div>
         </div>
     )
