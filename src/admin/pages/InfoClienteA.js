@@ -124,7 +124,7 @@ const InfoClienteA = () => {
                   <td>{cliente.national_id}</td>
                   <td>{cliente.first_name}</td>
                   <td>{cliente.last_name}</td>
-                  <td>{cliente.phone_number}</td>
+                  <td>{cliente.email}</td>
                   <td>
                     <button
                       className="btn btn-outline-dark  mb-1"
