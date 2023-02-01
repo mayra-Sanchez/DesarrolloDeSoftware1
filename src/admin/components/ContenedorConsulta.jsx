@@ -140,7 +140,7 @@ export function ContenedorConsulta(props) {
     const handleClick = async () => {
       try {
         const res = await Axios.put(
-          `http://127.0.0.1:8000/users/${usuario.id}/update-info/`,
+          `http://127.0.0.1:8000/clients/update-info/106/`,
           {
             email: usuario.email,
             first_name: usuario.first_name,
