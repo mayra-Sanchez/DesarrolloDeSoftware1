@@ -18,7 +18,8 @@ class ListAllPaymentsView(generics.ListAPIView):
 
 class CreatePaymentView(generics.CreateAPIView):
     serializer_class = PaymentSerializer
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsEmployeePermission]
+    #permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsEmployeePermission]
+    permission_classes = [permissions.AllowAny]
     queryset = Payment.objects.all()
 
     payment_penalty = 2/100 # 2%

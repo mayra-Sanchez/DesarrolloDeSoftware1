@@ -4,6 +4,8 @@ from users.permissions import IsAdminPermission, IsOwnerPermission, IsClientPerm
 from employees.permissions import IsEmployeePermission
 from .serializer import ContractSerializer
 from .models import Contract
+from energy_products.models import ElectricityPrice, EnergyConsumptions
+from energy_products.serializers import EnergyConsumptionSerializer
 # Create your views here.
 
 
@@ -33,10 +35,11 @@ class updateContractView(generics.UpdateAPIView):
   
 
 class findIdContract(generics.UpdateAPIView):
-    serializer_class = ContractSerializer
+    serializer_class = EnergyConsumptionSerializer
     lookup_field = 'pk'    
-    permission_classes = [permissions.IsAuthenticated, IsOwnerPermission] 
+    #permission_classes = [permissions.IsAuthenticated, IsOwnerPermission] 
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):        
-        return Contract.objects.filter(id= self.request.contract.id)
+        return EnergyConsumptions.objects.filter(id_contrato_id= self.request.contract.id)
 
