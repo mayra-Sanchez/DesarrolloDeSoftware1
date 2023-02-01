@@ -69,7 +69,7 @@ function DashboardContent() {
           </Paper>
           </Grid>
         {/* Facturas vencidas */}
-          <Grid item xs={12} md={6} lg={6}>
+          {/* <Grid item xs={12} md={6} lg={6}>
           <Paper
             sx={{
             p: 2,
@@ -80,7 +80,7 @@ function DashboardContent() {
           >
             Aquí están las facturas vencidas
           </Paper>
-          </Grid>
+          </Grid> */}
         {/* Pagar online */}
           <Grid item xs={12} md={6} lg={6}>
           <Paper
