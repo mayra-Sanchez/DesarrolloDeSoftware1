@@ -10,5 +10,5 @@ urlpatterns = [
     path('search-energy-consumptions/', views.SearchEnergyConsumptionsView.as_view(), name='search_energy_consumptions'),
 
     path('csv-energy-consumptions/', views.EnergyConsumptionsCsvReportView.as_view(), name='csv_report_energy_consumptions'),
-    
+    path('energy_consumption/<int:pk>', views.ClientEnergyConsumptions.as_view(), name='client_energy_consumptions')
 ]

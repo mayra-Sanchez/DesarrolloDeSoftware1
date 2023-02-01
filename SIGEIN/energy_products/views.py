@@ -4,12 +4,30 @@ from rest_framework import generics, permissions, serializers
 from users.permissions import IsAdminPermission, IsManagerPermission, IsOwnerPermission, IsClientPermission
 from employees.permissions import IsEmployeePermission
 from clients.models import Clients
+from clients.serializers import ClientSerializer
+from contracts.models import Contract
 from .models import ElectricityPrice, EnergyConsumptions
 from .serializers import ElectricityPriceSerializer, EnergyConsumptionSerializer
 from .filters import ElectricityPriceFilter, EnergyConsumptionFilter
 
 
 # Create your views here.
+
+class ClientEnergyConsumptions(generics.ListAPIView):
+    #serializer_class=EnergyConsumptionSerializer
+    serializer_class = EnergyConsumptionSerializer
+    permission_classes = [permissions.AllowAny]
+
+    #def get_queryset(self):
+        #parametro = self.kwargs['pk']
+        #return EnergyConsumptions.objects.filter(id=parametro)
+    
+    def get_queryset(self):   
+        parametro = self.kwargs['pk']     
+        cliente = Clients.objects.filter(id= parametro)
+        contract = Contract.objects.filter(id_client_id=cliente[0].id)
+        consumption = EnergyConsumptions.objects.filter(id_contract_id=contract[0].id).order_by("issue_date")
+        return consumption
 
 class ListAllElectricityPricesView(generics.ListAPIView):
     serializer_class = ElectricityPriceSerializer
@@ -53,8 +71,8 @@ class SearchElectricityPriceView(generics.ListAPIView):
 
 class ListAllEnergyConsumptionsView(generics.ListAPIView):
     serializer_class = EnergyConsumptionSerializer
-    #permission_classes = [permissions.AllowAny]
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsEmployeePermission]
+    permission_classes = [permissions.AllowAny]
+    #permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsEmployeePermission]
     queryset = EnergyConsumptions.objects.all()
 
 
@@ -95,8 +113,8 @@ class SearchEnergyConsumptionsView(generics.ListAPIView):
 
 class EnergyConsumptionsCsvReportView(generics.ListAPIView):
     filter_class = EnergyConsumptionFilter
-    #permission_classes = [permissions.AllowAny]
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsAdminPermission | IsManagerPermission]
+    permission_classes = [permissions.AllowAny]
+    #permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser | IsAdminPermission | IsManagerPermission]
     queryset = EnergyConsumptions.objects.all()
 
 
