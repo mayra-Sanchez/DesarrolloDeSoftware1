@@ -16,8 +16,19 @@ const list_energy_consumptions = async (body) => {
   return response.data;
 };
 
+const clientEnergyConsumption = async (body) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token()}`,
+    },
+  };
 
+  const response = await Axios.get(
+    endpoints.energy.client_energy_consumption(body.id),
+    body,
+    config
+  );
+  return response.data;
+}
 
-
-
-export { list_energy_consumptions };
+export { list_energy_consumptions, clientEnergyConsumption };

@@ -4,6 +4,7 @@ const endpoints = {
   clients: {
     registerClients: `${URL}clients/create-client/`,
     listAll: `${URL}/clients/list-all/`,
+    client_bill: (id) => `${URL}/bills/user_bill/${id}/`
   },
 
   employees: {
@@ -19,6 +20,7 @@ const endpoints = {
 
   energy: {
     list_energy_consumption: `${URL}/energy-products/list-energy-consumptions/`,
+    client_energy_consumption: (id) => `${URL}/energy-products/energy_consumption/${id}/`
   },
 
   roles: {},

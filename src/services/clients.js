@@ -13,4 +13,17 @@ const listAllClients = async () => {
   return response.data;
 };
 
-export { listAllClients };
+const clientBill = async (body) => {
+  const config = {
+    headers: {
+      accept: "*/*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token()}`,
+      responseType: "blob"
+    },
+  };
+  const response = await Axios.get(endpoints.clients.client_bill(body.id), config);
+  return response.data;
+}
+
+export { listAllClients, clientBill };
