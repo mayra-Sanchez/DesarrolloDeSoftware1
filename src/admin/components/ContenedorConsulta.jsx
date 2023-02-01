@@ -105,8 +105,6 @@ export function ContenedorConsulta(props) {
       // setTablaUsuarios([response]);
     });
 
-    
-
     // listAllClients()
     // .then((response) => {
     //   setUsuarios(response);

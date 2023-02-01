@@ -5,7 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-
+import Button from '@mui/material/Button';
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -57,7 +57,8 @@ export default function ConsumoMes() {
             <TableCell>Consumo en Kw/h</TableCell>
             <TableCell>Precio por Kw</TableCell>
             <TableCell>Impuestos</TableCell>
-            <TableCell align="right">Total</TableCell>
+            <TableCell>Total</TableCell>
+            <TableCell align="right">Factura</TableCell>
           </TableRow>
         </TableHead>
         <TableBody size="small">
@@ -67,7 +68,13 @@ export default function ConsumoMes() {
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.shipTo}</TableCell>
               <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
+              <TableCell>{`$${row.amount}`}</TableCell>
+              <TableCell align="right">
+                 <Button  style={{
+                  maxWidth: '90px', maxHeight: '20px'}} >
+              Descargar
+            </Button>
+             </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState, useEffect } from "react";
+import { listAllClients, clientBill } from "../../services/clients";
 
 const InfoClienteG = () => {
   const [dataCliente, setDataCliente] = useState([]);
@@ -11,14 +12,21 @@ const InfoClienteG = () => {
   const [busqueda, setBusqueda] = useState("");
 
   const peticionGet = async () => {
-    await Axios.get("https://jsonplaceholder.typicode.com/users")
+    listAllClients()
       .then((response) => {
-        setDataCliente(response.data);
+        setDataCliente(response);
+        setTablaUsuarios(response)
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  const generateBill = async (id) => {
+    const url = "http://localhost:8000/bills/user_bill/" + id
+    window.open(url, "_blank")
+  }
+
 
   useEffect(() => {
     peticionGet();
@@ -32,7 +40,11 @@ const InfoClienteG = () => {
   const filtro = (busqueda) => {
     var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
       if (
-        elemento.cedula
+        elemento.national_id
+          .toString()
+          .toLowerCase()
+          .includes(busqueda.toLowerCase()) ||
+        elemento.first_name
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase())
@@ -86,12 +98,12 @@ const InfoClienteG = () => {
             <tbody>
               {dataCliente.map((cliente) => (
                 <tr key={cliente.id}>
-                  <td>{cliente.cedula}</td>
-                  <td>{cliente.nombre}</td>
-                  <td>{cliente.apellido}</td>
-                  <td>{cliente.celular}</td>
+                  <td>{cliente.national_id}</td>
+                  <td>{cliente.first_name}</td>
+                  <td>{cliente.last_name}</td>
+                  <td>{cliente.phone_number}</td>
                   <td>
-                    <button className="btn btn-outline-dark  mb-1" onClick>
+                    <button className="btn btn-outline-dark  mb-1" onClick={() => generateBill(cliente.id)}>
                       {" "}
                       Generar factura{" "}
                     </button>

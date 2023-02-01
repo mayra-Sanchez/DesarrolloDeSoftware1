@@ -27,7 +27,7 @@ const RegistrarCliente = () => {
     const data = {
       ...formData,
     };
-    console.log(data)
+    console.log(data);
     Swal.fire({
       title: "Atención, estás seguro de realizar esta acción",
       text: "Vas a registrarte como un nuevo usuario",
@@ -57,15 +57,14 @@ const RegistrarCliente = () => {
               });
             })
             .catch((err) => {
-            //   if (err.response.status === 412) {
-            //     onError(err.response.data);
-            //     console.log(err.response.data);
-            //   } else {
-            //     console.log("error");
-            //     onError("Error al crear el cargo, intenta de nuevo.");
-            //   }
-            onError("jghghjjhjk")
-
+              // if (err.response.status === 412) {
+              //   onError(err.response.data);
+              //   console.log(err.response.data);
+              // } else {
+              //   console.log("error");
+              //   onError("Error al crear el cargo, intenta de nuevo.");
+              // }
+              onError("Error al crear el cargo, intenta de nuevo");
               console.log(err);
             });
         });
@@ -159,6 +158,8 @@ const RegistrarCliente = () => {
                 <label>Celular</label>
                 <input
                   type="text"
+                  min={10}
+                  max={10}
                   name="phone_number"
                   class="form-control"
                   placeholder="Celular"
@@ -185,9 +186,9 @@ const RegistrarCliente = () => {
                   onChange={handleChange}
                   required
                 >
-                  <option value="" >Selecione...</option>
-                  <option value="Natural">Natural</option>
-                  <option value="Juridica">Juridica</option>
+                  <option value="">Seleccione...</option>
+                  <option value="natural">Natural</option>
+                  <option value="juridica">Juridica</option>
                 </select>
               </div>
             </div>

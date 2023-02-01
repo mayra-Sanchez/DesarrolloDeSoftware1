@@ -4,11 +4,7 @@ import "../hojaestilo/OperadorHome.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import { useState, useEffect } from "react";
-import { list_energy_consumptions } from "../../services/energy";
-
-const data = [
-    { facturaID: 1234, direccion: "La fortaleza", number: 3213615366, consumo: "126 Kwh", valor: 210.000, fecha: "3/02/2023", estado: "Sin pagar" },
-];
+import { createPayment, list_energy_consumptions } from "../../services/energy";
 
 export function ContenedorPagos(props) {
     const [usuarios, setUsuarios] = useState([]);
@@ -23,6 +19,13 @@ export function ContenedorPagos(props) {
         amount_kwh: '',
         total_amount_to_pay: '',
         due_date: '',
+    });
+
+    const [datosFactura, setDatosFactura] = useState({
+        id: '',
+        type: 'in-house',
+        payment_institution: '',
+        amount: 0,
     });
 
     const peticion = async () => {
@@ -43,7 +46,7 @@ export function ContenedorPagos(props) {
     const filtro = (busqueda) => {
         var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
             if (
-                elemento.phone_number
+                elemento.client_national_id
                     .toString()
                     .toLowerCase()
                     .includes(busqueda.toLowerCase())
@@ -62,7 +65,55 @@ export function ContenedorPagos(props) {
     const seleccionarDatos = (usuario, caso) => {
         setDatosSeleccionado(usuario);
         (caso === 'Pagar') && setModalPagar(true)
-      }
+    }
+
+    const subirInfo = (e) => {
+        const { name, value } = e.target;
+        setDatosFactura((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
+    };
+
+
+
+    const pagar = () => {
+        let usuario_pagar_id;
+        var dataNueva = usuarios;
+        dataNueva.map(dato => {
+            if(dato.id === datosFactura.id){
+                usuario_pagar_id = datosFactura.id;
+                dato.amount = datosFactura.amount;
+                dato.payment_institution = datosFactura.payment_institution;
+                dato.type = 'in-house';
+            }
+        });
+        //setDatosFactura(dataNueva);
+
+        const usuario = usuarios.find(user => user.id === usuario_pagar_id )
+
+        const handleClick = async () => {
+            try {
+                const body = {
+                    id_energy_consumption: datosSeleccionado.id,
+                    type: 'in-house',
+                    payment_institution: datosFactura.payment_institution,
+                    amount: datosFactura.amount,
+                    service_paid: "energy-consumption"
+                };
+                console.log(body)
+                console.log(datosFactura.amount)
+                const res = createPayment(body);
+
+                console.log(res);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        handleClick()
+        setModalPagar(false);
+    }
 
     return (
         <div class="mx-auto" className="contenedor-inicialOperador">
@@ -73,7 +124,7 @@ export function ContenedorPagos(props) {
                     <input
                         className="form-control inputBuscar"
                         value={busqueda}
-                        placeholder="Número de celular del cliente"
+                        placeholder="Número de identificación"
                         onChange={handleChange}
                     />
                 </div>
@@ -84,7 +135,7 @@ export function ContenedorPagos(props) {
                         <tr>
                             <th>Factura ID</th>
                             <th>Dirección</th>
-                            <th>Número de celular</th>
+                            <th>Número de cédula</th>
                             <th>Consumo de energia</th>
                             <th>Valor a pagar</th>
                             <th>Fecha de vencimiento</th>
@@ -105,13 +156,108 @@ export function ContenedorPagos(props) {
                                     <td>{usuario.is_fully_paid ? "Pago" : "Sin pagar"}</td>
                                     <td>
                                         {usuario.options}
-                                        <button className="btn btn-outline-dark  mb-1" onClick={() => seleccionarDatos(usuario, 'Pagar')}> Pagar factura </button>
+                                        <button disabled={usuario.is_fully_paid} className="btn btn-outline-light  mb-1" onClick={() => seleccionarDatos(usuario, 'Pagar')}> Pagar factura </button>
                                     </td>
                                 </tr>
                             ))}
                     </tbody>
                 </table>
+                <Modal isOpen={modalPagar}>
+                    <ModalHeader>
+                        <div>
+                            <h3> Pago de factura </h3>
+                        </div>
+                    </ModalHeader>
+                    <ModalBody>
+                        <div className="form-group">
+                            <label>Factura ID: </label>
+                            <input
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                name="id"
+                                value={datosSeleccionado && datosSeleccionado.id}
+                            />
+                            <br />
 
+                            <label>Dirección: </label>
+                            <input
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                name="contract_address"
+                                value={datosSeleccionado && datosSeleccionado.contract_address}
+                            />
+                            <br />
+
+                            <label>Número de identificación: </label>
+                            <input
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                name="client_national_id"
+                                value={datosSeleccionado && datosSeleccionado.client_national_id}
+                            />
+                            <br />
+
+                            <label>Consumo total: </label>
+                            <input
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                name="amount_kwh"
+                                value={datosSeleccionado && datosSeleccionado.amount_kwh}
+                            />
+                            <br />
+
+                            <label>Precio de consumo: </label>
+                            <input
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                name="total_amount_to_pay"
+                                value={datosSeleccionado && datosSeleccionado.total_amount_to_pay}
+                            />
+                            <br />
+
+                            <label>Valor a pagar: </label>
+                            <input
+                                className="form-control"
+                                type="number"
+                                name="amount"
+                                value={datosFactura && datosFactura.amount}
+                                onChange={subirInfo}
+                            />
+                            <br />
+                            <label>Punto de pago</label>
+                            <select
+                                name="payment_institution"
+                                class="form-control"
+                                onChange={subirInfo}
+                                required
+                                value={datosFactura && datosFactura.payment_institution}
+                            >
+                                <option value="punto_baloto">Baloto</option>
+                                <option value="punto_gane">GANE</option>
+                                <option value="punto_efecty">Efecty</option>
+                                <option value="punto_bancolombia">Bancolombia</option>
+                            </select>
+                            <br />
+
+                        </div>
+                    </ModalBody>
+                    <ModalFooter>
+                        <button className="btn btn-primary" onClick={() => pagar()}>
+                            Pagar
+                        </button>
+                        <button
+                            className="btn btn-danger"
+                            onClick={() => setModalPagar(false)}
+                        >
+                            Cancelar
+                        </button>
+                    </ModalFooter>
+                </Modal>
             </div>
         </div>
     )

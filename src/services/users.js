@@ -79,4 +79,29 @@ const actualizarEstado = async (body, id) => {
   return response.data;
 };
 
-export { addEmpoloyees, addClients, addUser, loginUser, actualizarEstado };
+const actualizarEstadoEmployes = async (body, id) => {
+  const config = {
+    headers: {
+      accept: "*/*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token()}`,
+    },
+  };
+
+  const response = await Axios.patch(
+    endpoints.employees.updateEmployesInfo(id),
+    body,
+    config
+  );
+  console.log(response.data);
+  return response.data;
+};
+
+export {
+  addEmpoloyees,
+  addClients,
+  addUser,
+  loginUser,
+  actualizarEstado,
+  actualizarEstadoEmployes,
+};

@@ -50,6 +50,11 @@ const InfoClienteA = () => {
       });
   };
 
+  const generateBill = async (id) => {
+    const url = "http://localhost:8000/bills/user_bill/" + id;
+    window.open(url, "_blank");
+  };
+
   useEffect(() => {
     peticion();
   }, []);
@@ -62,7 +67,7 @@ const InfoClienteA = () => {
   const filtro = (busqueda) => {
     var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
       if (
-        elemento.cedula
+        elemento.national_id
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase())
@@ -118,10 +123,13 @@ const InfoClienteA = () => {
                 <tr key={cliente.id}>
                   <td>{cliente.national_id}</td>
                   <td>{cliente.first_name}</td>
-                  <td>{cliente.lastname}</td>
+                  <td>{cliente.last_name}</td>
                   <td>{cliente.phone_number}</td>
                   <td>
-                    <button className="btn btn-outline-dark  mb-1" onClick>
+                    <button
+                      className="btn btn-outline-dark  mb-1"
+                      onClick={() => generateBill(cliente.id)}
+                    >
                       {" "}
                       Generar factura{" "}
                     </button>

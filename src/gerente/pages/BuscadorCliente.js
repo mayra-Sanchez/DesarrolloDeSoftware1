@@ -38,8 +38,8 @@ const BuscadorCliente = () => {
   const peticion = async () => {
     listAllClients()
       .then((response) => {
-        setDataCliente(response);
-        setTablaUsuarios(response.data);
+        setUsuarios(response);
+        setTablaUsuarios(response);
       })
       .catch((error) => {
         console.log(error);
@@ -62,7 +62,10 @@ const BuscadorCliente = () => {
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase()) ||
-        elemento.name.toString().toLowerCase().includes(busqueda.toLowerCase())
+        elemento.first_name
+          .toString()
+          .toLowerCase()
+          .includes(busqueda.toLowerCase())
       ) {
         return elemento;
       }
@@ -111,13 +114,13 @@ const BuscadorCliente = () => {
               </tr>
             </thead>
             <tbody>
-              {dataCliente &&
-                dataCliente.map((cliente) => (
-                  <tr key={cliente.id}>
-                    <td>{cliente.national_id}</td>
-                    <td>{cliente.first_name}</td>
-                    <td>{cliente.last_name}</td>
-                    <td>{cliente.phone_number}</td>
+              {usuarios &&
+                usuarios.map((usuario) => (
+                  <tr key={usuario.id}>
+                    <td>{usuario.national_id}</td>
+                    <td>{usuario.first_name}</td>
+                    <td>{usuario.last_name}</td>
+                    <td>{usuario.email}</td>
                     <td>
                       <button className="btn btn-outline-dark  mb-1" onClick>
                         {" "}
