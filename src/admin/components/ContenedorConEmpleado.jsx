@@ -6,7 +6,6 @@ import { actualizarEstadoEmployes } from "../../services/users";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { listAllEmployees } from "../../services/employees";
-import { actualizarEstadoEmployes } from "../../services/users";
 
 export function ConsultarConsultaEmpleado(props) {
   const [usuarios, setUsuarios] = useState([]);
@@ -211,6 +210,17 @@ export function ConsultarConsultaEmpleado(props) {
                 />
                 <br />
 
+                <label>Email</label>
+                <input
+                  className="form-control"
+                  readOnly
+                  type="text"
+                  name="email"
+                  value={datosSeleccionado && datosSeleccionado.email}
+                  onChange={cambioUser}
+                />
+                <br />
+
                 <label>Nombre</label>
                 <input
                   className="form-control"
@@ -237,16 +247,6 @@ export function ConsultarConsultaEmpleado(props) {
                   type="text"
                   name="phone_number"
                   value={datosSeleccionado && datosSeleccionado.phone_number}
-                  onChange={cambioUser}
-                />
-                <br />
-
-                <label>Email</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="email"
-                  value={datosSeleccionado && datosSeleccionado.email}
                   onChange={cambioUser}
                 />
                 <br />

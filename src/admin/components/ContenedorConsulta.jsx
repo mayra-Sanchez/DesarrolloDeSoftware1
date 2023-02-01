@@ -238,6 +238,17 @@ export function ContenedorConsulta(props) {
                 />
                 <br />
 
+                <label>Email</label>
+                <input
+                  className="form-control"
+                  readOnly
+                  type="text"
+                  name="email"
+                  value={datosSeleccionado && datosSeleccionado.email}
+                  onChange={cambioUser}
+                />
+                <br />
+
                 <label>Nombre</label>
                 <input
                   className="form-control"
@@ -264,16 +275,6 @@ export function ContenedorConsulta(props) {
                   type="text"
                   name="phone_number"
                   value={datosSeleccionado && datosSeleccionado.phone_number}
-                  onChange={cambioUser}
-                />
-                <br />
-
-                <label>Email</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="email"
-                  value={datosSeleccionado && datosSeleccionado.email}
                   onChange={cambioUser}
                 />
                 <br />
