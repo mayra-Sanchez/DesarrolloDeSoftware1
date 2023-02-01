@@ -84,7 +84,7 @@ export default function ConsumoMes() {
             <TableCell>Consumo en Kw/h</TableCell>
             <TableCell>Precio por Kw</TableCell>
             <TableCell>Penalidad</TableCell>
-            <TableCell>Total</TableCell>
+            <TableCell>Saldo a pagar</TableCell>
             <TableCell align="right">Factura</TableCell>
           </TableRow>
         </TableHead>
@@ -92,8 +92,8 @@ export default function ConsumoMes() {
           {row.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.issue_date}</TableCell>
-              <TableCell>{row.price_kwh}</TableCell>
               <TableCell>{row.amount_kwh}</TableCell>
+              <TableCell>{row.price_kwh}</TableCell>
               <TableCell>{row.penalty_percentage}</TableCell>
               <TableCell>{`$${row.total_amount_to_pay}`}</TableCell>
               <TableCell align="right">
