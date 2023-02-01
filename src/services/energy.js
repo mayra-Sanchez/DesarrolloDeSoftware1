@@ -46,4 +46,18 @@ const csvEnergyConsumptions = async (body) => {
   return response.data;
 }
 
-export { list_energy_consumptions, clientEnergyConsumption, csvEnergyConsumptions};
+const createPayment = async (body) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token()}`,
+    },
+  };
+  const response = await Axios.post(
+    endpoints.energy.create_payment,
+    body,
+    config
+  );
+  return response.data;
+}
+
+export { list_energy_consumptions, clientEnergyConsumption, csvEnergyConsumptions, createPayment};

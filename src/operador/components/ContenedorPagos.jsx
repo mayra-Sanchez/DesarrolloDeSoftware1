@@ -4,8 +4,7 @@ import "../hojaestilo/OperadorHome.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import { useState, useEffect } from "react";
-import { list_energy_consumptions } from "../../services/energy";
-import Axios from "axios";
+import { createPayment, list_energy_consumptions } from "../../services/energy";
 
 export function ContenedorPagos(props) {
     const [usuarios, setUsuarios] = useState([]);
@@ -26,7 +25,7 @@ export function ContenedorPagos(props) {
         id: '',
         type: 'in-house',
         payment_institution: '',
-        amount: '',
+        amount: 0,
     });
 
     const peticion = async () => {
@@ -89,20 +88,24 @@ export function ContenedorPagos(props) {
                 dato.type = 'in-house';
             }
         });
-        setDatosFactura(dataNueva);
+        //setDatosFactura(dataNueva);
 
         const usuario = usuarios.find(user => user.id === usuario_pagar_id )
 
         const handleClick = async () => {
             try {
-                const res = await Axios.put(`http://127.0.0.1:8000/payments/create-payment/`, {
-                    id: usuario.id,
+                const body = {
+                    id_energy_consumption: datosSeleccionado.id,
                     type: 'in-house',
-                    payment_institution: usuario.payment_institution,
-                    amount: usuario.amount,
-                });
+                    payment_institution: datosFactura.payment_institution,
+                    amount: datosFactura.amount,
+                    service_paid: "energy-consumption"
+                };
+                console.log(body)
+                console.log(datosFactura.amount)
+                const res = createPayment(body);
 
-                console.log(res.data);
+                console.log(res);
             } catch (error) {
                 console.error(error);
             }
@@ -220,7 +223,7 @@ export function ContenedorPagos(props) {
                             <label>Valor a pagar: </label>
                             <input
                                 className="form-control"
-                                type="text"
+                                type="number"
                                 name="amount"
                                 value={datosFactura && datosFactura.amount}
                                 onChange={subirInfo}
