@@ -30,7 +30,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {isLogged ? (
+      {!isLogged ? (
         <Routes>
           <Route path="Admin" element={<Admin />} />
           <Route path="Gerente" element={<Gerente />} />

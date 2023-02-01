@@ -12,7 +12,7 @@ export function ContenedorConsulta(props) {
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [modalEditar, setModalEditar] = useState(false);
-  
+
   const [datosSeleccionado, setDatosSeleccionado] = useState({
     id: '',
     phone_number: '',
@@ -91,41 +91,41 @@ export function ContenedorConsulta(props) {
   }
 
   const editar = () => {
-    let usuario_editar_id; 
+    let usuario_editar_id;
     var dataNueva = usuarios;
-    dataNueva.map( usuario => {
-        if (usuario.id == datosSeleccionado.id) {
-            usuario_editar_id = datosSeleccionado.id            
-            usuario.phone_number = datosSeleccionado.phone_number;
-            usuario.first_name = datosSeleccionado.first_name;
-            usuario.last_name = datosSeleccionado.last_name;
-            usuario.email = datosSeleccionado.email;
-            usuario.role = datosSeleccionado.role;            
-        }
+    dataNueva.map(usuario => {
+      if (usuario.id == datosSeleccionado.id) {
+        usuario_editar_id = datosSeleccionado.id
+        usuario.phone_number = datosSeleccionado.phone_number;
+        usuario.first_name = datosSeleccionado.first_name;
+        usuario.last_name = datosSeleccionado.last_name;
+        usuario.email = datosSeleccionado.email;
+        usuario.role = datosSeleccionado.role;
+      }
     });
     setUsuarios(dataNueva);
 
     const usuario = usuarios.find(user => user.id == usuario_editar_id)
 
     const handleClick = async () => {
-        try {
+      try {
 
 
-          const res = await Axios.put(`http://127.0.0.1:8000/users/${usuario.id}/update-info/`, {
-            email: usuario.email,
-            first_name: usuario.first_name,
-            last_name: usuario.last_name,
-            phone_number: usuario.phone_number,
-            role: usuario.role,
-          });
-    
-            console.log(res.data);
-        } catch (error) {
-          console.error(error);
-        }
+        const res = await Axios.put(`http://127.0.0.1:8000/users/${usuario.id}/update-info/`, {
+          email: usuario.email,
+          first_name: usuario.first_name,
+          last_name: usuario.last_name,
+          phone_number: usuario.phone_number,
+          role: usuario.role,
+        });
+
+        console.log(res.data);
+      } catch (error) {
+        console.error(error);
+      }
 
     }
-    
+
     console.log(usuario)
     console.log(usuario.id)
     console.log(dataNueva.id)
@@ -133,7 +133,7 @@ export function ContenedorConsulta(props) {
     handleClick()
 
     setModalEditar(false);
-    }
+  }
 
   return (
     <div class="mx-auto" className="contenedor-consulta">

@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import { useState, useEffect } from "react";
 import { list_energy_consumptions } from "../../services/energy";
+import Axios from "axios";
 
 export function ContenedorPagos(props) {
     const [usuarios, setUsuarios] = useState([]);
@@ -75,31 +76,41 @@ export function ContenedorPagos(props) {
         }))
     };
 
-    const pagar =()=>{
 
+
+    const pagar = () => {
+        let usuario_pagar_id;
+        var dataNueva = usuarios;
+        dataNueva.map(dato => {
+            if(dato.id === datosFactura.id){
+                usuario_pagar_id = datosFactura.id;
+                dato.amount = datosFactura.amount;
+                dato.payment_institution = datosFactura.payment_institution;
+                dato.type = 'in-house';
+            }
+        });
+        setDatosFactura(dataNueva);
+
+        const usuario = usuarios.find(user => user.id === usuario_pagar_id )
+
+        const handleClick = async () => {
+            try {
+                const res = await Axios.put(`http://127.0.0.1:8000/payments/create-payment/`, {
+                    id: usuario.id,
+                    type: 'in-house',
+                    payment_institution: usuario.payment_institution,
+                    amount: usuario.amount,
+                });
+
+                console.log(res.data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        handleClick()
+        setModalPagar(false);
     }
-    /* const pagar = () => {
-         
-         const handleClick = async () => {
-             try {
-                 const res = await Axios.put(`http://127.0.0.1:8000/users/${usuario.id}/update-info/`, {
-                     email: usuario.email,
-                     first_name: usuario.first_name,
-                     last_name: usuario.last_name,
-                     phone_number: usuario.phone_number,
-                     role: usuario.role,
-                 });
- 
-                 console.log(res.data);
-             } catch (error) {
-                 console.error(error);
-             }
-         }
- 
-         handleClick()
-         setModalPagar(false);
-     }
- */
 
     return (
         <div class="mx-auto" className="contenedor-inicialOperador">
