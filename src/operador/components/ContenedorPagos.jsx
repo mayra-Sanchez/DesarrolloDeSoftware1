@@ -196,6 +196,16 @@ export function ContenedorPagos(props) {
                             />
                             <br />
 
+                            <label>Precio de consumo: </label>
+                            <input
+                                className="form-control"
+                                readOnly
+                                type="text"
+                                name="total_amount_to_pay"
+                                value={datosSeleccionado && datosSeleccionado.total_amount_to_pay}
+                            />
+                            <br />
+
                             <label>Valor a pagar: </label>
                             <input
                                 className="form-control"
