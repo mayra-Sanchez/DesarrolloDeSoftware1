@@ -6,7 +6,6 @@ import SignIn from "./SignIn/pages/SignIn";
 import Admin from "./admin/pages/AdminHome";
 import Gerente from "./gerente/pages/GerenteHome";
 import Operador from "./operador/pages/OperadorHome";
-import Cliente from "./cliente/pages/ClienteHome";
 import RegistrarUsuario from "./admin/pages/RegistrarUsuario";
 import ConsultarInformacion from "./admin/pages/ConsultarInformacion";
 import ConsultarInformacionEmpleado from "./admin/pages/ConsultarInfoEmpleado";
@@ -17,13 +16,13 @@ import { LoginContext } from "./contex/Logincontext";
 import BuscadorCliente from "./gerente/pages/BuscadorCliente";
 import PagosRealizados from "./operador/pages/PagosRealizados";
 import ConsumoCliente from "./gerente/pages/ConsumoClientes";
-import ConsumoMensualC from "./cliente/pages/ConsumoMensualC";
 import PagoFacturas from "./cliente/pages/PagoFacturas";
 import ConsultaFacV from "./cliente/pages/ConsultaFacturasV";
 import InfoClienteA from "./admin/pages/InfoClienteA";
 import InfoClienteG from "./gerente/pages/InfoClienteG";
 import InfoClienteO from "./operador/pages/InfoClienteO";
 import ArchivosPagosA from "./admin/pages/ArchivoPagosA";
+import ClienteHome from "./cliente/pages/ClienteHome";
 import RegistrarCliente from "./admin/pages/RegistrarCliente";
 
 function App() {
@@ -36,7 +35,7 @@ function App() {
           <Route path="Admin" element={<Admin />} />
           <Route path="Gerente" element={<Gerente />} />
           <Route path="Operador" element={<Operador />} />
-          <Route path="Cliente" element={<Cliente />} />
+          <Route path="Cliente" element={<ClienteHome />} />
           <Route
             path="Admin/Registrar-Usuarios"
             element={<RegistrarUsuario />}
@@ -79,7 +78,6 @@ function App() {
             element={<RegistroPagos />}
           />
 
-          <Route path="Cliente/consumo-mensual" element={<ConsumoMensualC />} />
           <Route
             path="Cliente/pagar-facturas-online"
             element={<PagoFacturas />}
