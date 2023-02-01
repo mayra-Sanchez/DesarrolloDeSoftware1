@@ -81,7 +81,7 @@ export function ContenedorPagos(props) {
         let usuario_pagar_id;
         var dataNueva = usuarios;
         dataNueva.map(dato => {
-            if(dato.id === datosFactura.id){
+            if (dato.id === datosFactura.id) {
                 usuario_pagar_id = datosFactura.id;
                 dato.amount = datosFactura.amount;
                 dato.payment_institution = datosFactura.payment_institution;
@@ -90,7 +90,7 @@ export function ContenedorPagos(props) {
         });
         //setDatosFactura(dataNueva);
 
-        const usuario = usuarios.find(user => user.id === usuario_pagar_id )
+        const usuario = usuarios.find(user => user.id === usuario_pagar_id)
 
         const handleClick = async () => {
             try {
@@ -247,7 +247,7 @@ export function ContenedorPagos(props) {
                         </div>
                     </ModalBody>
                     <ModalFooter>
-                        <button className="btn btn-primary" onClick={() => pagar()}>
+                        <button className="btn btn-primary" onClick={() => pagar()} disabled={datosFactura.amount >= datosSeleccionado.total_amount_to_pay ? false : true}>
                             Pagar
                         </button>
                         <button
