@@ -5,7 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { listAllClients } from "../../services/clients";
+import { list_energy_consumptions } from "../../services/energy";
 
 const ConsumoCliente = () => {
 
@@ -14,7 +14,7 @@ const ConsumoCliente = () => {
   const [busqueda, setBusqueda] = useState("");
 
   const peticion = async () => {
-    listAllClients()
+    list_energy_consumptions()
       .then((response) => {
         console.log(response)
         setUsuarios(response);
@@ -37,11 +37,11 @@ const ConsumoCliente = () => {
   const filtro = (busqueda) => {
     var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
       if (
-        elemento.name
+        elemento.client_national_id
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase()) ||
-        elemento.name.toString().toLowerCase().includes(busqueda.toLowerCase())
+        elemento.client_national_id.toString().toLowerCase().includes(busqueda.toLowerCase())
       ) {
         return elemento;
       }
@@ -94,10 +94,11 @@ const ConsumoCliente = () => {
               {usuarios &&
                 usuarios.map((usuario) => (
                   <tr key={usuario.id}>
-                    <td>{usuario.date}</td>
+                    <td>{usuario.client_national_id}</td>
+                    <td>{usuario.issue_date}</td>
                     <td>{usuario.amount_kwh}</td>
-                    <td>{usuario.price}</td>
-                    <td>{usuario.price * usuario.amount_kwh}</td>
+                    <td>{usuario.price_kwh}</td>
+                    <td>{usuario.total_amount_to_pay}</td>
                   </tr>
                 ))}
             </tbody>
