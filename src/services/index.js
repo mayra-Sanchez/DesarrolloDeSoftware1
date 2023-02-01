@@ -6,6 +6,7 @@ const endpoints = {
     listAll: `${URL}/clients/list-all/`,
     updateClienteInfo: (id) => `${URL}/clients/update-info/${id}/`,
     client_bill: (id) => `${URL}/bills/user_bill/${id}/`,
+    contract: (id) => `${URL}/contracts/find-id-contract/${id}`
   },
 
   employees: {

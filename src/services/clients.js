@@ -26,4 +26,29 @@ const clientBill = async (body) => {
   return response.data;
 }
 
-export { listAllClients, clientBill };
+const updateClienteInfo = async (body) => {
+  const config = {
+    headers: {
+      accept: "*/*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token()}`,
+      responseType: "blob"
+    },
+  };
+  const response = await Axios.post(endpoints.clients.client_bill(body.id), config);
+  return response.data;
+}
+
+const contract = async (body) => {
+  const config = {
+    headers: {
+      accept: "*/*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token()}`,
+    },
+  };
+  const response = await Axios.get(endpoints.clients.contract(body.id), config);
+  return response.data;
+}
+
+export { listAllClients, clientBill, contract };
