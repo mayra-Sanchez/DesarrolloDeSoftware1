@@ -15,6 +15,7 @@ const InfoClienteG = () => {
     listAllClients()
       .then((response) => {
         setDataCliente(response);
+        setTablaUsuarios(response)
       })
       .catch((error) => {
         console.log(error);
@@ -23,7 +24,7 @@ const InfoClienteG = () => {
 
   const generateBill = async (id) => {
     const url = "http://localhost:8000/bills/user_bill/" + id
-    window.open(url , "_blank")
+    window.open(url, "_blank")
   }
 
 
@@ -39,7 +40,11 @@ const InfoClienteG = () => {
   const filtro = (busqueda) => {
     var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
       if (
-        elemento.cedula
+        elemento.national_id
+          .toString()
+          .toLowerCase()
+          .includes(busqueda.toLowerCase()) ||
+        elemento.first_name
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase())
@@ -93,7 +98,7 @@ const InfoClienteG = () => {
             <tbody>
               {dataCliente.map((cliente) => (
                 <tr key={cliente.id}>
-                  <td>{cliente.cedula}</td>
+                  <td>{cliente.national_id}</td>
                   <td>{cliente.first_name}</td>
                   <td>{cliente.last_name}</td>
                   <td>{cliente.phone_number}</td>

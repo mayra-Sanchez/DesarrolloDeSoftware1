@@ -20,7 +20,8 @@ const endpoints = {
 
   energy: {
     list_energy_consumption: `${URL}/energy-products/list-energy-consumptions/`,
-    client_energy_consumption: (id) => `${URL}/energy-products/energy_consumption/${id}/`
+    client_energy_consumption: (id) => `${URL}/energy-products/energy_consumption/${id}/`,
+    csv_energy_consumptions: `${URL}/energy-products/csv-energy-consumptions/`
   },
 
   roles: {},

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { listAllClients } from "../../services/clients";
+import { csvEnergyConsumptions } from "../../services/energy";
 
 const BuscadorCliente = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -16,13 +17,9 @@ const BuscadorCliente = () => {
   const handleDownload = async () => {
     setLoading(true);
     try {
-      const response = await Axios.get(
-        "http://127.0.0.1:8000/energy-products/csv-energy-consumptions/",
-        {
-          responseType: "blob",
-        }
-      );
-      const url = URL.createObjectURL(new Blob([response.data]));
+      const response = await csvEnergyConsumptions()
+      console.log(response)
+      const url = URL.createObjectURL(new Blob([response]));
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", "data.csv");
@@ -35,11 +32,16 @@ const BuscadorCliente = () => {
     }
   };
 
+  const generateBill = async (id) => {
+    const url = "http://localhost:8000/bills/user_bill/" + id
+    window.open(url , "_blank")
+  }
+
   const peticion = async () => {
     listAllClients()
       .then((response) => {
-        setUsuarios(response.data);
-        setTablaUsuarios(response.data);
+        setUsuarios(response);
+        setTablaUsuarios(response);
       })
       .catch((error) => {
         console.log(error);
@@ -62,7 +64,7 @@ const BuscadorCliente = () => {
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase()) ||
-        elemento.name.toString().toLowerCase().includes(busqueda.toLowerCase())
+        elemento.first_name.toString().toLowerCase().includes(busqueda.toLowerCase())
       ) {
         return elemento;
       }
@@ -114,12 +116,12 @@ const BuscadorCliente = () => {
               {usuarios &&
                 usuarios.map((usuario) => (
                   <tr key={usuario.id}>
-                    <td>{usuario.nationa_id}</td>
-                    <td>{usuario.name}</td>
-                    <td>{usuario.username}</td>
+                    <td>{usuario.national_id}</td>
+                    <td>{usuario.first_name}</td>
+                    <td>{usuario.last_name}</td>
                     <td>{usuario.email}</td>
                     <td>
-                      <button className="btn btn-primary mb-1" onClick>
+                      <button className="btn btn-primary mb-1" onClick={() => generateBill(usuario.id)}>
                         {" "}
                         Generar factura{" "}
                       </button>
