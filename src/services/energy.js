@@ -17,7 +17,20 @@ const list_energy_consumptions = async (body) => {
 };
 
 
+const energy_consumptions = async (body) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token()}`,
+      responseType: "blob",
+    },
+  };
+
+  const response = await Axios.get(endpoints.energy.energy_csv, body, config);
+  return response.data;
+};
 
 
 
-export { list_energy_consumptions };
+
+export { list_energy_consumptions, energy_consumptions };
+

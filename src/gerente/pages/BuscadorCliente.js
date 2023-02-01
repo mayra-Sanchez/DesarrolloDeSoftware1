@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { listAllClients } from "../../services/clients";
 
 const BuscadorCliente = () => {
-  const [usuarios, setUsuarios] = useState([]);
+  const [dataCliente, setDataCliente] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ const BuscadorCliente = () => {
   const peticion = async () => {
     listAllClients()
       .then((response) => {
-        setUsuarios(response.data);
+        setDataCliente(response);
         setTablaUsuarios(response.data);
       })
       .catch((error) => {
@@ -67,11 +67,11 @@ const BuscadorCliente = () => {
         return elemento;
       }
     });
-    setUsuarios(resultadosBusqueda);
+    setDataCliente(resultadosBusqueda);
   };
 
   return (
-    <div class="contenedor-inicialGerente">
+    <div class="contenedor-inicial_Gerente">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="navbar-brand">
           <img
@@ -111,15 +111,15 @@ const BuscadorCliente = () => {
               </tr>
             </thead>
             <tbody>
-              {usuarios &&
-                usuarios.map((usuario) => (
-                  <tr key={usuario.id}>
-                    <td>{usuario.nationa_id}</td>
-                    <td>{usuario.name}</td>
-                    <td>{usuario.username}</td>
-                    <td>{usuario.email}</td>
+              {dataCliente &&
+                dataCliente.map((cliente) => (
+                  <tr key={cliente.id}>
+                    <td>{cliente.national_id}</td>
+                    <td>{cliente.first_name}</td>
+                    <td>{cliente.last_name}</td>
+                    <td>{cliente.phone_number}</td>
                     <td>
-                      <button className="btn btn-primary mb-1" onClick>
+                      <button className="btn btn-outline-dark  mb-1" onClick>
                         {" "}
                         Generar factura{" "}
                       </button>
@@ -130,15 +130,22 @@ const BuscadorCliente = () => {
             </tbody>
           </table>
         </div>
-        <div className="boton-home">
-          <button
-            onClick={handleDownload}
-            disabled={loading}
-            className="btn btn-success"
-          >
-            {loading ? "Downloading..." : "Descargar archivo csv con pagos"}
-          </button>
+        <div class="form-row">
+          <div class="col-md-6">
+            <button
+              onClick={handleDownload}
+              disabled={loading}
+              className="btn btn-success"
+            >
+              {loading ? "Downloading..." : "Descargar archivo csv con pagos"}
+            </button>
+          </div>
         </div>
+        {/* <div className="boton-home">
+          <Link to="Admin/Ubicacion" className="btn btn-success btn-lg">
+            Ubicación clientes
+          </Link>
+        </div> */}
       </div>
     </div>
   );

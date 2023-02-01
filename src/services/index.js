@@ -4,6 +4,7 @@ const endpoints = {
   clients: {
     registerClients: `${URL}clients/create-client/`,
     listAll: `${URL}/clients/list-all/`,
+    updateClienteInfo: (id) => `${URL}/clients/update-info/${id}/`,
   },
 
   employees: {
@@ -18,7 +19,8 @@ const endpoints = {
   },
 
   energy: {
-    list_energy_consumption: `${URL}/energy-products/list-energy-consumptions/`,
+    energy_csv: `${URL}/energy-products/csv-energy-consumptions/`,
+    energy_payments: `${URL}/energy-products/list-energy-consumptions/`,
   },
 
   roles: {},
@@ -32,3 +34,5 @@ const token = () => {
 };
 
 export { endpoints, token };
+
+

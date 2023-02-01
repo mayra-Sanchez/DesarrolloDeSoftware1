@@ -5,12 +5,15 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 import { useState, useEffect } from "react";
 import { listAllClients } from "../../services/clients";
+import { energy_consumptions } from "../../services/energy";
 
 const InfoClienteA = () => {
   const [dataCliente, setDataCliente] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [loading, setLoading] = useState(false);
+
+
 
   const handleDownload = async () => {
     setLoading(true);
@@ -21,6 +24,7 @@ const InfoClienteA = () => {
           responseType: "blob",
         }
       );
+      console.log(response.data)
       const url = URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -34,11 +38,12 @@ const InfoClienteA = () => {
     }
   };
 
+
   const peticion = async () => {
     listAllClients()
       .then((response) => {
-        setDataCliente(response.data);
-        setTablaUsuarios(response.data);
+        setDataCliente(response);
+        setTablaUsuarios(response);
       })
       .catch((error) => {
         console.log(error);
@@ -109,12 +114,12 @@ const InfoClienteA = () => {
               </tr>
             </thead>
             <tbody>
-              {dataCliente.map((cliente) => (
+              {dataCliente &&  dataCliente.map((cliente) => (
                 <tr key={cliente.id}>
-                  <td>{cliente.cedula}</td>
-                  <td>{cliente.nombre}</td>
-                  <td>{cliente.apellido}</td>
-                  <td>{cliente.celular}</td>
+                  <td>{cliente.national_id}</td>
+                  <td>{cliente.first_name}</td>
+                  <td>{cliente.lastname}</td>
+                  <td>{cliente.phone_number}</td>
                   <td>
                     <button className="btn btn-outline-dark  mb-1" onClick>
                       {" "}

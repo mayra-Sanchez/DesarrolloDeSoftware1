@@ -26,7 +26,7 @@ const RegistrarUsuario = () => {
     const data = {
       ...formData,
     };
-
+    console.log(data) 
     Swal.fire({
       title: "Atención, estás seguro de realizar esta acción",
       text: "Vas a registrarte como un nuevo usuario",
@@ -186,10 +186,7 @@ const RegistrarUsuario = () => {
                 </button>
               </div>
               <div class="form-group col-md-6">
-                <Link
-                  to="Admin/Registrar-usuarios/Admin/Registrar_Cliente"
-                  className="btn btn-primary"
-                >
+              <Link to="Registrar_Cliente" className="btn btn-primary">
                   Registrar cliente
                 </Link>
               </div>

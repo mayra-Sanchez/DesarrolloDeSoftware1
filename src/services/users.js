@@ -66,11 +66,12 @@ const actualizarEstado = async (body, id) => {
     headers: {
       accept: "*/*",
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token()}`,
     },
   };
 
   const response = await Axios.patch(
-    endpoints.users.updateActive(id),
+    endpoints.clients.updateClienteInfo(id),
     body,
     config
   );
