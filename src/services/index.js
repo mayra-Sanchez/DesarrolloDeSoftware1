@@ -2,7 +2,7 @@ const URL = "http://localhost:8000";
 
 const endpoints = {
   clients: {
-    registerClients: `${URL}clients/create-client/`,
+    registerClients: `${URL}/clients/create-client/`,
     listAll: `${URL}/clients/list-all/`,
     updateClienteInfo: (id) => `${URL}/clients/update-info/${id}/`,
     client_bill: (id) => `${URL}/bills/user_bill/${id}/`,
