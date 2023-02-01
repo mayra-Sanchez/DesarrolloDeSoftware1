@@ -19,9 +19,6 @@ import ConsumoCliente from "./gerente/pages/ConsumoClientes";
 import PagoFacturas from "./cliente/pages/PagoFacturas";
 import ConsultaFacV from "./cliente/pages/ConsultaFacturasV";
 import InfoClienteA from "./admin/pages/InfoClienteA";
-import InfoClienteG from "./gerente/pages/InfoClienteG";
-import InfoClienteO from "./operador/pages/InfoClienteO";
-import ArchivosPagosA from "./admin/pages/ArchivoPagosA";
 import ClienteHome from "./cliente/pages/ClienteHome";
 import RegistrarCliente from "./admin/pages/RegistrarCliente";
 
@@ -57,12 +54,12 @@ function App() {
             path="/Admin/Gestionar-Clientes/Admin/Ubicacion"
             element={<UbicacionClientes />}
           />
-          <Route path="Admin/Archivos_pagos" element={<ArchivosPagosA />} />
+          
           <Route
             path="Gerente/Información-clientes"
             element={<BuscadorCliente />}
           />
-          <Route path="Gerente/Gestionar-Clientes" element={<InfoClienteG />} />
+          
           <Route path="Gerente/Consumo-clientes" element={<ConsumoCliente />} />
           <Route
             path="Operador/Consultar-Cliente"

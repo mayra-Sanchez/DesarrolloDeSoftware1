@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { listAllClients } from "../../services/clients";
 
 const BuscadorCliente = () => {
-  const [dataCliente, setDataCliente] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [loading, setLoading] = useState(false);
@@ -70,7 +70,7 @@ const BuscadorCliente = () => {
         return elemento;
       }
     });
-    setDataCliente(resultadosBusqueda);
+    setUsuarios(resultadosBusqueda);
   };
 
   return (
