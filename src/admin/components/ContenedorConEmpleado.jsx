@@ -6,7 +6,7 @@ import { actualizarEstadoEmployes } from "../../services/users";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { listAllEmployees } from "../../services/employees";
-import { actualizarEstado } from "../../services/users";
+import { actualizarEstadoEmployes } from "../../services/users";
 
 export function ConsultarConsultaEmpleado(props) {
   const [usuarios, setUsuarios] = useState([]);
@@ -120,7 +120,7 @@ export function ConsultarConsultaEmpleado(props) {
 
     const handleClick = async () => {
       try {
-        actualizarEstado(datos, usuario.id).then((response) => console.log(response)).catch((error) => console.log(error))
+        actualizarEstadoEmployes(datos, usuario.id).then((response) => console.log(response)).catch((error) => console.log(error))
 
       } catch (error) {
         console.error(error);
