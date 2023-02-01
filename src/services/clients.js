@@ -1,19 +1,32 @@
 import Axios from "axios";
-import endpoints from "./index";
+import { endpoints, token } from "./index";
 
 const listAllClients = async () => {
-  let aux = localStorage.getItem("userData");
-  aux = JSON.parse(aux);
-  const token = aux.access;
   const config = {
     headers: {
       accept: "*/*",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token()}`,
     },
   };
   const response = await Axios.get(endpoints.clients.listAll, config);
   return response.data;
 };
 
-export { listAllClients };
+const clientBill = async (body) => {
+  const config = {
+    headers: {
+      accept: "*/*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token()}`,
+      responseType: "blob",
+    },
+  };
+  const response = await Axios.get(
+    endpoints.clients.client_bill(body.id),
+    config
+  );
+  return response.data;
+};
+
+export { listAllClients, clientBill };

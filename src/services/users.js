@@ -1,5 +1,5 @@
 import Axios from "axios";
-import endpoints from "./index";
+import { endpoints, token } from "./index";
 
 const addEmpoloyees = async (body) => {
   let aux = localStorage.getItem("userData");
@@ -54,11 +54,12 @@ const actualizarEstado = async (body, id) => {
     headers: {
       accept: "*/*",
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token()}`,
     },
   };
 
   const response = await Axios.patch(
-    endpoints.users.updateActive(id),
+    endpoints.clients.updateClienteInfo(id),
     body,
     config
   );
@@ -66,4 +67,28 @@ const actualizarEstado = async (body, id) => {
   return response.data;
 };
 
-export { addEmpoloyees, addClients, loginUser, actualizarEstado };
+const actualizarEstadoEmployes = async (body, id) => {
+  const config = {
+    headers: {
+      accept: "*/*",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token()}`,
+    },
+  };
+
+  const response = await Axios.patch(
+    endpoints.employees.updateEmployesInfo(id),
+    body,
+    config
+  );
+  console.log(response.data);
+  return response.data;
+};
+
+export {
+  addEmpoloyees,
+  actualizarEstadoEmployes,
+  addClients,
+  loginUser,
+  actualizarEstado,
+};

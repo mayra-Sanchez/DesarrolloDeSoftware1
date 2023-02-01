@@ -2,28 +2,16 @@ import "../hojaestilo/ConsultarInformacion.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import Axios from "axios";
-import { actualizarEstado } from "../../services/users";
+import { actualizarEstadoEmployes } from "../../services/users";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
-import { listAllClients } from "../../services/clients";
+import { listAllEmployees } from "../../services/employees";
 
-export function ContenedorConsulta(props) {
+export function ConsultarConsultaEmpleado(props) {
   const [usuarios, setUsuarios] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [modalEditar, setModalEditar] = useState(false);
-
-  const initialStateUsers = () => {
-    return {
-      usuarios: [],
-    };
-  };
-  const initialStateTabla = () => {
-    return {
-      tablaUsuarios: [],
-    };
-  };
-
 
   const [datosSeleccionado, setDatosSeleccionado] = useState({
     id: "",
@@ -35,7 +23,7 @@ export function ContenedorConsulta(props) {
   });
 
   const peticion = async () => {
-    listAllClients()
+    listAllEmployees()
       .then((response) => {
         setUsuarios(response);
         setTablaUsuarios(response);
@@ -81,7 +69,7 @@ export function ContenedorConsulta(props) {
   };
 
   const handleStatus = (id) => {
-    actualizarEstado(id);
+    actualizarEstadoEmployes(id);
   };
 
   const actualizarEstadoMetodo = (usuario) => {
@@ -94,7 +82,7 @@ export function ContenedorConsulta(props) {
 
     const body = { is_active: actualizacion };
 
-    actualizarEstado(body, usuario.id).then((response) => {
+    actualizarEstadoEmployes(body, usuario.id).then((response) => {
       peticion();
     });
   };
