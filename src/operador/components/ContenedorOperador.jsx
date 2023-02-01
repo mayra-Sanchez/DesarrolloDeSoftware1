@@ -13,10 +13,7 @@ export function ContenedorOperador(props){
                 className="btn btn-outline-dark btn-lg  mb-3"
             >
                 Consultar informacion del cliente
-            </Link>
-            <Link to="/Operador/Registar-pagos-realizados" className="btn btn-outline-dark btn-lg  mb-3">
-                Registar pagos bancos
-            </Link>
+            </Link>           
             <Link to="/Operador/Registrar-pagos-clientes" className="btn btn-outline-dark btn-lg  mb-3">
                 Registar pagos clientes
             </Link>

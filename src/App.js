@@ -55,7 +55,7 @@ function App() {
             element={<UbicacionClientes />}
           />
           <Route
-            path="Gerente/InformaciÃ³n-clientes"
+            path="Gerente/Informacion-clientes"
             element={<BuscadorCliente />}
           />
           <Route path="Gerente/Consumo-clientes" element={<ConsumoCliente />} />

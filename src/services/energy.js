@@ -7,7 +7,7 @@ const list_energy_consumptions = async (body) => {
       Authorization: `Bearer ${token()}`,
     },
   };
-
+  console.log(token)
   const response = await Axios.get(
     endpoints.energy.list_energy_consumption,
     body,

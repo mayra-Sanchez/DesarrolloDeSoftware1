@@ -1,14 +1,13 @@
-import "../hojaestilo/ConsultaCliente.css";
-import Axios from "axios";
 import logo from "../Images/logo-2.png";
+import "../hojaestilo/ConsultaCliente.css";
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
+import Axios from "axios";
+import { useState, useEffect } from "react";
 import { listAllClients } from "../../services/clients";
 
 const ConsultaCliente = () => {
-  const [usuarios, setUsuarios] = useState([]);
+  const [dataCliente, setDataCliente] = useState([]);
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,12 +37,17 @@ const ConsultaCliente = () => {
   const peticion = async () => {
     listAllClients()
       .then((response) => {
-        setUsuarios(response);
+        setDataCliente(response);
         setTablaUsuarios(response);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const generateBill = async (id) => {
+    const url = "http://localhost:8000/bills/user_bill/" + id;
+    window.open(url, "_blank");
   };
 
   useEffect(() => {
@@ -61,20 +65,16 @@ const ConsultaCliente = () => {
         elemento.national_id
           .toString()
           .toLowerCase()
-          .includes(busqueda.toLowerCase()) ||
-        elemento.first_name
-          .toString()
-          .toLowerCase()
           .includes(busqueda.toLowerCase())
       ) {
         return elemento;
       }
     });
-    setUsuarios(resultadosBusqueda);
+    setDataCliente(resultadosBusqueda);
   };
 
   return (
-    <div class="contenedor-inicial_Operador">
+    <div class="contenedor-inicial_Administrador">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="navbar-brand">
           <img
@@ -92,7 +92,7 @@ const ConsultaCliente = () => {
           </Link>
         </ul>
       </nav>
-      <div className="buscaCliente">
+      <div className="pago">
         <br />
         <div className="barra-busqueda">
           <input
@@ -109,37 +109,33 @@ const ConsultaCliente = () => {
                 <th>Cédula</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>email</th>
+                <th>Email</th>
                 <th>Facturas</th>
               </tr>
             </thead>
             <tbody>
-              {usuarios &&
-                usuarios.map((usuario) => (
-                  <tr key={usuario.id}>
-                    <td>{usuario.national_id}</td>
-                    <td>{usuario.first_name}</td>
-                    <td>{usuario.last_name}</td>
-                    <td>{usuario.email}</td>
-                    <td>
-                      <button className="btn btn-outline-dark  mb-1" onClick>
-                        {" "}
-                        Generar factura{" "}
-                      </button>
-                      <br />
-                    </td>
-                  </tr>
-                ))}
+              {dataCliente.map((cliente) => (
+                <tr key={cliente.id}>
+                  <td>{cliente.national_id}</td>
+                  <td>{cliente.first_name}</td>
+                  <td>{cliente.last_name}</td>
+                  <td>{cliente.email}</td>
+                  <td>
+                    <button
+                      className="btn btn-outline-dark  mb-1"
+                      onClick={() => generateBill(cliente.id)}
+                    >
+                      {" "}
+                      Generar factura{" "}
+                    </button>
+                    <br />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-
         <div class="form-row">
-          <div class="col-md-6">
-            <Link to="/Operador" className="btn btn-success btn-lg">
-              Volver
-            </Link>
-          </div>
           <div class="col-md-6">
             <button
               onClick={handleDownload}
@@ -150,10 +146,9 @@ const ConsultaCliente = () => {
             </button>
           </div>
         </div>
-
         {/* <div className="boton-home">
-          <Link to="/Operador" className="btn btn-success btn-lg">
-            Volver
+          <Link to="Admin/Ubicacion" className="btn btn-success btn-lg">
+            Ubicación clientes
           </Link>
         </div> */}
       </div>

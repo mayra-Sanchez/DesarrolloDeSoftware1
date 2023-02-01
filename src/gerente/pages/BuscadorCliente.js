@@ -50,6 +50,12 @@ const BuscadorCliente = () => {
     peticion();
   }, []);
 
+
+  const generateBill = async (id) => {
+    const url = "http://localhost:8000/bills/user_bill/" + id;
+    window.open(url, "_blank");
+  };
+
   const handleChange = (e) => {
     setBusqueda(e.target.value);
     filtro(e.target.value);
@@ -122,7 +128,7 @@ const BuscadorCliente = () => {
                     <td>{usuario.last_name}</td>
                     <td>{usuario.email}</td>
                     <td>
-                      <button className="btn btn-outline-dark  mb-1" onClick>
+                      <button className="btn btn-outline-dark  mb-1" onClick={() => generateBill(usuario.id)}>
                         {" "}
                         Generar factura{" "}
                       </button>
