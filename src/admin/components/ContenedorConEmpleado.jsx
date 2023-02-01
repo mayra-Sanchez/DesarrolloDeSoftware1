@@ -2,9 +2,9 @@ import "../hojaestilo/ConsultarInformacion.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import Axios from "axios";
-import { actualizarEstado } from "../../services/users";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { actualizarEstadoEmployes } from "../../services/users";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { listAllEmployees } from "../../services/employees";
 
 export function ConsultarConsultaEmpleado(props) {
@@ -12,14 +12,14 @@ export function ConsultarConsultaEmpleado(props) {
   const [tablaUsuarios, setTablaUsuarios] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [modalEditar, setModalEditar] = useState(false);
-  
+
   const [datosSeleccionado, setDatosSeleccionado] = useState({
-    id: '',
-    phone_number: '',
-    first_name: '',
-    last_name: '',
-    email: '',
-    role: '',
+    id: "",
+    phone_number: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    role: "",
   });
 
   const peticion = async () => {
@@ -46,8 +46,8 @@ export function ConsultarConsultaEmpleado(props) {
     const { name, value } = e.target;
     setDatosSeleccionado((prevState) => ({
       ...prevState,
-      [name]: value
-    }))
+      [name]: value,
+    }));
   };
 
   const filtro = (busqueda) => {
@@ -57,7 +57,10 @@ export function ConsultarConsultaEmpleado(props) {
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase()) ||
-        elemento.phone_number.toString().toLowerCase().includes(busqueda.toLowerCase())
+        elemento.phone_number
+          .toString()
+          .toLowerCase()
+          .includes(busqueda.toLowerCase())
       ) {
         return elemento;
       }
@@ -66,7 +69,7 @@ export function ConsultarConsultaEmpleado(props) {
   };
 
   const handleStatus = (id) => {
-    actualizarEstado(id);
+    actualizarEstadoEmployes(id);
   };
 
   const actualizarEstadoMetodo = (usuario) => {
@@ -78,62 +81,61 @@ export function ConsultarConsultaEmpleado(props) {
     }
 
     const body = { is_active: actualizacion };
-
-    actualizarEstado(body, usuario.id).then((response) => {
-      setUsuarios([response]);
-      setTablaUsuarios([response]);
+    console.log(usuario);
+    actualizarEstadoEmployes(body, usuario.id).then((response) => {
+      peticion();
     });
   };
 
   const seleccionarDatos = (usuario, caso) => {
     setDatosSeleccionado(usuario);
-    (caso === 'Editar') && setModalEditar(true)
-  }
+    caso === "Editar" && setModalEditar(true);
+  };
 
   const editar = () => {
-    let usuario_editar_id; 
+    let usuario_editar_id;
     var dataNueva = usuarios;
-    dataNueva.map( usuario => {
-        if (usuario.id == datosSeleccionado.id) {
-            usuario_editar_id = datosSeleccionado.id            
-            usuario.phone_number = datosSeleccionado.phone_number;
-            usuario.first_name = datosSeleccionado.first_name;
-            usuario.last_name = datosSeleccionado.last_name;
-            usuario.email = datosSeleccionado.email;
-            usuario.role = datosSeleccionado.role;            
-        }
+    dataNueva.map((usuario) => {
+      if (usuario.id == datosSeleccionado.id) {
+        usuario_editar_id = datosSeleccionado.id;
+        usuario.phone_number = datosSeleccionado.phone_number;
+        usuario.first_name = datosSeleccionado.first_name;
+        usuario.last_name = datosSeleccionado.last_name;
+        usuario.email = datosSeleccionado.email;
+        usuario.role = datosSeleccionado.role;
+      }
     });
     setUsuarios(dataNueva);
 
-    const usuario = usuarios.find(user => user.id == usuario_editar_id)
+    const usuario = usuarios.find((user) => user.id == usuario_editar_id);
 
     const handleClick = async () => {
-        try {
-
-
-          const res = await Axios.put(`http://127.0.0.1:8000/users/${usuario.id}/update-info/`, {
+      try {
+        const res = await Axios.put(
+          `http://127.0.0.1:8000/users/${usuario.id}/update-info/`,
+          {
             email: usuario.email,
             first_name: usuario.first_name,
             last_name: usuario.last_name,
             phone_number: usuario.phone_number,
             role: usuario.role,
-          });
-    
-            console.log(res.data);
-        } catch (error) {
-          console.error(error);
-        }
+          }
+        );
 
-    }
-    
-    console.log(usuario)
-    console.log(usuario.id)
-    console.log(dataNueva.id)
-    console.log(datosSeleccionado.first_name)
-    handleClick()
+        console.log(res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    console.log(usuario);
+    console.log(usuario.id);
+    console.log(dataNueva.id);
+    console.log(datosSeleccionado.first_name);
+    handleClick();
 
     setModalEditar(false);
-    }
+  };
 
   return (
     <div class="mx-auto" className="contenedor-consulta">
@@ -172,9 +174,21 @@ export function ConsultarConsultaEmpleado(props) {
                     <td>{usuario.is_active ? "Activo" : "Inactivo"}</td>
                     <td>
                       {usuario.options}
-                      <button className="btn btn-outline-dark  mb-1" onClick={() => seleccionarDatos(usuario, 'Editar')}> Modificar usuario </button>
+                      <button
+                        className="btn btn-outline-dark  mb-1"
+                        onClick={() => seleccionarDatos(usuario, "Editar")}
+                      >
+                        {" "}
+                        Modificar usuario{" "}
+                      </button>
                       <br />
-                      <button className="btn btn-outline-dark  mb-1" onClick={() => actualizarEstadoMetodo(usuario)}> Cambiar estado </button>
+                      <button
+                        className="btn btn-outline-dark  mb-1"
+                        onClick={() => actualizarEstadoMetodo(usuario)}
+                      >
+                        {" "}
+                        Cambiar estado{" "}
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -252,7 +266,6 @@ export function ConsultarConsultaEmpleado(props) {
                   <option value="client">Cliente</option>
                 </select>
                 <br />
-
               </div>
             </ModalBody>
             <ModalFooter>

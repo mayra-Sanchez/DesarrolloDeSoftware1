@@ -37,12 +37,17 @@ const InfoClienteA = () => {
   const peticion = async () => {
     listAllClients()
       .then((response) => {
-        setDataCliente(response.data);
-        setTablaUsuarios(response.data);
+        setDataCliente(response);
+        setTablaUsuarios(response);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const generateBill = async (id) => {
+    const url = "http://localhost:8000/bills/user_bill/" + id;
+    window.open(url, "_blank");
   };
 
   useEffect(() => {
@@ -57,7 +62,7 @@ const InfoClienteA = () => {
   const filtro = (busqueda) => {
     var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
       if (
-        elemento.cedula
+        elemento.national_id
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase())
@@ -111,12 +116,15 @@ const InfoClienteA = () => {
             <tbody>
               {dataCliente.map((cliente) => (
                 <tr key={cliente.id}>
-                  <td>{cliente.cedula}</td>
-                  <td>{cliente.nombre}</td>
-                  <td>{cliente.apellido}</td>
-                  <td>{cliente.celular}</td>
+                  <td>{cliente.national_id}</td>
+                  <td>{cliente.first_name}</td>
+                  <td>{cliente.last_name}</td>
+                  <td>{cliente.phone_number}</td>
                   <td>
-                    <button className="btn btn-outline-dark  mb-1" onClick>
+                    <button
+                      className="btn btn-outline-dark  mb-1"
+                      onClick={() => generateBill(cliente.id)}
+                    >
                       {" "}
                       Generar factura{" "}
                     </button>

@@ -172,6 +172,7 @@ const RegistrarUsuario = () => {
                   onChange={handleChange}
                   required
                 >
+                  <option value="">seleccione...</option>
                   <option value="admin">Administrador</option>
                   <option value="operator">Operador</option>
                   <option value="manager">Gerente</option>
@@ -186,10 +187,7 @@ const RegistrarUsuario = () => {
                 </button>
               </div>
               <div class="form-group col-md-6">
-                <Link
-                  to="Admin/Registrar-usuarios/Admin/Registrar_Cliente"
-                  className="btn btn-primary"
-                >
+                <Link to="Registrar_Cliente" className="btn btn-primary">
                   Registrar cliente
                 </Link>
               </div>

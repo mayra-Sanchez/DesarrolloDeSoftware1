@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { listAllClients } from "../../services/clients";
-import { csvEnergyConsumptions } from "../../services/energy";
 
 const BuscadorCliente = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -17,9 +16,13 @@ const BuscadorCliente = () => {
   const handleDownload = async () => {
     setLoading(true);
     try {
-      const response = await csvEnergyConsumptions()
-      console.log(response)
-      const url = URL.createObjectURL(new Blob([response]));
+      const response = await Axios.get(
+        "http://127.0.0.1:8000/energy-products/csv-energy-consumptions/",
+        {
+          responseType: "blob",
+        }
+      );
+      const url = URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", "data.csv");
@@ -31,11 +34,6 @@ const BuscadorCliente = () => {
       setLoading(false);
     }
   };
-
-  const generateBill = async (id) => {
-    const url = "http://localhost:8000/bills/user_bill/" + id
-    window.open(url , "_blank")
-  }
 
   const peticion = async () => {
     listAllClients()
@@ -64,7 +62,10 @@ const BuscadorCliente = () => {
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase()) ||
-        elemento.first_name.toString().toLowerCase().includes(busqueda.toLowerCase())
+        elemento.first_name
+          .toString()
+          .toLowerCase()
+          .includes(busqueda.toLowerCase())
       ) {
         return elemento;
       }
@@ -121,7 +122,7 @@ const BuscadorCliente = () => {
                     <td>{usuario.last_name}</td>
                     <td>{usuario.email}</td>
                     <td>
-                      <button className="btn btn-primary mb-1" onClick={() => generateBill(usuario.id)}>
+                      <button className="btn btn-primary mb-1" onClick>
                         {" "}
                         Generar factura{" "}
                       </button>

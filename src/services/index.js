@@ -4,12 +4,14 @@ const endpoints = {
   clients: {
     registerClients: `${URL}clients/create-client/`,
     listAll: `${URL}/clients/list-all/`,
-    client_bill: (id) => `${URL}/bills/user_bill/${id}/`
+    updateClienteInfo: (id) => `${URL}/clients/update-info/${id}/`,
+    client_bill: (id) => `${URL}/bills/user_bill/${id}/`,
   },
 
   employees: {
     registerEmployees: `${URL}/employees/create-employee/`,
     listAll: `${URL}/employees/list-all/`,
+    updateEmployesInfo: (id) => `${URL}/employees/update-info/${id}/`,
   },
 
   users: {
@@ -20,9 +22,10 @@ const endpoints = {
 
   energy: {
     list_energy_consumption: `${URL}/energy-products/list-energy-consumptions/`,
-    client_energy_consumption: (id) => `${URL}/energy-products/energy_consumption/${id}`,
+    client_energy_consumption: (id) =>
+      `${URL}/energy-products/energy_consumption/${id}`,
     csv_energy_consumptions: `${URL}/energy-products/csv-energy-consumptions/`,
-    create_payment: `${URL}/payments/create-payment/`
+    create_payment: `${URL}/payments/create-payment/`,
   },
 
   roles: {},

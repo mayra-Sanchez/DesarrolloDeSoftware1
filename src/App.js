@@ -41,7 +41,7 @@ function App() {
             element={<RegistrarUsuario />}
           />
           <Route
-            path="Admin/Registrar-usuarios/Admin/Registrar_Cliente"
+            path="Admin/Registrar-usuarios/Registrar_Cliente"
             element={<RegistrarCliente />}
           />
           <Route

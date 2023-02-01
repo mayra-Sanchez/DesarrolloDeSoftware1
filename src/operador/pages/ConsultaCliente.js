@@ -58,11 +58,11 @@ const ConsultaCliente = () => {
   const filtro = (busqueda) => {
     var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
       if (
-        elemento.first_name
+        elemento.national_id
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase()) ||
-        elemento.phone_number
+        elemento.first_name
           .toString()
           .toLowerCase()
           .includes(busqueda.toLowerCase())
