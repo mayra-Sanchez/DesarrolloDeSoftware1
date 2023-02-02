@@ -1,0 +1,41 @@
+.contenedor-inicial_Operador{
+    background-color: #028389;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    font-family: 'Hind Siliguri';
+    text-align: center;
+    color: #000;
+}
+
+.html,.contenedor-inicial_Operador{
+    height: 100vh;
+}
+
+.buscador {
+    padding: 70px 80px;
+    max-width: 100% !important;
+  }
+
+table{
+    min-width: 500px;
+    background-color: #fff;
+  }
+
+.barra-busqueda{
+    align-items: end;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-bottom: 25px;
+  }
+
+
+  .boton-home{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin: 0 auto;
+  }

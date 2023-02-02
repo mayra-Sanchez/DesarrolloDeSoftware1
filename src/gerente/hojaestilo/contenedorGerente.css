@@ -1,0 +1,40 @@
+.contenedor-gerente{
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    height: 70vmin;
+    width: 30vmax;
+    border-radius: 15px;
+    background-color: aliceblue;
+    margin: auto;
+    margin-top: 5%;
+    box-shadow: 0 3px 13px 1px rgb(51, 52, 53);
+}
+
+.gerente-logo{
+    width: 15vmin;
+    height: 15vmin;
+    border-radius: 8px;
+    flex-wrap: wrap;
+    image-rendering: auto;
+}
+
+.texto1_Gerente{
+    width: 30vmin;
+    font-size: 4vmin;
+    margin: 0%;
+}
+
+.texto2_Gerente{
+    align-self: center;
+    font-size: 3.5vmin;
+    width: 40vmin;
+    margin-bottom: 5%;
+}
+
+.btn-group-lg > .btn, .btn-lg {
+    --bs-btn-padding-y: 0%;
+    --bs-btn-padding-x: 0%;
+    --bs-btn-font-size: 4vmin;
+    --bs-btn-border-radius: 0.5rem;
+}

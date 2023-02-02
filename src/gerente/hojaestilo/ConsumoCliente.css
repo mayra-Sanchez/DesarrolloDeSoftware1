@@ -1,0 +1,22 @@
+.consultac{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.barra-busqueda{
+    padding-top: 2vmax;
+    min-width: 90%;
+    max-width: 97%;
+}
+
+.table-responsive{
+    max-width: 97%;
+}
+
+.boton-home{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin: 0 auto;
+}

@@ -1,0 +1,9 @@
+  
+.contenedor-inicialCliente {
+    background-image: url("../Images/fondoCliente.svg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    font-family: 'Hind Siliguri';
+}

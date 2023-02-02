@@ -1,0 +1,16 @@
+  
+.contenedor-inicialGerente {
+    background-color: #FFBD59ff;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    font-family: 'Hind Siliguri';
+    text-align: center;
+    color: #000;
+}
+
+.html,.contenedor-inicialGerente{
+    height: 100vh;
+}
+

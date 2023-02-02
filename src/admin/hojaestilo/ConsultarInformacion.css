@@ -1,0 +1,58 @@
+.contenedor-consulta{
+    display: flex;
+    margin-top: 5vmin;
+    margin: 0 auto;
+    min-height: 40vmin;
+    max-width: 295vmin;
+    border-radius: 4vmin;
+    flex-flow: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.texto1_Consulta{
+    display: flex;
+    margin-top: 5vmin;
+    align-items: center;
+    max-width: 100vmin;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 25px;
+    /*font-family: "Time new roman";*/
+}
+
+.buscador {
+    text-align: center;
+    padding: 40px 30px;
+    max-width: 100% !important;
+  }
+
+table{
+    min-width: 500px;
+  }
+  
+.table-responsive{
+}
+
+.barra-busqueda{
+    align-items: end;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 25px;
+  }
+
+  @media (max-width: 988px){
+  
+    .inputBuscar{
+      width: 100% !important;
+    }
+  
+    .buscador{
+      padding: 40px 5px;
+    }
+  
+  
+  }
+  

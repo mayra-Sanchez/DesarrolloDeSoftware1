@@ -1,0 +1,35 @@
+.App-logo {
+  width: 60vmin;
+  height: 20vmin;
+  pointer-events: none;
+}
+
+.App-header{
+  margin-top: 10vmin;
+}
+
+.App{
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Hind Siliguri';
+  font-style: normal;
+  font-weight: 300;
+  line-height: 24px;
+}
+
+.html,.contenedor-inicial{
+  height: 100vh;
+}
+
+.contenedor-inicial {
+  background-image: url("../Images/fondoInicial.svg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  font-family: 'Hind Siliguri';
+  background-color: #FFF;
+  text-align: center;
+  color: #000;
+}

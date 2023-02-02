@@ -1,0 +1,35 @@
+.texto1_Pago {
+  font-family: "Time new roman";
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+
+.buscadorPago {
+  text-align: center;
+  padding: 20px 10px;
+  max-width: 32% !important;
+}
+
+table {
+  width: 60px;
+  display: table;
+  text-align: center;
+}
+
+.table-responsive {
+  margin: auto;
+}
+
+.barra-busquedaPago {
+  display: flex;
+  padding-bottom: 30px;
+}
+
+@media (max-width: 988px) {
+
+  .inputBuscar {
+    width: 300% !important;
+  }
+}
